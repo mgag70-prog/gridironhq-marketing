@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GridironHQ — AI-Powered Fantasy Football Advisor</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#030d1c;--s1:#071428;--s2:#0c1f3a;--s3:#122448;--s4:#1a2f52;
+  --bdr:rgba(255,255,255,0.07);--bdr2:rgba(255,255,255,0.13);
+  --or:#FF6B00;--or2:#FF8C3A;--or-d:rgba(255,107,0,0.12);--or-dd:rgba(255,107,0,0.06);
+  --nv:#1a3d7c;--nv2:#2a5cb8;--nv3:#4a7fd4;
+  --gr:#39d353;--gr-d:rgba(57,211,83,0.09);
+  --rd:#f85149;--rd-d:rgba(248,81,73,0.1);
+  --tl:#39d9c8;--pu:#bc8cff;--yw:#f0c93a;
+  --tx:#e8eef8;--tx2:#7d9abf;--tx3:#3a5070;
+  --fh:'Barlow Condensed',sans-serif;--fb:'DM Sans',sans-serif;
+}
+html,body{height:100%;overflow:hidden}
+/* ── LIGHT MODE ─────────────────────────────────────────── */
+[data-theme="light"]{
+  --bg:#f0f4ff;--s1:#ffffff;--s2:#f4f7ff;--s3:#e8eef8;--s4:#dde6f5;
+  --bdr:rgba(0,0,0,0.09);--bdr2:rgba(0,0,0,0.14);
+  --or:#E55A00;--or2:#FF7722;--or-d:rgba(229,90,0,0.09);--or-dd:rgba(229,90,0,0.04);
+  --nv:#1a3d7c;--nv2:#2a5cb8;--nv3:#2a5cb8;
+  --gr:#1a7a2e;--gr-d:rgba(26,122,46,0.09);
+  --rd:#b93020;--rd-d:rgba(185,48,32,0.09);
+  --tl:#0d7d72;--pu:#6a3db8;--yw:#7a5800;
+  --tx:#0a1428;--tx2:#3a5070;--tx3:#7a90b0;
+}
+[data-theme="light"] .card{background:#fff;border-color:rgba(0,0,0,.1)}
+[data-theme="light"] .sm{background:#fff;border-color:rgba(0,0,0,.1)}
+[data-theme="light"] .hdr{background:#fff}
+[data-theme="light"] .nav{background:#fff;border-bottom-color:rgba(0,0,0,.1)}
+[data-theme="light"] .ntab{color:var(--tx2)}
+[data-theme="light"] .bubble.ai{background:var(--s2);border-color:rgba(0,0,0,.1)}
+[data-theme="light"] .bubble.user{background:rgba(42,92,184,.1)}
+[data-theme="light"] .ci{background:#fff;border-color:rgba(0,0,0,.15);color:#0a1428}
+[data-theme="light"] .qbtn{background:var(--s2);border-color:rgba(0,0,0,.12);color:var(--tx2)}
+[data-theme="light"] .trade-side{background:var(--s2)}
+[data-theme="light"] .trade-slot{background:#fff;color:var(--tx2)}
+[data-theme="light"] .trade-slot.filled{background:rgba(229,90,0,.08);color:var(--tx)}
+[data-theme="light"] .player-board-row{background:#fff}
+[data-theme="light"] .draft-roster-slot{background:var(--s2)}
+[data-theme="light"] .bank-card{background:linear-gradient(135deg,#e0eaff,#d8e4ff)}
+.theme-btn{background:var(--s2);border:1px solid var(--bdr2);border-radius:20px;padding:3px 10px;font-size:14px;cursor:pointer;color:var(--tx2);transition:all .18s;line-height:1.4}
+.theme-btn:hover{border-color:var(--or);color:var(--or)}
+
+body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:13px;display:flex;flex-direction:column}
+
+/* ─ HEADER ─ */
+.hdr{background:var(--s1);border-bottom:2px solid var(--or);padding:0 18px;display:flex;align-items:center;gap:14px;height:52px;flex-shrink:0;position:relative}
+.hdr::after{content:'';position:absolute;bottom:-2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--or),var(--or2),transparent)}
+.logo{font-family:var(--fh);font-size:24px;font-weight:900;letter-spacing:2px;color:var(--or);white-space:nowrap;text-transform:uppercase}
+.logo em{color:var(--tx);font-style:normal}
+.logo sup{font-size:10px;color:var(--or2);letter-spacing:0;vertical-align:super}
+.lpill{background:var(--s2);border:1px solid var(--bdr2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--tx2);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.ldot{width:6px;height:6px;border-radius:50%;background:var(--gr);box-shadow:0 0 6px var(--gr);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.hbadge{font-family:var(--fh);font-size:13px;font-weight:700;border-radius:5px;padding:3px 10px;white-space:nowrap}
+.hb-wk{color:var(--or);background:var(--or-d);border:1px solid rgba(255,107,0,.25)}
+.hb-rec{color:var(--nv3);background:rgba(42,92,184,.14);border:1px solid rgba(42,92,184,.25)}
+.hb-pct{color:var(--gr);background:var(--gr-d);border:1px solid rgba(57,211,83,.2)}
+
+/* ─ NAV ─ */
+.nav{background:var(--s1);border-bottom:1px solid var(--bdr);display:flex;padding:0 16px;flex-shrink:0;overflow-x:auto;gap:2px}
+.nav::-webkit-scrollbar{display:none}
+.ntab{font-family:var(--fh);font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--tx2);background:none;border:none;border-bottom:2px solid transparent;padding:0 12px;height:40px;cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s;display:flex;align-items:center;gap:5px}
+.ntab:hover{color:var(--tx)}.ntab.on{color:var(--or);border-bottom-color:var(--or)}
+.ntab .cnt{background:var(--rd);color:#fff;border-radius:8px;padding:1px 5px;font-size:9px;font-weight:700;vertical-align:middle}
+
+/* ─ MAIN ─ */
+.main{flex:1;overflow:hidden;position:relative}
+.panel{position:absolute;inset:0;overflow-y:auto;padding:16px 18px;animation:panelIn .2s ease}
+.panel::-webkit-scrollbar{width:4px}.panel::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:2px}
+@keyframes panelIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─ GRID ─ */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+
+/* ─ CARD ─ */
+.card{background:var(--s1);border:1px solid var(--bdr);border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.card.orange-glow{border-color:rgba(255,107,0,.3);box-shadow:0 0 20px rgba(255,107,0,.06)}
+.ct{font-family:var(--fh);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--or);margin-bottom:11px;display:flex;align-items:center;gap:7px}
+
+/* ─ STAT MINI ─ */
+.sm{background:var(--s1);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px;text-align:center}
+.sv{font-family:var(--fh);font-size:28px;font-weight:900;line-height:1}
+.sl{font-size:10px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+.sn{font-size:10px;color:var(--tx3);margin-top:2px}
+
+/* ─ BADGE ─ */
+.badge{display:inline-block;padding:2px 6px;border-radius:3px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+.bg{background:var(--gr-d);color:var(--gr)}
+.bo{background:var(--or-d);color:var(--or)}
+.bb{background:rgba(42,92,184,.18);color:var(--nv3)}
+.br{background:var(--rd-d);color:var(--rd)}
+.bp{background:rgba(188,140,255,.1);color:var(--pu)}
+.by{background:rgba(240,201,58,.1);color:var(--yw)}
+.bx{background:var(--s2);color:var(--tx3)}
+
+/* ─ PLAYER ROWS ─ */
+.prow{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--bdr)}
+.prow:last-child{border-bottom:none}
+.prow:hover{background:rgba(255,107,0,.03);margin:0 -16px;padding:7px 16px;border-radius:5px;cursor:pointer}
+.ptag{font-family:var(--fh);font-size:11px;font-weight:800;min-width:30px;text-align:center}
+.pinfo{flex:1;min-width:0}
+.pname{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.psub{font-size:10px;color:var(--tx2);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ppts{font-family:var(--fh);font-size:16px;font-weight:800;min-width:36px;text-align:right}
+.ppj{font-size:10px;color:var(--tx2);text-align:right}
+.ptrnd{font-size:11px;font-weight:700;min-width:32px;text-align:center}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-s{background:var(--gr);box-shadow:0 0 5px var(--gr)}
+.dot-b{background:var(--rd)}.dot-n{background:var(--or)}
+
+/* ─ FIT BAR ─ */
+.fitbar{height:4px;background:var(--s3);border-radius:2px;overflow:hidden;flex:1;margin:0 8px}
+.fitfill{height:100%;border-radius:2px;transition:width .3s}
+
+/* ─ ALERT BANNER ─ */
+.alert-banner{background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.2);border-radius:8px;padding:10px 14px;margin-bottom:12px}
+.alert-banner.orange{background:var(--or-dd);border-color:rgba(255,107,0,.2)}
+.alert-banner.green{background:var(--gr-d);border-color:rgba(57,211,83,.2)}
+.ab-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.ab-item{font-size:12px;padding:3px 0;border-bottom:1px solid var(--bdr)}
+.ab-item:last-child{border-bottom:none}
+
+/* ─ CHAT ─ */
+.chat-wrap{display:flex;flex-direction:column;height:100%}
+.chat-msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:4px 0;min-height:0}
+.chat-msgs::-webkit-scrollbar{width:3px}.chat-msgs::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:2px}
+.msg{display:flex;gap:9px;align-items:flex-start;animation:panelIn .2s ease}
+.msg.user{flex-direction:row-reverse}
+.av{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-weight:800;font-size:11px;flex-shrink:0}
+.av-ai{background:var(--or-d);border:1px solid rgba(255,107,0,.3);color:var(--or)}
+.av-user{background:rgba(42,92,184,.2);border:1px solid rgba(42,92,184,.3);color:var(--nv3)}
+.bubble{max-width:85%;padding:10px 13px;border-radius:10px;font-size:12px;line-height:1.7}
+.bubble.ai{background:var(--s2);border:1px solid var(--bdr2)}
+.bubble.user{background:rgba(42,92,184,.18);border:1px solid rgba(42,92,184,.2)}
+.bubble strong{color:var(--or)}.bubble em{color:var(--nv3);font-style:normal}
+.typing-dots{display:flex;gap:4px;align-items:center;padding:4px 0}
+.td{width:6px;height:6px;border-radius:50%;background:var(--or);animation:tdBounce .9s infinite}
+.td:nth-child(2){animation-delay:.15s}.td:nth-child(3){animation-delay:.3s}
+@keyframes tdBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.ci{flex:1;background:var(--s2);border:1px solid var(--bdr2);border-radius:8px;color:var(--tx);padding:9px 12px;font-family:var(--fb);font-size:13px;outline:none;resize:none;min-height:40px;max-height:90px;line-height:1.5;transition:border-color .15s}
+.ci:focus{border-color:var(--or)}.ci::placeholder{color:var(--tx3)}
+.cs{background:var(--or);border:none;border-radius:8px;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:opacity .15s;flex-shrink:0}
+.cs:hover{opacity:.85}.cs:disabled{opacity:.4;cursor:not-allowed}
+.qbtn{background:var(--s2);border:1px solid var(--bdr2);border-radius:5px;padding:4px 9px;font-size:11px;color:var(--tx2);cursor:pointer;transition:all .15s;white-space:nowrap}
+.qbtn:hover{border-color:var(--or);color:var(--or)}
+
+/* ─ DRAFT ─ */
+.draft-pick-row{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:6px;margin-bottom:4px;border:1px solid var(--bdr);background:var(--s2);transition:all .15s}
+.draft-pick-row.user-pick{border-color:var(--or);background:var(--or-d)}
+.draft-pick-row.ai-pick{opacity:.75}
+.draft-pick-row.current{border-color:var(--gr);background:var(--gr-d);animation:glow 1.5s infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0px rgba(57,211,83,0)}50%{box-shadow:0 0 10px rgba(57,211,83,.3)}}
+.pick-num{font-family:var(--fh);font-size:15px;font-weight:800;color:var(--tx3);min-width:26px}
+.pick-team{font-size:10px;color:var(--tx2);min-width:60px}
+.player-board-row{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:7px;border:1px solid var(--bdr);background:var(--s1);margin-bottom:5px;cursor:pointer;transition:all .15s}
+.player-board-row:hover{border-color:var(--or);background:var(--or-d);transform:translateX(2px)}
+.pick-btn{background:var(--or);border:none;border-radius:5px;padding:4px 10px;font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;color:#000;cursor:pointer;flex-shrink:0;transition:opacity .15s}
+.pick-btn:hover{opacity:.85}
+.round-badge{font-family:var(--fh);font-size:22px;font-weight:900;color:var(--or)}
+.your-turn-banner{background:var(--or);color:#000;font-family:var(--fh);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:8px 14px;border-radius:7px;margin-bottom:10px;display:flex;align-items:center;gap:8px;animation:ytPulse 1.5s infinite}
+@keyframes ytPulse{0%,100%{opacity:1}50%{opacity:.8}}
+.draft-roster-slot{display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:5px;background:var(--s2);border:1px solid var(--bdr);margin-bottom:4px}
+.drs-pos{font-family:var(--fh);font-size:11px;font-weight:800;min-width:28px}
+.drs-name{font-size:12px;font-weight:500;flex:1}
+.drs-proj{font-family:var(--fh);font-size:13px;font-weight:700;color:var(--or)}
+
+/* ─ NEWS ─ */
+.news-item{padding:12px 0;border-bottom:1px solid var(--bdr)}
+.news-item:last-child{border-bottom:none}
+.ni-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px}
+.ni-impact{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 7px;border-radius:3px;white-space:nowrap;flex-shrink:0}
+.impact-high{background:var(--rd-d);color:var(--rd)}
+.impact-pos{background:var(--gr-d);color:var(--gr)}
+.impact-med{background:var(--or-d);color:var(--or2)}
+.impact-low{background:var(--s2);color:var(--tx3)}
+.ni-headline{font-size:13px;font-weight:500;line-height:1.4}
+.ni-body{font-size:11px;color:var(--tx2);line-height:1.6;margin-bottom:6px}
+.ni-action{font-size:11px;color:var(--or);font-weight:500;padding:5px 8px;background:var(--or-d);border-radius:4px;display:flex;align-items:center;gap:5px}
+
+/* ─ SOS GRID ─ */
+.sos-grid{display:grid;grid-template-columns:1fr repeat(6,40px);gap:1px;font-size:11px}
+.sos-cell{padding:5px 4px;text-align:center;border-radius:3px;font-family:var(--fh);font-size:12px;font-weight:700}
+.sos-easy{background:rgba(57,211,83,.2);color:var(--gr)}
+.sos-med{background:rgba(240,201,58,.15);color:var(--yw)}
+.sos-hard{background:rgba(248,81,73,.15);color:var(--rd)}
+.sos-name{text-align:left;padding:5px 4px;font-size:11px;color:var(--tx2)}
+
+/* ─ TREASURY ─ */
+.bank-card{background:linear-gradient(135deg,#0a1e44,#0d2550);border:1px solid rgba(74,127,212,.3);border-radius:12px;padding:20px;position:relative;overflow:hidden}
+.bank-card::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(74,127,212,.15),transparent 70%)}
+.bank-bal{font-family:var(--fh);font-size:40px;font-weight:900;color:var(--nv3);line-height:1}
+.bank-lbl{font-size:10px;font-weight:600;color:rgba(74,127,212,.6);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.bank-sub{font-size:11px;color:rgba(74,127,212,.5);margin-top:4px}
+
+/* ─ TRADE ─ */
+.trade-side{background:var(--s2);border-radius:8px;padding:12px;border:1px solid var(--bdr)}
+.trade-slot{background:var(--s1);border:1px dashed var(--bdr2);border-radius:6px;padding:7px 10px;margin-bottom:5px;cursor:pointer;transition:border-color .15s;display:flex;align-items:center;gap:7px;font-size:12px;color:var(--tx2)}
+.trade-slot:hover{border-color:var(--or);color:var(--or)}
+.trade-slot.filled{border-style:solid;border-color:rgba(255,107,0,.3);background:var(--or-d);color:var(--tx)}
+.trade-verdict{border-radius:8px;padding:11px 13px;margin-top:10px;font-size:12px;line-height:1.65}
+.tv-lose{background:var(--rd-d);border:1px solid rgba(248,81,73,.2)}
+.tv-win{background:var(--gr-d);border:1px solid rgba(57,211,83,.2)}
+
+/* ─ MATCHUP METER ─ */
+.matchup-bar{height:8px;border-radius:4px;overflow:hidden;background:var(--s3);margin:6px 0}
+.mb-fill{height:100%;background:linear-gradient(90deg,var(--or),var(--or2));border-radius:4px;transition:width .5s}
+
+/* ─ PLAYOFF METER ─ */
+.playoff-ring{position:relative;width:80px;height:80px}
+.playoff-pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.pp-num{font-family:var(--fh);font-size:22px;font-weight:900;color:var(--gr);line-height:1}
+.pp-lbl{font-size:9px;color:var(--tx2);font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+
+/* ─ UTILS ─ */
+.f{display:flex}.ac{align-items:center}.jb{justify-content:space-between}.fw{flex-wrap:wrap}
+.g6{gap:6px}.g8{gap:8px}.g10{gap:10px}.g12{gap:12px}
+.fhb{font-family:var(--fh);font-weight:700}
+.mt8{margin-top:8px}.mt10{margin-top:10px}.mt12{margin-top:12px}
+.to{color:var(--or)}.tgr{color:var(--green)}.tr{color:var(--rd)}.tm{color:var(--tx2)}.tnv{color:var(--nv3)}
+.btn-or{background:var(--or);border:none;border-radius:7px;color:#000;font-family:var(--fh);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:7px 14px;cursor:pointer;transition:opacity .15s}
+.btn-or:hover{opacity:.85}
+.btn-out{background:none;border:1px solid var(--bdr2);border-radius:7px;color:var(--tx);font-family:var(--fh);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:6px 13px;cursor:pointer;transition:all .15s}
+.btn-out:hover{border-color:var(--or);color:var(--or)}
+table.t{width:100%;border-collapse:collapse;font-size:12px}
+.t th{font-family:var(--fh);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--tx2);padding:7px 8px;text-align:left;border-bottom:1px solid var(--bdr)}
+.t td{padding:8px 8px;border-bottom:1px solid var(--bdr);vertical-align:middle}
+.t tr:last-child td{border-bottom:none}.t tr:hover td{background:var(--s2)}
+.divider{height:1px;background:var(--bdr);margin:10px 0}
+</style>
+</head>
+<body>
+
+<!-- FOUNDING MEMBER STRIP -->
+<div style="background:linear-gradient(90deg,#FF6B00,#FF8C3A,#FF6B00);padding:0 20px;height:32px;display:flex;align-items:center;justify-content:center;gap:12px;flex-shrink:0;position:relative;overflow:hidden;cursor:default" id="founding-strip">
+  <div style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(255,255,255,.05) 40px,rgba(255,255,255,.05) 41px)"></div>
+  <span style="font-family:var(--fh);font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#000;position:relative">⭐ Founding Member Offer</span>
+  <span style="background:rgba(0,0,0,.2);border-radius:20px;padding:2px 10px;font-family:var(--fh);font-size:11px;font-weight:700;color:#000;letter-spacing:.3px;position:relative">First 200 Commissioners · Pro Advisor $4.99/mo for life</span>
+  <button onclick="openFoundingModal()" style="background:#000;color:#FF6B00;font-family:var(--fh);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;border:none;border-radius:20px;padding:3px 12px;cursor:pointer;position:relative">Request Early Access →</button>
+  <button onclick="document.getElementById('founding-strip').style.display='none'" style="background:none;border:none;color:rgba(0,0,0,.4);font-size:16px;cursor:pointer;position:absolute;right:12px;line-height:1">×</button>
+</div>
+
+<!-- FOUNDING MODAL -->
+<div id="founding-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:300;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#071428;border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:28px;width:100%;max-width:400px;position:relative;animation:fi .2s ease" onclick="event.stopPropagation()">
+    <button onclick="closeFoundingModal()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#7d9abf;font-size:20px;cursor:pointer;width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center">✕</button>
+    <div id="founding-modal-body">
+      <div style="font-size:28px;text-align:center;margin-bottom:10px">🏈</div>
+      <div style="font-family:var(--fh);font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:1px;text-align:center;margin-bottom:4px;color:var(--tx)">Founding Member Access</div>
+      <div style="font-size:12px;color:var(--tx2);text-align:center;margin-bottom:16px;line-height:1.6">First 200 commissioners lock in <strong style="color:var(--or)">Pro Advisor at $4.99/mo for life</strong> — 37% off, forever. Your league members get $5.99/mo for life when you bring them.</div>
+      <div style="background:var(--or-d);border:1px solid rgba(255,107,0,.25);border-radius:8px;padding:12px 14px;margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span style="color:var(--tx2)">Commissioner rate</span><span style="font-family:var(--fh);font-size:16px;font-weight:800;color:var(--or)">$4.99/mo for life</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span style="color:var(--tx2)">League members</span><span style="font-family:var(--fh);font-size:16px;font-weight:800;color:#FF8C3A">$5.99/mo for life</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--tx2)">Regular price after launch</span><span style="font-size:12px;color:var(--tx3);text-decoration:line-through">$7.99/mo</span></div>
+      </div>
+      <form name="founding-member" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="submitFoundingModal(event)" style="width:100%">
+        <input type="hidden" name="form-name" value="founding-member">
+        <input type="hidden" name="bot-field" style="display:none">
+        <input id="fm-name"     name="name"     type="text"  placeholder="Your name" required
+          style="width:100%;background:var(--s2);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:var(--tx);padding:9px 12px;font-family:var(--fb);font-size:13px;outline:none;margin-bottom:8px;display:block;transition:border-color .15s"
+          onfocus="this.style.borderColor='var(--or)'" onblur="this.style.borderColor='rgba(255,255,255,.13)'">
+        <input id="fm-email"    name="email"    type="email" placeholder="Email address" required
+          style="width:100%;background:var(--s2);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:var(--tx);padding:9px 12px;font-family:var(--fb);font-size:13px;outline:none;margin-bottom:8px;display:block;transition:border-color .15s"
+          onfocus="this.style.borderColor='var(--or)'" onblur="this.style.borderColor='rgba(255,255,255,.13)'">
+        <input id="fm-platform" name="platform" type="text" placeholder="Your fantasy platform (Sleeper, ESPN, Yahoo...)"
+          style="width:100%;background:var(--s2);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:var(--tx);padding:9px 12px;font-family:var(--fb);font-size:13px;outline:none;margin-bottom:14px;display:block;transition:border-color .15s"
+          onfocus="this.style.borderColor='var(--or)'" onblur="this.style.borderColor='rgba(255,255,255,.13)'">
+        <button type="submit" style="width:100%;background:var(--or);border:none;border-radius:7px;color:#000;font-family:var(--fh);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:10px;cursor:pointer">Reserve My Founding Member Spot</button>
+      </form>
+      <div style="font-size:10px;color:var(--tx3);text-align:center;margin-top:10px">GridironHQ is in development. Expect a note from hello@gridironhq.ai when founding access opens. No spam, ever.</div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="logo"><span style="color:var(--or)">GRIDIRON</span><span style="color:var(--tx)">HQ</span><sup style="font-size:9px;color:var(--or2);vertical-align:super">β</sup></div>
+  <div class="lpill"><div class="ldot"></div>Blitz City League · 12-Team · Half-PPR</div>
+  <div class="hdr-right"><button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle light/dark">🌙</button>
+    <div class="hbadge hb-pct">68% Playoff</div>
+    <div class="hbadge hb-wk">Week 14</div>
+    <div class="hbadge hb-rec">7–6 · 4th</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav"></nav>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="panel" id="panel"></div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const PC = {QB:'#58a6ff',RB:'#39d353',WR:'#FF8C3A',TE:'#bc8cff',K:'#7d9abf',DEF:'#7d9abf',FLEX:'#ffa657',BN:'#3a5070',IR:'#f85149'};
+const pc = p => PC[p]||'#7d9abf';
+
+// ── DATA ──────────────────────────────────────────────────────────────────
+const TEAM = [
+  {pos:'QB', name:'Jalen Hurts',    nfl:'PHI', avg:23.4, proj:26.8, opp:'vs MIA', oppRk:28, status:'start', trend:'+4.2'},
+  {pos:'RB', name:'Bijan Robinson', nfl:'ATL', avg:18.2, proj:19.4, opp:'vs CAR', oppRk:30, status:'start', trend:'+1.8', alert:'Questionable'},
+  {pos:'RB', name:'Jahmyr Gibbs',   nfl:'DET', avg:15.8, proj:14.1, opp:'vs GB',  oppRk:12, status:'start', trend:'-2.1', warning:true},
+  {pos:'WR', name:'CeeDee Lamb',    nfl:'DAL', avg:22.1, proj:18.3, opp:'vs BUF', oppRk:4,  status:'start', trend:'-1.9'},
+  {pos:'WR', name:'Puka Nacua',     nfl:'LAR', avg:12.4, proj:13.7, opp:'vs NYJ', oppRk:22, status:'start', trend:'+2.1'},
+  {pos:'TE', name:'Sam LaPorta',    nfl:'DET', avg:10.8, proj:11.2, opp:'vs GB',  oppRk:18, status:'start', trend:'+0.3'},
+  {pos:'FLEX',name:'Josh Downs',    nfl:'IND', avg:9.1,  proj:10.4, opp:'vs TEN', oppRk:25, status:'start', trend:'+1.5'},
+  {pos:'K',  name:'E. McPherson',   nfl:'CIN', avg:8.4,  proj:9.1,  opp:'vs PIT', oppRk:null,status:'start',trend:null},
+  {pos:'DEF',name:'49ers D/ST',     nfl:'SF',  avg:9.2,  proj:10.8, opp:'vs ARI', oppRk:32, status:'start', trend:'+2.4'},
+  {pos:'BN', name:'Kyren Williams', nfl:'LAR', avg:14.2, proj:15.8, opp:'vs NYJ', oppRk:22, status:'bench', trend:'+3.1', upgrade:true},
+  {pos:'BN', name:'Rashee Rice',    nfl:'KC',  avg:11.8, proj:12.4, opp:'vs LV',  oppRk:27, status:'bench', trend:'+0.9'},
+  {pos:'BN', name:'Jaylen Wright',  nfl:'TEN', avg:6.2,  proj:7.1,  opp:'vs IND', oppRk:14, status:'bench', trend:'-0.8'},
+  {pos:'IR', name:'C. Watson',      nfl:'GB',  avg:0,    proj:0,    opp:'—',      oppRk:null,status:'ir',   trend:null, injury:'IR'},
+];
+
+const FREE_AGENTS = [
+  {pos:'RB', name:'Kareem Hunt',      nfl:'CLE', avg:13.8, proj:14.2, own:18, opp:'vs NYG', oppRk:29, fit:91, reason:'Fills your RB depth, strong matchup vs #29 NYG'},
+  {pos:'TE', name:'C. Okonkwo',       nfl:'TEN', avg:9.4,  proj:10.1, own:22, opp:'vs IND', oppRk:24, fit:85, reason:'TE streaming upgrade, rising target share trend'},
+  {pos:'RB', name:'Gus Edwards',      nfl:'LAC', avg:10.1, proj:11.8, own:14, opp:'vs DEN', oppRk:28, fit:78, reason:'Solid RB depth, weak opponent run defense'},
+  {pos:'WR', name:'Van Jefferson',    nfl:'ATL', avg:7.2,  proj:8.4,  own:6,  opp:'vs CAR', oppRk:31, fit:71, reason:'Bijan stack, elite matchup vs #31 CAR pass D'},
+  {pos:'K',  name:'Brandon Aubrey',   nfl:'DAL', avg:10.2, proj:11.1, own:42, opp:'vs BUF', oppRk:null,fit:72,reason:'High-volume kicker upgrade over McPherson'},
+  {pos:'WR', name:'D. Wicks',         nfl:'GB',  avg:8.8,  proj:9.6,  own:9,  opp:'vs DET', oppRk:8,  fit:62, reason:'Rising targets but tough DET matchup — high risk'},
+  {pos:'QB', name:'Jordan Love',      nfl:'GB',  avg:18.1, proj:17.4, own:31, opp:'vs DET', oppRk:8,  fit:55, reason:'Streamer option but tough matchup hurts upside'},
+  {pos:'TE', name:'Dalton Schultz',   nfl:'HOU', avg:7.4,  proj:8.1,  own:28, opp:'vs JAX', oppRk:20, fit:58, reason:'Solid matchup but low target-share ceiling'},
+];
+
+const STANDINGS = [
+  {name:'Gridiron Ghosts',   mgr:'Sarah M.', w:9,l:4,pf:1842,streak:'W2',playoff:true},
+  {name:'Overtime Kings',    mgr:'Chris L.', w:9,l:4,pf:1791,streak:'W1',playoff:true},
+  {name:'Fantasy Fury',      mgr:'Alex R.',  w:8,l:5,pf:1755,streak:'L1',playoff:true},
+  {name:'Dumpster Fire FC',  mgr:'Pat K.',   w:8,l:5,pf:1712,streak:'W1',playoff:true},
+  {name:'End Zone Express',  mgr:'Dana S.',  w:7,l:6,pf:1688,streak:'W2',playoff:true},
+  {name:'Turf Monsters',     mgr:'Tyler B.', w:7,l:6,pf:1671,streak:'L2',playoff:true},
+  {name:'Blitz City Ballers',mgr:'You',      w:7,l:6,pf:1644,streak:'L1',playoff:false, isYou:true},
+  {name:'Red Zone Renegades',mgr:'Maria V.', w:6,l:7,pf:1600,streak:'W1',playoff:false},
+  {name:'Backfield Boys',    mgr:'Nate H.',  w:5,l:8,pf:1576,streak:'L1',playoff:false},
+  {name:'Air Raid Alliance', mgr:'Kim J.',   w:4,l:9,pf:1525,streak:'W1',playoff:false},
+  {name:'Sack City',         mgr:'Ryan C.',  w:3,l:10,pf:1480,streak:'L4',playoff:false},
+  {name:'Fumble Force',      mgr:'Jen P.',   w:2,l:11,pf:1398,streak:'L5',playoff:false},
+];
+
+const NEWS_FEED = [
+  {id:1, type:'injury',  pos:'RB', player:'Bijan Robinson', team:'ATL', impact:'high',   time:'1h ago',  headline:'Robinson limited (hamstring) — Questionable Sunday', body:'Bijan Robinson was limited in Wednesday\'s practice with a hamstring issue. His Week 14 status is uncertain heading into a critical matchup for fantasy managers.', action:'Add Tyler Allgeier (ATL) immediately if available — he\'s 5% owned in your league.'},
+  {id:2, type:'perf',   pos:'WR', player:'Puka Nacua',     team:'LAR', impact:'pos',    time:'3h ago',  headline:'Nacua leads Rams in targets for 3rd consecutive week', body:'Nacua recorded 9 targets and 7 receptions last week, continuing a sharp upward trend in target share (18% → 27% over last 3 weeks) as the Rams\' clear WR1.', action:'Strong hold. Emerging as a borderline WR2 ROW. Buy if you can — value is only going up.'},
+  {id:3, type:'depth',  pos:'RB', player:'Kareem Hunt',    team:'CLE', impact:'med',    time:'5h ago',  headline:'Hunt sees increased role with Nick Chubb return timeline uncertain', body:'Kareem Hunt carried 18 times last week in what appears to be a shift to a committee backfield. Chubb\'s return is now expected no earlier than Week 16.', action:'Kareem Hunt is your #1 waiver priority this week. Fit Score: 91 for your roster.'},
+  {id:4, type:'perf',   pos:'TE', player:'Sam LaPorta',    team:'DET', impact:'pos',    time:'6h ago',  headline:'LaPorta snap count highest of season in Week 13', body:'Sam LaPorta played 94% of Detroit\'s offensive snaps in Week 13, up from his season average of 81%. His expanded role in 2-TE sets signals a growing role down the stretch.', action:'Excellent hold. Do not trade him for anything less than a top-12 WR equivalent.'},
+  {id:5, type:'injury', pos:'WR', player:'CeeDee Lamb',    team:'DAL', impact:'med',    time:'8h ago',  headline:'Lamb (shoulder) full practice — no injury concern', body:'CeeDee Lamb practiced fully Wednesday and is not on the injury report. However, his tough matchup vs. Buffalo\'s #4-ranked pass defense remains a concern for Week 14.', action:'Start him — he\'s too good to sit despite the matchup. Temper ceiling expectations.'},
+  {id:6, type:'perf',   pos:'QB', player:'Jalen Hurts',    team:'PHI', impact:'pos',    time:'12h ago', headline:'Hurts enters elite matchup vs. Miami\'s 28th-ranked pass D', body:'Jalen Hurts faces the Miami Dolphins, who rank 28th against the pass this season. He has thrown for 300+ yards in 4 of his last 5 games.', action:'Hurts is your highest-upside player this week. Potential for 30+ points.'},
+];
+
+// ── DRAFT DATA ─────────────────────────────────────────────────────────────
+const DRAFT_BOARD = [
+  {id:1,  pos:'RB', name:'C. McCaffrey',   team:'SF',  adp:1.1,  proj:28.4, age:27, desc:'Workhorse RB — elite floor and ceiling'},
+  {id:2,  pos:'WR', name:'CeeDee Lamb',    team:'DAL', adp:2.3,  proj:24.1, age:25, desc:'WR1 in elite offense, national superstar'},
+  {id:3,  pos:'WR', name:'Tyreek Hill',    team:'MIA', adp:3.2,  proj:22.8, age:30, desc:'Elite speed, massive target share in MIA'},
+  {id:4,  pos:'WR', name:'Justin Jefferson',team:'MIN',adp:4.1, proj:22.4, age:25, desc:'Generational WR talent, top-3 weekly'},
+  {id:5,  pos:'WR', name:"Ja'Marr Chase",  team:'CIN', adp:5.2,  proj:21.9, age:24, desc:'Elite separation, Burrow\'s #1 target'},
+  {id:6,  pos:'RB', name:'Bijan Robinson', team:'ATL', adp:6.1,  proj:21.2, age:23, desc:'Three-down back, elite age curve'},
+  {id:7,  pos:'RB', name:'Saquon Barkley', team:'PHI', adp:7.3,  proj:20.8, age:27, desc:'Massive usage in PHI\'s run-first offense'},
+  {id:8,  pos:'WR', name:'Davante Adams',  team:'NYJ', adp:8.2,  proj:20.1, age:31, desc:'Route runner, reliable but aging'},
+  {id:9,  pos:'QB', name:'Josh Allen',     team:'BUF', adp:9.1,  proj:32.4, age:28, desc:'Best fantasy QB — rushing upside elite'},
+  {id:10, pos:'WR', name:'Stefon Diggs',   team:'HOU', adp:10.3, proj:19.8, age:30, desc:'Stroud connection — WR1 in HOU offense'},
+  {id:11, pos:'TE', name:'Travis Kelce',   team:'KC',  adp:11.2, proj:18.4, age:35, desc:'GOAT TE, declining but still elite'},
+  {id:12, pos:'RB', name:'Derrick Henry',  team:'TEN', adp:12.1, proj:18.9, age:30, desc:'Power back, reliable but aging quickly'},
+  {id:13, pos:'WR', name:'Amon-Ra St. Brown',team:'DET',adp:13.4,proj:19.2,age:24, desc:'High volume slot, safe floor weekly'},
+  {id:14, pos:'RB', name:'Tony Pollard',   team:'TEN', adp:14.2, proj:17.8, age:27, desc:'Every-down back with pass-catching upside'},
+  {id:15, pos:'WR', name:'A.J. Brown',     team:'PHI', adp:15.1, proj:19.6, age:26, desc:'Elite target in PHI\'s passing game'},
+  {id:16, pos:'QB', name:'Jalen Hurts',    team:'PHI', adp:16.3, proj:29.8, age:25, desc:'Dual-threat QB, elite rushing floor'},
+  {id:17, pos:'WR', name:'Garrett Wilson', team:'NYJ', adp:17.2, proj:18.4, age:24, desc:'Elite route runner, rising star in NYJ'},
+  {id:18, pos:'RB', name:'Josh Jacobs',    team:'GB',  adp:18.1, proj:16.9, age:26, desc:'Primary back in Love\'s offense'},
+  {id:19, pos:'WR', name:'Drake London',   team:'ATL', adp:19.4, proj:17.8, age:22, desc:'Long-term hold, growing with Cousins'},
+  {id:20, pos:'TE', name:'Sam LaPorta',    team:'DET', adp:20.2, proj:15.4, age:23, desc:'Young TE with growing role in DET'},
+  {id:21, pos:'WR', name:'Tank Dell',      team:'HOU', adp:21.1, proj:16.8, age:23, desc:'Elite deep threat, speed weapon'},
+  {id:22, pos:'RB', name:'Kyren Williams', team:'LAR', adp:22.3, proj:17.2, age:24, desc:'Bellcow back, high upside if healthy'},
+  {id:23, pos:'WR', name:'DeVonta Smith',  team:'PHI', adp:23.2, proj:16.4, age:25, desc:'Underrated WR in elite offense'},
+  {id:24, pos:'RB', name:'James Conner',   team:'ARI', adp:24.1, proj:15.8, age:29, desc:'Solid floor but aging, TD dependent'},
+  {id:25, pos:'WR', name:'Puka Nacua',     team:'LAR', adp:25.4, proj:16.1, age:23, desc:'Emerging WR1, breakout candidate'},
+  {id:26, pos:'QB', name:'Lamar Jackson',  team:'BAL', adp:26.2, proj:31.2, age:27, desc:'Best rushing QB, top-3 fantasy QB'},
+  {id:27, pos:'TE', name:'Mark Andrews',   team:'BAL', adp:27.1, proj:14.8, age:28, desc:'Lamar\'s security blanket TE'},
+  {id:28, pos:'RB', name:'Jahmyr Gibbs',   team:'DET', adp:28.3, proj:16.4, age:22, desc:'Explosive back, elite upside'},
+  {id:29, pos:'WR', name:'Keenan Allen',   team:'CHI', adp:29.1, proj:15.9, age:31, desc:'Route runner, reliant on Williams'},
+  {id:30, pos:'WR', name:'Rashee Rice',    team:'KC',  adp:30.2, proj:15.2, age:23, desc:'Mahomes WR1, high upside young target'},
+  {id:31, pos:'RB', name:'Rachaad White',  team:'TB',  adp:31.1, proj:14.8, age:25, desc:'Three-down back, pass-catching upside'},
+  {id:32, pos:'WR', name:'Tee Higgins',    team:'CIN', adp:32.3, proj:15.1, age:25, desc:'Burrow\'s #2, potential WR1 stretches'},
+  {id:33, pos:'QB', name:'Dak Prescott',   team:'DAL', adp:33.1, proj:28.4, age:30, desc:'Elite QB with Lamb, strong weekly floor'},
+  {id:34, pos:'RB', name:'Aaron Jones',    team:'MIN', adp:34.2, proj:14.2, age:29, desc:'Solid floor, pass catcher in MIN'},
+  {id:35, pos:'WR', name:'DJ Moore',       team:'CHI', adp:35.1, proj:14.8, age:26, desc:'Williams\' WR1, underrated weekly'},
+  {id:36, pos:'TE', name:'T.J. Hockenson', team:'MIN', adp:36.2, proj:13.8, age:27, desc:'Top-5 TE when healthy, injury risk'},
+  {id:37, pos:'RB', name:'De\'Von Achane', team:'MIA', adp:37.3, proj:15.6, age:22, desc:'Elite speed, big play machine'},
+  {id:38, pos:'WR', name:'JuJu Smith-Schuster',team:'NE',adp:38.1,proj:12.4,age:27,desc:'Slot WR, reliable but limited upside'},
+  {id:39, pos:'RB', name:'Alvin Kamara',   team:'NO',  adp:39.2, proj:14.1, age:28, desc:'Pass-catching back, PPR value'},
+  {id:40, pos:'WR', name:'Josh Downs',     team:'IND', adp:40.1, proj:13.2, age:22, desc:'Emerging slot WR with Anthony Richardson'},
+  {id:41, pos:'QB', name:'C.J. Stroud',    team:'HOU', adp:41.3, proj:27.1, age:22, desc:'Franchise QB on the rise'},
+  {id:42, pos:'TE', name:'Dalton Kincaid', team:'BUF', adp:42.1, proj:12.8, age:24, desc:'Allen\'s TE target, ceiling is high'},
+  {id:43, pos:'RB', name:'Tyler Allgeier', team:'ATL', adp:43.2, proj:12.4, age:23, desc:'Bijan handcuff — critical to own'},
+  {id:44, pos:'WR', name:'Jaylen Waddle',  team:'MIA', adp:44.1, proj:13.9, age:25, desc:'Elite speed, Hill\'s complement'},
+  {id:45, pos:'RB', name:'Brian Robinson', team:'WSH', adp:45.3, proj:12.1, age:25, desc:'Bellcow back in improving offense'},
+  {id:46, pos:'WR', name:'Zay Jones',      team:'JAX', adp:46.1, proj:11.8, age:28, desc:'Solid WR in JAX offense'},
+  {id:47, pos:'QB', name:'Anthony Richardson',team:'IND',adp:47.2,proj:26.4,age:22,desc:'Elite rushing upside, passing volatile'},
+  {id:48, pos:'DEF',name:'SF 49ers',       team:'SF',  adp:48.1, proj:10.8, age:0,  desc:'Elite defense, great streaming option'},
+  {id:49, pos:'TE', name:'Chigoziem Okonkwo',team:'TEN',adp:49.3,proj:10.4,age:25,desc:'Rising target share, streaming TE'},
+  {id:50, pos:'K',  name:'Evan McPherson', team:'CIN', adp:50.1, proj:9.4,  age:24, desc:'High-volume kicker, accurate'},
+  {id:51, pos:'RB', name:'Alexander Mattison',team:'MIN',adp:51.2,proj:11.4,age:26,desc:'Primary back in MIN offense'},
+  {id:52, pos:'WR', name:'Adam Thielen',   team:'CAR', adp:52.1, proj:11.2, age:33, desc:'Vet WR, consistent but limited ceiling'},
+  {id:53, pos:'WR', name:'Christian Kirk', team:'JAX', adp:53.3, proj:11.8, age:27, desc:'JAX WR1, needs Ridley health'},
+  {id:54, pos:'RB', name:'Dameon Pierce',  team:'HOU', adp:54.1, proj:10.8, age:24, desc:'Handcuff in HOU, backup role'},
+  {id:55, pos:'QB', name:'Tua Tagovailoa', team:'MIA', adp:55.2, proj:24.8, age:25, desc:'Pocket passer, Hill connection'},
+  {id:56, pos:'TE', name:'Kyle Pitts',     team:'ATL', adp:56.1, proj:11.4, age:23, desc:'Elite athleticism, inconsistent usage'},
+  {id:57, pos:'WR', name:'Jakobi Meyers',  team:'LV',  adp:57.3, proj:11.1, age:27, desc:'LV WR1, limited ceiling'},
+  {id:58, pos:'RB', name:'Kareem Hunt',    team:'CLE', adp:58.1, proj:13.2, age:28, desc:'Experienced back, solid weekly floor'},
+  {id:59, pos:'DEF',name:'Dallas Cowboys', team:'DAL', adp:59.2, proj:9.8,  age:0,  desc:'Consistent scoring defense'},
+  {id:60, pos:'K',  name:'Harrison Butker',team:'KC',  adp:60.1, proj:9.2,  age:28, desc:'Elite kicker in KC\'s offense'},
+];
+
+// ── CHAMPIONSHIP EV DATA ─────────────────────────────────
+const CHAMP_EV = {
+  current:      {champ:14.2, playoff:68, winProb:61},
+  withSwap:     {champ:16.3, playoff:76, winProb:73, delta:2.1, winDelta:12},
+  optimalLineup:{champ:17.1, playoff:78, winProb:76},
+  tradeAccepted:{champ:9.8,  playoff:61, winProb:55, delta:-4.4},
+};
+const WAIVER_EV = [
+  {pos:'RB',name:'Kareem Hunt',  nfl:'CLE',proj:14.2,faab:28,champEV:3.4,roi:'High'},
+  {pos:'TE',name:'C. Okonkwo',   nfl:'TEN',proj:10.1,faab:18,champEV:1.8,roi:'Medium'},
+  {pos:'RB',name:'Gus Edwards',  nfl:'LAC',proj:11.8,faab:14,champEV:2.1,roi:'High'},
+  {pos:'WR',name:'Van Jefferson',nfl:'ATL',proj:8.4, faab:8, champEV:0.9,roi:'Low'},
+  {pos:'K', name:'B. Aubrey',    nfl:'DAL',proj:11.1,faab:10,champEV:0.4,roi:'Low'},
+  {pos:'WR',name:'D. Wicks',     nfl:'GB', proj:9.6, faab:6, champEV:0.6,roi:'Low'},
+];
+const LEAGUE_INTEL = [
+  {name:'Sarah M.',  team:'Gridiron Ghosts', rec:'9-4',  rank:1,
+   style:'Aggressive Seller', sc:'var(--rd)',
+   acceptRate:67, acceptNote:'Accepts 67% of trade offers',
+   pattern:'40% more likely to accept when offered 2 players vs 1 player + pick',
+   hoard:'RB-heavy — controls 4 top-12 RBs',
+   faabAvg:24, faabStyle:'Overbids on elite RBs, conservative on WRs',
+   h2h:'1-1', approach:'Lead with 2 WRs. She needs WR depth heading into playoffs. Avoid 1-for-1.',
+   urgency:'High — playoff push changes her calculus every week'},
+  {name:'Chris L.',  team:'Overtime Kings',  rec:'9-4',  rank:2,
+   style:'Calculated Buyer', sc:'var(--nv3)',
+   acceptRate:28, acceptNote:'Lowest accept rate in league — only clear wins get through',
+   pattern:'Rarely initiates. Declines anything that is not obviously in his favor.',
+   hoard:'WR-heavy — stacked receiver corps',
+   faabAvg:31, faabStyle:'Highest FAAB spender — goes premium on any RB with upside',
+   h2h:'0-2', approach:'Target his RB2/RB3. Must offer overwhelming value. Do not low-ball.',
+   urgency:'Low — approach only if you can offer a blowout deal'},
+  {name:'Pat K.',    team:'Dumpster Fire FC', rec:'8-5', rank:4,
+   style:'Active Trader', sc:'var(--gr)',
+   acceptRate:58, acceptNote:'Above average accept rate — has made 4 trades this season',
+   pattern:'Loves 2-for-1 structures where he receives the 2. Very open to negotiating.',
+   hoard:'Balanced — no clear positional hoarding',
+   faabAvg:19, faabStyle:'Conservative bidder — often loses targets by $1-2',
+   h2h:'1-1', approach:'Offer 2 depth pieces for 1 of his studs. He is receptive to volume deals.',
+   urgency:'Medium — currently 8-5 and motivated to upgrade for a playoff push'},
+  {name:'Jen P.',    team:'Fumble Force',    rec:'2-11', rank:12,
+   style:'Full Seller', sc:'var(--or)',
+   acceptRate:82, acceptNote:'Will deal anything — highest accept rate in the league',
+   pattern:'Tanking for draft picks. Prefers 2026 firsts over aging vets.',
+   hoard:'Nothing — actively selling all assets of value',
+   faabAvg:9, faabStyle:'Barely bidding — conserving FAAB for next season',
+   h2h:'2-0', approach:'Target any player of value. Offer youth or picks. Window is open now.',
+   urgency:'Very High — best trade partner available right now'},
+  {name:'Tyler B.',  team:'Turf Monsters',   rec:'7-6',  rank:6,
+   style:'Panic Seller', sc:'var(--rd)',
+   acceptRate:71, acceptNote:'Accept rate jumped from 38% to 71% after 3-game losing streak',
+   pattern:'Went on a losing streak and is now initiating trades. Reactive seller.',
+   hoard:'QB-heavy — owns Lamar + Josh Allen as backups',
+   faabAvg:16, faabStyle:'Reactive bidder — jumps on injured-player replacements',
+   h2h:'1-1', approach:'Target Josh Allen or Lamar. Panic-selling window lasts 1-2 weeks.',
+   urgency:'High — act before he stabilizes and stops selling'},
+  {name:'Dana S.',   team:'End Zone Express', rec:'7-6', rank:5,
+   style:'Cautious Buyer', sc:'var(--nv3)',
+   acceptRate:41, acceptNote:'Selective — only accepts clear upgrades',
+   pattern:'Bubble team, desperate for a RB upgrade. Has initiated 2 trades this week.',
+   hoard:'TE-heavy — owns 3 tight ends, clear surplus',
+   faabAvg:22, faabStyle:'Spends heavily on RBs, conservative on everything else',
+   h2h:'1-1', approach:'Offer RB depth, accept a TE + something back. Use her TE surplus against her.',
+   urgency:'Medium — direct playoff rival, tread carefully'},
+];
+let DS = {
+  phase:'pre', round:1, overall:1, userSlot:5, teams:12,
+  userRoster:[], picks:[], available:[...DRAFT_BOARD],
+  teamRosters: Array.from({length:12},()=>[]),
+  waiting:false, aiThinking:false
+};
+
+const TEAM_NAMES = ['Ghost Riders','Iron Dukes','The Beasts','Touchdown Cowboys','[YOU]','Blitz Bros','Red Storm','Night Owls','Gridlock','Endzone Elite','Sack Pack','Fumble Kings'];
+
+// ── NAV & ROUTING ──────────────────────────────────────────────────────────
+const TABS = [
+  {id:'dash',    icon:'🏠', label:'Dashboard'},
+  {id:'team',    icon:'🏈', label:'My Team'},
+  {id:'draft',   icon:'🎯', label:'Draft Center'},
+  {id:'trades',  icon:'🤝', label:'Trades', badge:1},
+  {id:'wire',    icon:'📋', label:'Wire'},
+  {id:'news',    icon:'📰', label:'News', badge:2},
+  {id:'ai',      icon:'🤖', label:'AI Advisor'},
+  {id:'treasury',icon:'💳', label:'Treasury'},
+  {id:'intel',   icon:'🧠', label:'League Intel'},
+];
+let currentTab = 'dash';
+
+function renderNav(){
+  $('nav').innerHTML = TABS.map(t=>`
+    <button class="ntab${currentTab===t.id?' on':''}" onclick="goTab('${t.id}')">
+      ${t.icon} ${t.label}
+      ${t.badge?`<span class="cnt">${t.badge}</span>`:''}
+    </button>`).join('');
+}
+
+function goTab(id){
+  currentTab = id;
+  renderNav();
+  renderPanel();
+}
+
+function renderPanel(){
+  const views = {dash:vDash,team:vTeam,draft:vDraft,trades:vTrades,wire:vWire,news:vNews,ai:vAI,treasury:vTreasury,intel:vLeagueIntel};
+  $('panel').innerHTML = views[currentTab]();
+  if(currentTab==='ai') initChatHandlers();
+  if(currentTab==='draft') initDraftHandlers();
+}
+
+// ── DASHBOARD ──────────────────────────────────────────────────────────────
+function vDash(){
+  const proj = TEAM.filter(p=>p.status==='start').reduce((a,p)=>a+p.proj,0).toFixed(1);
+  return `
+  <div class="g4" style="margin-bottom:11px">
+    <div class="sm"><div class="sv" style="color:var(--or)">${proj}</div><div class="sl">Proj This Week</div><div class="sn">vs Fumble Force</div></div>
+    <div class="sm"><div class="sv" style="color:var(--tx2)">108.2</div><div class="sl">Opponent Proj</div><div class="sn">+${(parseFloat(proj)-108.2).toFixed(1)} edge</div></div>
+    <div class="sm"><div class="sv" style="color:var(--gr)">${CHAMP_EV.current.winProb}%</div><div class="sl">Win Probability</div><div class="sn" style="color:var(--gr)">&#8593; 73% w/ swap</div></div>
+    <div class="sm" style="border-color:rgba(255,107,0,.3)"><div class="sv" style="color:var(--or)">${CHAMP_EV.current.champ}%</div><div class="sl">Championship Odds</div><div class="sn" style="color:var(--gr)">&#8593; ${CHAMP_EV.withSwap.champ}% optimal</div></div>
+  </div>
+  <div style="background:var(--gr-d);border:1px solid rgba(57,211,83,.22);border-radius:8px;padding:10px 14px;margin-bottom:11px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+    <div style="flex:1;min-width:180px">
+      <div style="font-family:var(--fh);font-size:11px;font-weight:700;color:var(--gr);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px">&#127919; Decision EV — Championship Impact</div>
+      <div style="font-size:12px;color:var(--tx)">Swap <strong style="color:var(--or)">Williams</strong> in for Gibbs: <strong style="color:var(--gr)">+${CHAMP_EV.withSwap.winDelta}% win probability &middot; +${CHAMP_EV.withSwap.delta}% championship equity</strong></div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <div style="text-align:center;background:var(--s2);border-radius:6px;padding:6px 11px;border:1px solid var(--bdr2)"><div style="font-family:var(--fh);font-size:17px;font-weight:800;color:var(--tx2)">${CHAMP_EV.current.champ}%</div><div style="font-size:9px;color:var(--tx2);text-transform:uppercase;letter-spacing:.4px">Current</div></div>
+      <div style="color:var(--tx3)">&rarr;</div>
+      <div style="text-align:center;background:var(--gr-d);border-radius:6px;padding:6px 11px;border:1px solid rgba(57,211,83,.25)"><div style="font-family:var(--fh);font-size:17px;font-weight:800;color:var(--gr)">${CHAMP_EV.withSwap.champ}%</div><div style="font-size:9px;color:var(--gr);text-transform:uppercase;letter-spacing:.4px">w/ Swap</div></div>
+      <div style="color:var(--tx3)">&rarr;</div>
+      <div style="text-align:center;background:var(--gr-d);border-radius:6px;padding:6px 11px;border:1px solid rgba(57,211,83,.25)"><div style="font-family:var(--fh);font-size:17px;font-weight:800;color:var(--gr)">${CHAMP_EV.optimalLineup.champ}%</div><div style="font-size:9px;color:var(--gr);text-transform:uppercase;letter-spacing:.4px">Optimal</div></div>
+    </div>
+  </div>
+
+  <div class="alert-banner" style="background:rgba(248,81,73,.06);border-color:rgba(248,81,73,.2);margin-bottom:12px">
+    <div class="ab-title" style="color:var(--rd)">⚠️ AI Alerts — Action Needed Now</div>
+    <div class="ab-item">⚡ <strong>Kyren Williams</strong> (BN, proj 15.8) outprojecting Gibbs (starter, 14.1) — swap recommended</div>
+    <div class="ab-item">🚑 <strong>Bijan Robinson</strong> listed Questionable (hamstring) — monitor & add Allgeier</div>
+    <div class="ab-item">🤝 Pending trade from Gridiron Ghosts — AI says DECLINE</div>
+    <div class="ab-item">📋 Top waiver target: Kareem Hunt (Fit Score 91) — claim before Wed 3am</div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <div class="card">
+        <div class="ct">📊 This Week's Matchup</div>
+        <div class="f jb ac" style="margin-bottom:12px">
+          <div style="text-align:center">
+            <div style="font-family:var(--fh);font-size:11px;color:var(--tx2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Blitz City</div>
+            <div style="font-family:var(--fh);font-size:36px;font-weight:900;color:var(--or)">${proj}</div>
+            <div style="font-size:10px;color:var(--tx2)">projected</div>
+          </div>
+          <div style="font-family:var(--fh);font-size:24px;font-weight:900;color:var(--tx3)">VS</div>
+          <div style="text-align:center">
+            <div style="font-family:var(--fh);font-size:11px;color:var(--tx2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Fumble Force</div>
+            <div style="font-family:var(--fh);font-size:36px;font-weight:900;color:var(--tx2)">108.2</div>
+            <div style="font-size:10px;color:var(--tx2)">projected</div>
+          </div>
+        </div>
+        <div class="matchup-bar"><div class="mb-fill" style="width:${parseFloat(proj)/(parseFloat(proj)+108.2)*100}%"></div></div>
+        <div style="font-size:11px;color:var(--gr);text-align:center;margin-top:6px">You're projected to WIN by ${(parseFloat(proj)-108.2).toFixed(1)} points</div>
+        <div class="divider"></div>
+        <div style="font-size:11px;color:var(--tx2)">🤖 AI Read: <span style="color:var(--tx)">Fumble Force has 3 injury question marks (CEH, Higgins, Ekeler). If 2+ sit, their projected drops to ~96. Play your optimal lineup and this should be a comfortable win.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="ct">📰 Breaking News</div>
+        ${NEWS_FEED.slice(0,3).map(n=>`
+          <div class="f g8 ac" style="padding:7px 0;border-bottom:1px solid var(--bdr)">
+            <span class="badge ${n.impact==='high'?'br':n.impact==='pos'?'bg':'bo'}">${n.impact==='high'?'⚠️ High':n.impact==='pos'?'↑ Good':'Med'}</span>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:12px;font-weight:500">${n.player}</div>
+              <div style="font-size:10px;color:var(--tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${n.headline}</div>
+            </div>
+            <span style="font-size:10px;color:var(--tx3);white-space:nowrap">${n.time}</span>
+          </div>`).join('')}
+        <button onclick="goTab('news')" style="width:100%;margin-top:8px;background:var(--s2);border:1px solid var(--bdr);border-radius:6px;color:var(--tx2);font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;padding:6px;cursor:pointer">View All News →</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="ct">🏆 League Standings</div>
+        <div style="margin-bottom:8px;padding:5px 8px;background:var(--or-d);border-radius:5px;font-size:11px;color:var(--or)">Playoff cutline after #6 · You are 1 game back</div>
+        ${STANDINGS.slice(0,8).map((t,i)=>`
+          <div class="f ac" style="padding:5px 0;border-bottom:1px solid var(--bdr);gap:8px${t.isYou?';background:rgba(255,107,0,.04);margin:0 -16px;padding:5px 16px;border-radius:4px':''}">
+            <span style="font-family:var(--fh);font-size:16px;font-weight:800;color:${i<3?['var(--yw)','#c0c0c0','#cd7f32'][i]:'var(--tx3)'};min-width:20px">${i+1}</span>
+            ${i===5?`<div style="position:absolute;left:0;right:0;height:1px;background:rgba(248,81,73,.4)"></div>`:''}
+            <div style="flex:1">
+              <div style="font-size:12px;font-weight:${t.isYou?'700':'400'};color:${t.isYou?'var(--or)':'var(--tx)'}">${t.name}${t.isYou?' ◀':''}${t.playoff&&i===5?` <span class="badge bo">Bubble</span>`:''}</div>
+            </div>
+            <span style="font-family:var(--fh);font-size:14px;font-weight:700;color:${t.isYou?'var(--or)':'var(--tx)'}">${t.w}–${t.l}</span>
+            <span class="badge ${t.streak.startsWith('W')?'bg':'br'}">${t.streak}</span>
+          </div>`).join('')}
+        <div style="text-align:center;font-size:10px;color:var(--tx3);padding-top:6px">+4 more teams · <button onclick="goTab('standings')" style="background:none;border:none;color:var(--or);cursor:pointer;font-size:10px">View all</button></div>
+      </div>
+
+      <div class="card">
+        <div class="ct">📈 Breakout Alerts</div>
+        ${[
+          {player:'Puka Nacua', team:'LAR', note:'Target share ↑ 18%→27% last 3 wks', action:'Hold / Buy'},
+          {player:'Josh Downs', team:'IND', note:'Snap count ↑ 61%→89%, emerging slot WR', action:'Start'},
+          {player:'D. Wicks', team:'GB', note:'Targets ↑ 4→9 after Doubs injury', action:'Add (9% owned)'},
+        ].map(b=>`
+          <div style="padding:7px 0;border-bottom:1px solid var(--bdr)">
+            <div class="f jb ac"><span style="font-size:12px;font-weight:500">${b.player} <span style="color:var(--tx2)">${b.team}</span></span><span class="badge bg">${b.action}</span></div>
+            <div style="font-size:11px;color:var(--or2);margin-top:2px">📈 ${b.note}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── MY TEAM ────────────────────────────────────────────────────────────────
+function vTeam(){
+  const proj = TEAM.filter(p=>p.status==='start').reduce((a,p)=>a+p.proj,0).toFixed(1);
+  return `
+  <div class="g4" style="margin-bottom:12px">
+    <div class="sm"><div class="sv" style="color:var(--or)">${proj}</div><div class="sl">Proj This Week</div></div>
+    <div class="sm"><div class="sv" style="color:var(--nv3)">23.4</div><div class="sl">Season Avg/Wk</div></div>
+    <div class="sm"><div class="sv" style="color:var(--gr)">7–6</div><div class="sl">Record · 4th</div></div>
+    <div class="sm"><div class="sv" style="color:var(--rd)">WIN</div><div class="sl">Need to Clinch</div></div>
+  </div>
+
+  ${TEAM.filter(p=>p.warning||p.upgrade||p.alert).length>0?`
+  <div class="alert-banner" style="margin-bottom:12px">
+    <div class="ab-title" style="color:var(--rd)">⚠️ Lineup Alerts</div>
+    ${TEAM.filter(p=>p.warning).map(p=>`<div class="ab-item">📉 <strong>${p.name}</strong> has a tough matchup (#${p.oppRk} vs ${p.pos}) — Kyren Williams has an easier spot (proj 15.8)</div>`).join('')}
+    ${TEAM.filter(p=>p.upgrade).map(p=>`<div class="ab-item">⬆️ <strong>${p.name}</strong> (BN, proj ${p.proj}) is outprojecting your starter Gibbs — consider swapping</div>`).join('')}
+    ${TEAM.filter(p=>p.alert).map(p=>`<div class="ab-item">🚑 <strong>${p.name}</strong> is listed: <span style="color:var(--yw)">${p.alert}</span> — monitor before Sunday</div>`).join('')}
+  </div>`:``}
+
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Starting Lineup</div>
+      ${TEAM.filter(p=>p.status==='start').map(p=>playerRow(p)).join('')}
+    </div>
+    <div>
+      <div class="card">
+        <div class="ct">Bench & IR</div>
+        ${TEAM.filter(p=>p.status==='bench'||p.status==='ir').map(p=>playerRow(p)).join('')}
+      </div>
+      <div class="card">
+        <div class="ct">🗓️ Strength of Schedule — Next 6 Weeks</div>
+        <div class="sos-grid">
+          <div class="sos-cell" style="text-align:left;color:var(--tx3);font-size:10px">Player</div>
+          ${[14,15,16,17,18,19].map(w=>`<div class="sos-cell" style="color:var(--tx3);font-size:10px">W${w}</div>`).join('')}
+          ${[
+            {n:'Hurts',    rank:[28,22,31,18,25,29]},
+            {n:'Robinson', rank:[30,15,28,32,20,26]},
+            {n:'Lamb',     rank:[4,18,22,14,8,19]},
+            {n:'Nacua',    rank:[22,28,31,25,24,30]},
+            {n:'LaPorta',  rank:[18,22,15,24,19,21]},
+          ].map(p=>`
+            <div class="sos-cell sos-name">${p.n}</div>
+            ${p.rank.map(r=>`<div class="sos-cell ${r>=25?'sos-easy':r>=15?'sos-med':'sos-hard'}">${r}</div>`).join('')}`).join('')}
+        </div>
+        <div class="f g8" style="margin-top:8px;font-size:10px">
+          <span><span style="color:var(--gr)">■</span> Easy (#25+)</span>
+          <span><span style="color:var(--yw)">■</span> Medium</span>
+          <span><span style="color:var(--rd)">■</span> Hard (#14−)</span>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function playerRow(p){
+  const isStart = p.status==='start';
+  const dotClass = isStart ? 'dot-s' : p.proj>14 ? 'dot-n' : 'dot-b';
+  return `<div class="prow">
+    <div class="dot ${dotClass}"></div>
+    <span class="ptag" style="color:${pc(p.pos)}">${p.pos}</span>
+    <div class="pinfo">
+      <div class="pname">${p.name}${p.injury?` <span class="badge br">${p.injury}</span>`:''}${p.alert?` <span class="badge by">${p.alert}</span>`:''}</div>
+      <div class="psub">${p.nfl} · ${p.opp}${p.oppRk?` · #${p.oppRk} vs ${p.pos}`:''}</div>
+    </div>
+    ${p.trend?`<span class="ptrnd" style="color:${p.trend.startsWith('+')?'var(--gr)':'var(--rd)'}">${p.trend}</span>`:'<span class="ptrnd"></span>'}
+    <div style="text-align:right">
+      <div class="ppts" style="color:${isStart?'var(--tx)':'var(--tx2)'}">${p.proj>0?p.proj.toFixed(1):'—'}</div>
+      <div class="ppj">${p.avg>0?p.avg.toFixed(1)+' avg':''}</div>
+    </div>
+  </div>`;
+}
+
+// ── DRAFT CENTER ───────────────────────────────────────────────────────────
+function vDraft(){
+  if(DS.phase==='pre') return draftPre();
+  if(DS.phase==='live') return draftLive();
+  return draftComplete();
+}
+
+function draftPre(){
+  return `
+  <div style="max-width:680px;margin:0 auto">
+    <div class="card orange-glow">
+      <div class="ct">🎯 Draft Center — Mock Draft Simulator</div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:16px;line-height:1.7">Practice your draft strategy with AI-controlled opponents that draft using realistic ADP and positional needs. The AI adapts to your scoring format and league rules.</div>
+      <div class="g2" style="margin-bottom:14px">
+        <div>
+          <div style="font-size:10px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Draft Settings</div>
+          ${[['Teams','12'],['Draft Type','Snake'],['Your Pick','5th overall'],['Scoring','Half-PPR'],['Rounds','15'],['Keepers','Pre-loaded']].map(([l,v])=>`
+            <div class="f jb ac" style="padding:5px 0;border-bottom:1px solid var(--bdr)">
+              <span style="font-size:12px;color:var(--tx2)">${l}</span>
+              <span style="font-family:var(--fh);font-size:13px;font-weight:700;color:var(--or)">${v}</span>
+            </div>`).join('')}
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Keeper Picks (Pre-loaded)</div>
+          ${[
+            {rd:3, pick:8, player:'CeeDee Lamb', pos:'WR', team:'DAL'},
+            {rd:5, pick:3, player:'Jalen Hurts',  pos:'QB', team:'PHI'},
+          ].map(k=>`
+            <div style="background:var(--or-d);border:1px solid rgba(255,107,0,.25);border-radius:6px;padding:8px 10px;margin-bottom:6px;display:flex;align-items:center;gap:8px">
+              <span style="font-family:var(--fh);font-size:11px;color:var(--or)">Rd ${k.rd} · Pk ${k.pick}</span>
+              <span class="ptag" style="color:${pc(k.pos)}">${k.pos}</span>
+              <span style="font-size:12px;font-weight:500">${k.player}</span>
+              <span style="font-size:10px;color:var(--tx2)">${k.team}</span>
+              <span class="badge bo" style="margin-left:auto">Kept</span>
+            </div>`).join('')}
+          <div style="margin-top:10px">
+            <div style="font-size:10px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">AI Difficulty</div>
+            <div style="display:flex;gap:6px">
+              ${['Casual','Balanced','Expert'].map((d,i)=>`<button onclick="this.parentElement.querySelectorAll('button').forEach(b=>b.style.background='var(--s3)');this.style.background='var(--or)';this.style.color='#000'" style="flex:1;padding:6px;border-radius:5px;border:1px solid var(--bdr);background:${i===1?'var(--or)':'var(--s3)'};color:${i===1?'#000':'var(--tx2)'};font-family:var(--fh);font-size:12px;font-weight:700;cursor:pointer">${d}</button>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-or" style="width:100%;font-size:14px;padding:12px" onclick="startMockDraft()">🎯 Start Mock Draft</button>
+    </div>
+
+    <div class="card">
+      <div class="ct">📊 ADP Rankings — Top 30</div>
+      <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap">
+        ${['All','QB','RB','WR','TE','K','DEF'].map((f,i)=>`<button onclick="filterDraftBoard('${f}',this)" style="background:${i===0?'var(--or)':'var(--s2)'};border:1px solid ${i===0?'var(--or)':'var(--bdr2)'};color:${i===0?'#000':'var(--tx2)'};font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;padding:4px 10px;border-radius:5px;cursor:pointer">${f}</button>`).join('')}
+      </div>
+      <div id="adp-board">
+        ${DRAFT_BOARD.slice(0,20).map((p,i)=>`
+          <div class="prow">
+            <span style="font-family:var(--fh);font-size:16px;font-weight:800;color:var(--tx3);min-width:22px">${i+1}</span>
+            <span class="ptag" style="color:${pc(p.pos)}">${p.pos}</span>
+            <div class="pinfo">
+              <div class="pname">${p.name} <span style="font-size:10px;color:var(--tx2)">${p.team}</span></div>
+              <div class="psub">${p.desc}</div>
+            </div>
+            <div style="text-align:right">
+              <div class="ppts" style="color:var(--or)">${p.proj}</div>
+              <div class="ppj">ADP ${p.adp}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+let draftAnimating = false;
+function initDraftHandlers(){
+  // nothing needed on pre screen until startMockDraft
+}
+
+function startMockDraft(){
+  DS = {...DS, phase:'live', round:1, overall:1, userRoster:[], picks:[], available:[...DRAFT_BOARD], teamRosters:Array.from({length:12},()=>[]), waiting:false};
+  currentTab = 'draft';
+  renderPanel();
+  setTimeout(()=>advanceDraft(), 300);
+}
+
+async function advanceDraft(){
+  if(draftAnimating) return;
+  draftAnimating = true;
+  while(!isUserPick() && DS.round<=15 && DS.overall<=DS.teams*15){
+    const teamIdx = getCurrentTeam();
+    const player = aiPickPlayer(teamIdx);
+    if(!player) break;
+    recordPick(player, false, teamIdx);
+    DS.overall++;
+    updateDraftUI();
+    await sleep(450);
+  }
+  if(DS.overall > DS.teams*15){ DS.phase='complete'; renderPanel(); draftAnimating=false; return; }
+  DS.waiting = true;
+  draftAnimating = false;
+  updateDraftUI();
+}
+
+function isUserPick(){
+  const {round, pickInRound} = parseOverall(DS.overall);
+  const userPickPos = round%2===1 ? DS.userSlot : DS.teams - DS.userSlot + 1;
+  return pickInRound === userPickPos;
+}
+
+function getCurrentTeam(){
+  const {round, pickInRound} = parseOverall(DS.overall);
+  if(round%2===1) return pickInRound-1;
+  return DS.teams - pickInRound;
+}
+
+function parseOverall(overall){
+  const round = Math.ceil(overall / DS.teams);
+  const pickInRound = overall - (round-1)*DS.teams;
+  return {round, pickInRound};
+}
+
+function aiPickPlayer(teamIdx){
+  const roster = DS.teamRosters[teamIdx]||[];
+  const posCount = {QB:0,RB:0,WR:0,TE:0,K:0,DEF:0};
+  roster.forEach(p=>{ if(posCount[p.pos]!==undefined) posCount[p.pos]++; });
+  const round = Math.ceil(DS.overall/DS.teams);
+  const needs = {QB:round>8?1:0,RB:round<4?3:2,WR:round<5?4:3,TE:1,K:round>12?1:0,DEF:round>13?1:0};
+  const scored = DS.available.map(p=>{
+    const need = Math.max(0,(needs[p.pos]||0)-(posCount[p.pos]||0));
+    return {player:p, score:(60-p.adp) + need*15 + (Math.random()-0.5)*8};
+  });
+  scored.sort((a,b)=>b.score-a.score);
+  return scored[0]?.player;
+}
+
+function recordPick(player, isUser, teamIdx){
+  const {round, pickInRound} = parseOverall(DS.overall);
+  const actualTeam = isUser ? DS.userSlot-1 : teamIdx;
+  DS.picks.push({overall:DS.overall, round, pickInRound, player, isUser, team:actualTeam});
+  DS.available = DS.available.filter(p=>p.id!==player.id);
+  if(isUser) DS.userRoster.push(player);
+  if(DS.teamRosters[actualTeam]) DS.teamRosters[actualTeam].push(player);
+  DS.round = Math.ceil((DS.overall)/DS.teams);
+}
+
+function userDraftPlayer(playerId){
+  if(!DS.waiting || draftAnimating) return;
+  const player = DS.available.find(p=>p.id===playerId);
+  if(!player) return;
+  DS.waiting = false;
+  recordPick(player, true, DS.userSlot-1);
+  DS.overall++;
+  if(DS.overall > DS.teams*8){ DS.phase='complete'; renderPanel(); return; }
+  renderPanel();
+  setTimeout(()=>advanceDraft(), 200);
+}
+
+function updateDraftUI(){
+  if(currentTab==='draft') renderPanel();
+}
+
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+function draftLive(){
+  const {round} = parseOverall(DS.overall);
+  const recentPicks = DS.picks.slice(-6).reverse();
+  const available = DS.available.slice(0,15);
+  const rec = available[0];
+  return `
+  <div style="display:grid;grid-template-columns:1fr 320px;gap:12px;height:calc(100vh - 150px)">
+    <div style="overflow-y:auto">
+      <div class="f jb ac" style="margin-bottom:10px">
+        <div class="f ac g8">
+          <div class="round-badge">Round ${round}</div>
+          <div style="font-size:12px;color:var(--tx2)">Pick ${DS.overall} of ${DS.teams*8}</div>
+        </div>
+        <button class="btn-out" onclick="DS.phase='pre';renderPanel()">← Exit Mock</button>
+      </div>
+
+      ${DS.waiting?`
+      <div class="your-turn-banner">
+        🎯 YOUR PICK — Round ${round} · Pick ${DS.overall}
+        ${rec?`<span style="font-size:11px;font-weight:500;opacity:.8">AI suggests: ${rec.name}</span>`:''}
+      </div>`:
+      `<div style="background:rgba(42,92,184,.12);border:1px solid rgba(42,92,184,.2);border-radius:7px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:var(--nv3);display:flex;align-items:center;gap:8px">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--nv3);animation:pulse 1s infinite"></div>
+        AI drafting for ${TEAM_NAMES[getCurrentTeam()] || 'Team'}...
+      </div>`}
+
+      ${rec&&DS.waiting?`
+      <div style="background:var(--or-d);border:1px solid rgba(255,107,0,.3);border-radius:8px;padding:10px 13px;margin-bottom:10px;display:flex;align-items:center;gap:10px">
+        <span style="font-size:18px">🤖</span>
+        <div style="flex:1">
+          <div style="font-size:12px;font-weight:600;color:var(--or)">AI Recommendation: ${rec.name} (${rec.pos}·${rec.team})</div>
+          <div style="font-size:11px;color:var(--tx2)">${rec.desc} · Proj ${rec.proj} pts · ADP ${rec.adp}</div>
+        </div>
+        <button class="pick-btn" onclick="userDraftPlayer(${rec.id})">Take</button>
+      </div>`:``}
+
+      <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap">
+        ${['All','QB','RB','WR','TE'].map(f=>`<button style="background:var(--s2);border:1px solid var(--bdr2);color:var(--tx2);font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;padding:3px 9px;border-radius:5px;cursor:pointer" onclick="filterAvailable('${f}',this)">${f}</button>`).join('')}
+      </div>
+
+      <div id="available-board" style="max-height:calc(100vh - 380px);overflow-y:auto">
+        ${available.map((p,i)=>`
+          <div class="player-board-row" onclick="${DS.waiting?`userDraftPlayer(${p.id})`:''}">
+            <span style="font-family:var(--fh);font-size:15px;font-weight:800;color:var(--tx3);min-width:20px">${i+1}</span>
+            <span class="ptag" style="color:${pc(p.pos)}">${p.pos}</span>
+            <div class="pinfo">
+              <div class="pname">${p.name} <span style="font-size:10px;color:var(--tx2)">${p.team}</span></div>
+              <div class="psub">${p.desc}</div>
+            </div>
+            <div style="text-align:right;margin-right:6px">
+              <div class="ppts" style="color:var(--tx)">${p.proj}</div>
+              <div class="ppj">ADP ${p.adp}</div>
+            </div>
+            ${DS.waiting?`<button class="pick-btn">Draft</button>`:''}
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;overflow-y:auto">
+      <div class="card" style="padding:12px">
+        <div class="ct" style="margin-bottom:8px">Your Roster (${DS.userRoster.length})</div>
+        ${DS.userRoster.length===0?`<div style="font-size:12px;color:var(--tx3);text-align:center;padding:12px">No picks yet</div>`:
+          DS.userRoster.map(p=>`
+            <div class="draft-roster-slot">
+              <span class="drs-pos" style="color:${pc(p.pos)}">${p.pos}</span>
+              <span class="drs-name">${p.name}</span>
+              <span class="drs-proj">${p.proj}</span>
+            </div>`).join('')}
+      </div>
+      <div class="card" style="padding:12px">
+        <div class="ct" style="margin-bottom:8px">Recent Picks</div>
+        ${recentPicks.map(pk=>`
+          <div class="draft-pick-row ${pk.isUser?'user-pick':'ai-pick'}">
+            <span class="pick-num" style="color:${pk.isUser?'var(--or)':'var(--tx3)'}">${pk.overall}</span>
+            <span style="font-size:10px;color:var(--tx2);min-width:55px">${pk.isUser?'YOU':TEAM_NAMES[pk.team]}</span>
+            <span class="ptag" style="color:${pc(pk.player.pos)};font-size:10px">${pk.player.pos}</span>
+            <span style="font-size:11px;font-weight:${pk.isUser?'600':'400'};color:${pk.isUser?'var(--or)':'var(--tx)'};flex:1">${pk.player.name}</span>
+          </div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function draftComplete(){
+  const totalProj = DS.userRoster.reduce((a,p)=>a+p.proj,0).toFixed(1);
+  const posCount = {QB:0,RB:0,WR:0,TE:0,K:0,DEF:0};
+  DS.userRoster.forEach(p=>{ if(posCount[p.pos]!==undefined) posCount[p.pos]++; });
+  const grade = totalProj>130?'A':totalProj>120?'B+':totalProj>110?'B':'C+';
+  return `
+  <div style="max-width:640px;margin:0 auto">
+    <div class="card orange-glow" style="text-align:center;padding:24px">
+      <div style="font-size:32px;margin-bottom:10px">🏆</div>
+      <div style="font-family:var(--fh);font-size:32px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Draft Complete!</div>
+      <div style="font-size:14px;color:var(--tx2);margin-bottom:16px">Here's your mock draft analysis</div>
+      <div class="g3" style="margin-bottom:16px">
+        <div class="sm"><div class="sv" style="color:var(--or)">${grade}</div><div class="sl">Draft Grade</div></div>
+        <div class="sm"><div class="sv" style="color:var(--nv3)">${totalProj}</div><div class="sl">Total Proj Pts</div></div>
+        <div class="sm"><div class="sv" style="color:var(--gr)">${DS.userRoster.length}</div><div class="sl">Players Drafted</div></div>
+      </div>
+      <button class="btn-or" onclick="DS.phase='pre';DS.picks=[];DS.userRoster=[];renderPanel()">Run Another Mock</button>
+    </div>
+    <div class="card">
+      <div class="ct">Your Drafted Roster</div>
+      ${DS.userRoster.map((p,i)=>`
+        <div class="prow">
+          <span style="font-family:var(--fh);font-size:15px;font-weight:800;color:var(--tx3);min-width:22px">${i+1}</span>
+          <span class="ptag" style="color:${pc(p.pos)}">${p.pos}</span>
+          <div class="pinfo"><div class="pname">${p.name}</div><div class="psub">${p.team} · ${p.desc}</div></div>
+          <div class="ppts" style="color:var(--or)">${p.proj}</div>
+        </div>`).join('')}
+    </div>
+    <div class="card">
+      <div class="ct">🤖 AI Draft Analysis</div>
+      <div style="font-size:12px;color:var(--tx2);line-height:1.7">
+        ${grade==='A'?'Excellent draft! Your team is well-balanced with strong depth at the skill positions. ':'Good draft with room to improve. '}
+        You drafted <strong style="color:var(--or)">${posCount.RB} RBs and ${posCount.WR} WRs</strong>, 
+        ${posCount.RB>=2&&posCount.WR>=3?'giving you solid depth heading into the season. ':'which leaves some positional gaps to address via free agency. '}
+        ${posCount.QB>1?'Having backup QB depth is smart in a Half-PPR format. ':'Consider adding a streaming QB option for bye weeks. '}
+        Your projected weekly total of <strong style="color:var(--or)">${totalProj} points</strong> puts you in the 
+        ${totalProj>130?'top tier of the league.':totalProj>120?'upper half of the league.':'middle of the pack — waiver wire will be crucial.'} 
+        Run more mocks at different draft positions to explore your options.
+      </div>
+    </div>
+  </div>`;
+}
+
+function filterDraftBoard(pos, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>{ b.style.background='var(--s2)'; b.style.color='var(--tx2)'; b.style.borderColor='var(--bdr2)'; });
+  if(btn){ btn.style.background='var(--or)'; btn.style.color='#000'; btn.style.borderColor='var(--or)'; }
+  const board = $('adp-board'); if(!board) return;
+  const filtered = pos==='All' ? DRAFT_BOARD.slice(0,20) : DRAFT_BOARD.filter(p=>p.pos===pos).slice(0,20);
+  board.innerHTML = filtered.map((p,i)=>`
+    <div class="prow">
+      <span style="font-family:var(--fh);font-size:16px;font-weight:800;color:var(--tx3);min-width:22px">${i+1}</span>
+      <span class="ptag" style="color:${pc(p.pos)}">${p.pos}</span>
+      <div class="pinfo"><div class="pname">${p.name} <span style="font-size:10px;color:var(--tx2)">${p.team}</span></div><div class="psub">${p.desc}</div></div>
+      <div style="text-align:right"><div class="ppts" style="color:var(--or)">${p.proj}</div><div class="ppj">ADP ${p.adp}</div></div>
+    </div>`).join('');
+}
+
+function filterAvailable(pos, btn){
+  document.querySelectorAll('#available-board').forEach(b=>b.style.display='block');
+  const board = $('available-board'); if(!board) return;
+  const filtered = pos==='All' ? DS.available.slice(0,15) : DS.available.filter(p=>p.pos===pos).slice(0,10);
+  board.innerHTML = filtered.map((p,i)=>`
+    <div class="player-board-row" onclick="${DS.waiting?`userDraftPlayer(${p.id})`:''}">
+      <span style="font-family:var(--fh);font-size:15px;font-weight:800;color:var(--tx3);min-width:20px">${i+1}</span>
+      <span class="ptag" style="color:${pc(p.pos)}">${p.pos}</span>
+      <div class="pinfo"><div class="pname">${p.name} <span style="font-size:10px;color:var(--tx2)">${p.team}</span></div><div class="psub">${p.desc}</div></div>
+      <div style="text-align:right;margin-right:6px"><div class="ppts">${p.proj}</div><div class="ppj">ADP ${p.adp}</div></div>
+      ${DS.waiting?`<button class="pick-btn">Draft</button>`:''}
+    </div>`).join('');
+}
+
+// ── TRADES ─────────────────────────────────────────────────────────────────
+function vTrades(){
+  return `
+  <div class="g2">
+    <div class="card">
+      <div class="ct">📥 Pending Offers <span class="badge br">1 New</span></div>
+      <div style="background:var(--s2);border-radius:8px;padding:12px;border:1px solid rgba(248,81,73,.25)">
+        <div style="font-size:11px;color:var(--tx2);margin-bottom:8px">From: <strong style="color:var(--tx)">The Gridiron Ghosts</strong> (9-4, 2nd place)</div>
+        <div class="g2" style="gap:8px;margin-bottom:10px">
+          <div>
+            <div style="font-size:10px;font-weight:700;color:var(--gr);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">They Offer</div>
+            ${['Josh Allen (QB·BUF)','Jayden Reed (WR·GB)'].map(p=>`<div style="background:var(--gr-d);border:1px solid rgba(57,211,83,.15);border-radius:5px;padding:6px 9px;margin-bottom:5px;font-size:12px">${p}</div>`).join('')}
+          </div>
+          <div>
+            <div style="font-size:10px;font-weight:700;color:var(--rd);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">They Want</div>
+            ${['CeeDee Lamb (WR·DAL)','Kyren Williams (RB·LAR)'].map(p=>`<div style="background:var(--rd-d);border:1px solid rgba(248,81,73,.15);border-radius:5px;padding:6px 9px;margin-bottom:5px;font-size:12px">${p}</div>`).join('')}
+          </div>
+        </div>
+        <div class="trade-verdict tv-lose">
+          <div style="font-size:11px;font-weight:700;color:var(--rd);margin-bottom:6px">&#129302; AI Verdict: DECLINE &mdash; Championship Equity Lost</div>
+          <div style="display:flex;gap:8px;margin-bottom:8px;align-items:center;flex-wrap:wrap">
+            <div style="text-align:center;background:var(--gr-d);border-radius:5px;padding:5px 10px;border:1px solid rgba(57,211,83,.2)"><div style="font-family:var(--fh);font-size:16px;font-weight:800;color:var(--gr)">${CHAMP_EV.current.champ}%</div><div style="font-size:9px;color:var(--gr)">Current Champ %</div></div>
+            <div style="color:var(--tx3);font-size:16px">&rarr;</div>
+            <div style="text-align:center;background:var(--rd-d);border-radius:5px;padding:5px 10px;border:1px solid rgba(248,81,73,.2)"><div style="font-family:var(--fh);font-size:16px;font-weight:800;color:var(--rd)">${CHAMP_EV.tradeAccepted.champ}%</div><div style="font-size:9px;color:var(--rd)">If Accepted</div></div>
+            <div style="font-size:11px;color:var(--rd);font-weight:700">${CHAMP_EV.tradeAccepted.delta}% championship equity lost</div>
+          </div>
+          <div style="font-size:11px;color:var(--tx2);line-height:1.6">You're giving up two elite assets (Lamb + Williams) for Josh Allen's remaining schedule value. At 7-6 you need wins now, not a QB upgrade — Hurts is performing equally well. Lamb alone outvalues this entire package.</div>
+        </div>
+        <div class="f g8 ac" style="margin-top:10px">
+          <button style="flex:1;background:var(--rd-d);border:1px solid rgba(248,81,73,.3);color:var(--rd);font-family:var(--fh);font-size:12px;font-weight:700;text-transform:uppercase;padding:7px;border-radius:6px;cursor:pointer" onclick="alert('Trade declined. Gridiron Ghosts notified.')">Decline</button>
+          <button style="flex:1;background:var(--s3);border:1px solid var(--bdr2);color:var(--tx);font-family:var(--fh);font-size:12px;font-weight:700;text-transform:uppercase;padding:7px;border-radius:6px;cursor:pointer" onclick="alert('Suggested counter: Allen + Reed for Rashee Rice alone. Keeps your core intact while adding QB depth.')">Counter</button>
+          <button style="flex:1;background:var(--or-d);border:1px solid rgba(255,107,0,.3);color:var(--or);font-family:var(--fh);font-size:12px;font-weight:700;text-transform:uppercase;padding:7px;border-radius:6px;cursor:pointer" onclick="alert('Trade accepted and roster updated.')">Accept</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">🔨 Trade Builder</div>
+      <div class="g2" style="gap:8px">
+        <div class="trade-side">
+          <div style="font-size:10px;font-weight:700;color:var(--gr);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">You Give</div>
+          <div class="trade-slot filled">✓ CeeDee Lamb</div>
+          <div class="trade-slot filled">✓ Jahmyr Gibbs</div>
+          <div class="trade-slot" onclick="alert('Select from your roster to add')"><span>+</span> Add player</div>
+        </div>
+        <div class="trade-side">
+          <div style="font-size:10px;font-weight:700;color:var(--rd);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">You Get</div>
+          <div class="trade-slot filled">✓ Josh Allen</div>
+          <div class="trade-slot filled">✓ Jayden Reed</div>
+          <div class="trade-slot" onclick="alert('Search any player in the league')"><span>+</span> Add player</div>
+        </div>
+      </div>
+      <div class="trade-verdict tv-lose" style="margin-top:10px">
+        <div style="font-size:11px;font-weight:700;color:var(--rd);margin-bottom:6px">📊 Trade Value Analysis</div>
+        <div class="g2" style="gap:8px;margin-bottom:8px">
+          <div style="text-align:center;background:var(--rd-d);border-radius:6px;padding:8px"><div style="font-family:var(--fh);font-size:22px;font-weight:800">86.4</div><div style="font-size:10px;color:var(--tx2)">You Give</div></div>
+          <div style="text-align:center;background:var(--gr-d);border-radius:6px;padding:8px"><div style="font-family:var(--fh);font-size:22px;font-weight:800">71.2</div><div style="font-size:10px;color:var(--tx2)">You Get</div></div>
+        </div>
+        <div style="font-size:11px;color:var(--tx2);margin-bottom:6px">Value gap: &minus;15.2 pts. You lose this trade significantly heading into playoffs.</div>
+        <div style="background:var(--rd-d);border:1px solid rgba(248,81,73,.2);border-radius:5px;padding:6px 10px;font-size:11px"><strong style="color:var(--rd)">Championship EV:</strong> <span style="color:var(--tx2)">Accepting costs you</span> <strong style="color:var(--rd)">4.4% championship probability</strong> <span style="color:var(--tx2)">(${CHAMP_EV.current.champ}% &rarr; ${CHAMP_EV.tradeAccepted.champ}%)</span></div>
+      </div>
+      <button onclick="goTab('ai');setTimeout(()=>fillChat('Should I trade CeeDee Lamb and Jahmyr Gibbs for Josh Allen and Jayden Reed?'),200)" style="width:100%;margin-top:10px;background:var(--or-d);border:1px solid rgba(255,107,0,.3);color:var(--or);font-family:var(--fh);font-size:12px;font-weight:700;text-transform:uppercase;padding:7px;border-radius:6px;cursor:pointer">🤖 Ask AI for Deep Analysis →</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct">🎯 AI Trade Targets — Pursue These Deals</div>
+    <div class="g2">
+      ${[
+        {t:'Stefon Diggs (WR·HOU)',from:'Overtime Kings (5-8, selling)',offer:'Rashee Rice + Josh Downs',why:'5-8 team selling for next year. Diggs gives you the WR1 depth you need for playoffs.'},
+        {t:'Tony Pollard (RB·TEN)',from:'Fumble Force (2-11, tanking)',offer:'Kyren Williams',why:'Fumble Force has nothing to play for. Upgrade your RB depth for the playoff push.'},
+      ].map(t=>`
+        <div style="background:var(--s2);border:1px solid var(--bdr);border-radius:8px;padding:12px">
+          <div style="font-size:13px;font-weight:500;margin-bottom:2px">${t.t}</div>
+          <div style="font-size:10px;color:var(--nv3);margin-bottom:6px">${t.from}</div>
+          <div style="font-size:11px;color:var(--tx2);margin-bottom:7px;line-height:1.55">${t.why}</div>
+          <div style="font-size:11px;font-weight:600;color:var(--or)">Suggest: ${t.offer}</div>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+// ── WIRE ───────────────────────────────────────────────────────────────────
+function vWire(){
+  return `
+  <div class="alert-banner orange" style="margin-bottom:12px;display:flex;align-items:center;gap:10px">
+    <span style="font-size:20px">🔔</span>
+    <div>
+      <div style="font-size:12px;font-weight:600;color:var(--or)">Waiver Priority: #4 · FAAB: $312 of $400 remaining</div>
+      <div style="font-size:11px;color:var(--tx2)">Waivers process Wednesday 3:00 AM · Top pickup: Kareem Hunt (Fit 91)</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct">&#128203; Free Agents &mdash; Championship Equity ROI</div>
+    <div style="background:var(--or-d);border:1px solid rgba(255,107,0,.2);border-radius:6px;padding:8px 12px;margin-bottom:10px">
+      <div style="font-family:var(--fh);font-size:11px;font-weight:700;color:var(--or);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px">&#127919; Championship EV Framework</div>
+      <div style="font-size:11px;color:var(--tx2)">Players ranked by <strong style="color:var(--tx)">championship equity per FAAB dollar spent</strong>. Fit Score = roster need. Champ EV = probability gained.</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+      <div style="flex:1;min-width:130px;background:var(--s2);border:1px solid var(--bdr);border-radius:6px;padding:8px 10px;border-top:2px solid var(--gr)"><div style="font-size:11px;font-weight:600;margin-bottom:2px">Kareem Hunt</div><div style="font-family:var(--fh);font-size:18px;font-weight:800;color:var(--gr)">+3.4%</div><div style="font-size:10px;color:var(--tx2)">Champ EV &middot; $28 FAAB bid</div><span class="badge bg" style="margin-top:4px;display:inline-block">High ROI</span></div>
+      <div style="flex:1;min-width:130px;background:var(--s2);border:1px solid var(--bdr);border-radius:6px;padding:8px 10px;border-top:2px solid var(--gr)"><div style="font-size:11px;font-weight:600;margin-bottom:2px">Gus Edwards</div><div style="font-family:var(--fh);font-size:18px;font-weight:800;color:var(--gr)">+2.1%</div><div style="font-size:10px;color:var(--tx2)">Champ EV &middot; $14 FAAB bid</div><span class="badge bg" style="margin-top:4px;display:inline-block">High ROI</span></div>
+      <div style="flex:1;min-width:130px;background:var(--s2);border:1px solid var(--bdr);border-radius:6px;padding:8px 10px;border-top:2px solid var(--or2)"><div style="font-size:11px;font-weight:600;margin-bottom:2px">C. Okonkwo</div><div style="font-family:var(--fh);font-size:18px;font-weight:800;color:var(--or2)">+1.8%</div><div style="font-size:10px;color:var(--tx2)">Champ EV &middot; $18 FAAB bid</div><span class="badge bo" style="margin-top:4px;display:inline-block">Med ROI</span></div>
+    </div>
+    ${FREE_AGENTS.map((p,i)=>`
+      <div class="prow" style="align-items:flex-start;gap:10px">
+        <span style="font-family:var(--fh);font-size:16px;font-weight:800;color:var(--tx3);min-width:20px;margin-top:2px">${i+1}</span>
+        <span class="ptag" style="color:${pc(p.pos)};margin-top:2px">${p.pos}</span>
+        <div class="pinfo">
+          <div class="pname">${p.name} <span style="font-size:10px;color:var(--tx2)">${p.nfl} · ${p.opp}${p.oppRk?` · #${p.oppRk} vs ${p.pos}`:''}</span></div>
+          <div style="font-size:11px;color:var(--tx2);margin-top:2px">${p.reason}</div>
+          <div class="f ac g6" style="margin-top:6px">
+            <div class="fitbar" style="max-width:70px;margin:0"><div class="fitfill" style="width:${p.fit}%;background:${p.fit>=80?'var(--gr)':p.fit>=65?'var(--or)':'var(--rd)'}"></div></div>
+            <span style="font-size:11px;font-weight:700;color:${p.fit>=80?'var(--gr)':p.fit>=65?'var(--or)':'var(--rd)'}">Fit ${p.fit}</span>
+            <span style="font-size:10px;color:var(--tx3)">${p.own}% owned</span>
+          </div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-family:var(--fh);font-size:17px;font-weight:800">${p.proj.toFixed(1)}</div>
+          <div style="font-size:10px;color:var(--tx2)">proj</div>
+          <div style="font-size:10px;color:var(--tx2)">${p.avg.toFixed(1)} avg</div>
+        </div>
+        <button onclick="alert('Waiver claim for ${p.name} submitted!\\nRecommended FAAB: $${Math.round(p.fit*.45+5)}\\nProcesses Wed 3:00 AM')" style="background:var(--or-d);border:1px solid rgba(255,107,0,.3);color:var(--or);font-family:var(--fh);font-size:10px;font-weight:700;text-transform:uppercase;padding:5px 9px;border-radius:5px;cursor:pointer;flex-shrink:0;margin-top:2px">+ Add</button>
+      </div>`).join('')}
+  </div>`;
+}
+
+// ── NEWS ───────────────────────────────────────────────────────────────────
+function vNews(){
+  let activeFilter = 'All';
+  return `
+  <div class="card">
+    <div class="ct">📰 Player News & AI Impact Analysis</div>
+    <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+      ${['All','Injury','Performance','Depth Chart'].map((f,i)=>`<button onclick="filterNews('${f}',this)" style="background:${i===0?'var(--or)':'var(--s2)'};border:1px solid ${i===0?'var(--or)':'var(--bdr2)'};color:${i===0?'#000':'var(--tx2)'};font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;padding:4px 11px;border-radius:5px;cursor:pointer">${f}</button>`).join('')}
+    </div>
+    <div id="news-list">
+      ${NEWS_FEED.map(n=>`
+        <div class="news-item" data-type="${n.type}">
+          <div class="ni-head">
+            <div class="f ac g8" style="flex:1;gap:8px">
+              <span class="ni-impact ${n.impact==='high'?'impact-high':n.impact==='pos'?'impact-pos':n.impact==='med'?'impact-med':'impact-low'}">${n.impact==='high'?'⚠️ High Impact':n.impact==='pos'?'↑ Positive':'Medium'}</span>
+              <div style="font-size:11px;color:var(--tx2);white-space:nowrap">${n.time}</div>
+            </div>
+            <span class="badge" style="background:${pc(n.pos)}18;color:${pc(n.pos)}">${n.pos} · ${n.team}</span>
+          </div>
+          <div class="ni-headline">${n.player}: ${n.headline}</div>
+          <div class="ni-body" style="margin-top:5px">${n.body}</div>
+          <div class="ni-action">🤖 AI Action: ${n.action}</div>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function filterNews(type, btn){
+  document.querySelectorAll('[onclick*="filterNews"]').forEach(b=>{b.style.background='var(--s2)';b.style.color='var(--tx2)';b.style.borderColor='var(--bdr2)';});
+  if(btn){btn.style.background='var(--or)';btn.style.color='#000';btn.style.borderColor='var(--or)';}
+  const list=$('news-list'); if(!list) return;
+  const typeMap={'Injury':'injury','Performance':'perf','Depth Chart':'depth'};
+  const mapped=typeMap[type];
+  list.querySelectorAll('.news-item').forEach(item=>{
+    item.style.display=(type==='All'||item.dataset.type===mapped)?'block':'none';
+  });
+}
+
+// ── AI ADVISOR ─────────────────────────────────────────────────────────────
+function buildSP(){
+  const rs=TEAM.map(p=>`${p.pos}: ${p.name} (${p.nfl}) — avg ${p.avg}, proj ${p.proj}, ${p.opp}${p.oppRk?', opp rank #'+p.oppRk+' vs '+p.pos:''}, ${p.status}`).join('\n');
+  const fa=FREE_AGENTS.slice(0,5).map(p=>`${p.pos}: ${p.name} (${p.nfl}) — proj ${p.proj}, ${p.own}% owned, Fit ${p.fit}/100`).join('\n');
+  return `You are an expert fantasy football analyst named "GridironHQ Advisor", an AI advisor integrated into a fantasy football analytics platform.
+
+LEAGUE: Blitz City League · 12-team · Half-PPR · Week 14 · User is 7-6 (4th place) · MUST WIN to make playoffs
+OPPONENT THIS WEEK: Fumble Force (proj ~108 pts)
+
+ROSTER:\n${rs}
+
+KEY ALERT: Kyren Williams (BN, proj 15.8) outprojecting Jahmyr Gibbs (RB2 starter, proj 14.1). Williams has easier matchup.
+
+PENDING TRADE: Gridiron Ghosts offering Josh Allen + Jayden Reed for CeeDee Lamb + Kyren Williams. DECLINE — giving up too much.
+
+TOP FREE AGENTS:\n${fa}
+
+SCORING (Half-PPR): PassTD=4, PassYd=0.04, INT=-2, RushTD=6, RushYd=0.1, RecTD=6, RecYd=0.1, Rec=0.5, Fumble=-2
+
+PERSONALITY: Be direct and confident. Give specific recommendations with player names and numbers. Be conversational but data-driven. Max 3-4 paragraphs. Use **bold** for key names/numbers. Always mention playoff context when relevant. Never be wishy-washy.`;
+}
+
+function vAI(){
+  return `
+  <div style="display:flex;flex-direction:column;height:calc(100vh - 148px)">
+    <div class="card" style="padding:10px 14px;flex-shrink:0;margin-bottom:8px">
+      <div class="f ac g10">
+        <div style="width:36px;height:36px;border-radius:9px;background:var(--or-d);border:1px solid rgba(255,107,0,.3);display:flex;align-items:center;justify-content:center;font-size:18px">🤖</div>
+        <div>
+          <div style="font-family:var(--fh);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--or)">GridironHQ AI Advisor</div>
+          <div style="font-size:11px;color:var(--tx2)">Powered by Claude · Full roster context loaded · Week 14 · 7-6 playoff push</div>
+        </div>
+        <div class="badge bg" style="margin-left:auto">● Live</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;flex-shrink:0">
+      ${['Who should I start this week?','Should I accept the trade offer?','Best waiver pickup for me?','Analyze my playoff odds','Swap Gibbs for Williams?','Give me a full roster breakdown'].map(q=>`<button class="qbtn" onclick="fillChat('${q}')">${q}</button>`).join('')}
+    </div>
+    <div id="chat-msgs" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;min-height:0;padding:2px 0">
+      <div class="msg">
+        <div class="av av-ai">IQ</div>
+        <div class="bubble ai">Hey! I'm your <strong>GridironHQ AI Advisor</strong> — I have your complete Week 14 roster, all matchup data, and your playoff situation loaded.<br><br>
+        Quick briefing: you're <strong>7-6 and need a win</strong> to make the playoffs. Your lineup projects <em>~134 pts</em> against Fumble Force (~108 projected) — you're in a great spot, but only if you optimize.<br><br>
+        🚨 <strong>Do this right now:</strong> Start <em>Kyren Williams (proj 15.8)</em> over <em>Jahmyr Gibbs (14.1)</em> — Williams has a much easier matchup this week. That single swap could be the margin.<br><br>
+        What do you want to dig into?</div>
+      </div>
+    </div>
+    <div style="padding:10px 0 0;border-top:1px solid var(--bdr);flex-shrink:0">
+      <div class="f g8 ac">
+        <textarea class="ci" id="chat-in" placeholder="Ask anything — start/sit, trades, waivers, playoff strategy..." rows="1" oninput="autoResize(this)"></textarea>
+        <button class="cs" id="send-btn" onclick="sendMsg()">➤</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function initChatHandlers(){
+  const inp=$('chat-in');
+  if(inp) inp.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}});
+}
+
+function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,90)+'px';}
+
+function fillChat(txt){
+  if(currentTab!=='ai'){currentTab='ai';renderPanel();}
+  setTimeout(()=>{const i=$('chat-in');if(i){i.value=txt;autoResize(i);i.focus();}},150);
+}
+
+async function sendMsg(){
+  const inp=$('chat-in'), msgs=$('chat-msgs'), btn=$('send-btn');
+  if(!inp||!msgs) return;
+  const txt=inp.value.trim(); if(!txt) return;
+  inp.value=''; inp.style.height='auto'; btn.disabled=true;
+  const uMsg=document.createElement('div'); uMsg.className='msg user';
+  uMsg.innerHTML=`<div class="av av-user">ME</div><div class="bubble user">${txt.replace(/</g,'&lt;')}</div>`;
+  msgs.appendChild(uMsg); msgs.scrollTop=msgs.scrollHeight;
+  const typing=document.createElement('div'); typing.className='msg'; typing.id='typing-ind';
+  typing.innerHTML=`<div class="av av-ai">IQ</div><div class="bubble ai"><div class="typing-dots"><div class="td"></div><div class="td"></div><div class="td"></div></div></div>`;
+  msgs.appendChild(typing); msgs.scrollTop=msgs.scrollHeight;
+  const history=[...msgs.querySelectorAll('.msg:not(#typing-ind)')].slice(1,-1).map(m=>({role:m.classList.contains('user')?'user':'assistant',content:m.querySelector('.bubble')?.innerText||''}));
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:buildSP(),messages:[...history,{role:'user',content:txt}]})});
+    const d=await r.json();
+    const reply=d.content?.[0]?.text||'Sorry — try again.';
+    const t=$('typing-ind'); if(t) t.remove();
+    const fmt=reply.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+    const aiMsg=document.createElement('div'); aiMsg.className='msg';
+    aiMsg.innerHTML=`<div class="av av-ai">IQ</div><div class="bubble ai">${fmt}</div>`;
+    msgs.appendChild(aiMsg); msgs.scrollTop=msgs.scrollHeight;
+  }catch(e){
+    const t=$('typing-ind'); if(t) t.remove();
+    const err=document.createElement('div'); err.className='msg';
+    err.innerHTML=`<div class="av av-ai">IQ</div><div class="bubble ai" style="border-color:rgba(248,81,73,.3)"><strong style="color:var(--rd)">Connection error</strong><br><span style="color:var(--tx2);font-size:11px">Requires an active Claude.ai session with API access. Error: ${e.message}</span></div>`;
+    msgs.appendChild(err); msgs.scrollTop=msgs.scrollHeight;
+  }
+  btn.disabled=false; inp.focus();
+}
+
+// ── TREASURY ───────────────────────────────────────────────────────────────
+function vTreasury(){
+  const paid=STANDINGS.filter((_,i)=>i<9).length;
+  const coll=paid*100;
+  const pot=12*100;
+  return `
+  <div class="g2" style="margin-bottom:12px">
+    <div class="bank-card">
+      <div class="bank-lbl">League Savings Account</div>
+      <div class="bank-bal">$803.17</div>
+      <div class="bank-sub">Marcus by Goldman Sachs · ···4821 · 4.75% APY</div>
+      <div class="f g8 ac" style="margin-top:12px">
+        <span class="badge bg">● Live Balance</span>
+        <span class="badge bb">Auto-Sweep On</span>
+        <span style="font-size:11px;color:rgba(74,127,212,.5);margin-left:4px">+$3.17 interest earned</span>
+      </div>
+    </div>
+    <div class="g2" style="gap:10px">
+      <div class="sm"><div class="sv" style="color:var(--gr)">$${coll}</div><div class="sl">Collected</div><div class="sn">${paid}/12 paid</div></div>
+      <div class="sm"><div class="sv" style="color:var(--rd)">$${pot-coll}</div><div class="sl">Outstanding</div><div class="sn">${12-paid} managers</div></div>
+      <div class="sm"><div class="sv" style="color:var(--nv3)">$${pot}</div><div class="sl">Total Prize Pool</div></div>
+      <div class="sm"><div class="sv" style="color:var(--or)">4.75%</div><div class="sl">APY Rate</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">👥 Manager Payment Status</div>
+    <table class="t">
+      <thead><tr><th>Manager</th><th>Team</th><th>Amount</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody>
+        ${STANDINGS.map((t,i)=>{
+          const paid = i < 9;
+          const date = ['Aug 30','Sep 1','Sep 2','Sep 3','Sep 4','Sep 5','Sep 7','Sep 10','Sep 12','—','—','—'][i];
+          return `<tr>
+            <td style="font-weight:500">${t.mgr}</td>
+            <td style="font-size:11px;color:var(--tx2)">${t.name}</td>
+            <td style="font-family:var(--fh);font-size:15px;font-weight:700;color:${paid?'var(--gr)':'var(--tx3)'}">${paid?'$100':'—'}</td>
+            <td style="font-size:11px;color:var(--tx2)">${date}</td>
+            <td>${paid?`<span class="badge bg">✓ Paid</span>`:`<span class="badge br">Unpaid</span>`}</td>
+            <td>${paid?`<button onclick="alert('Receipt sent to ${t.mgr}')" style="background:var(--s2);border:1px solid var(--bdr);color:var(--tx2);font-family:var(--fh);font-size:10px;font-weight:700;text-transform:uppercase;padding:3px 8px;border-radius:4px;cursor:pointer">Receipt</button>`:
+            `<button onclick="alert('Payment reminder sent to ${t.mgr}')" style="background:var(--or-d);border:1px solid rgba(255,107,0,.3);color:var(--or);font-family:var(--fh);font-size:10px;font-weight:700;text-transform:uppercase;padding:3px 8px;border-radius:4px;cursor:pointer">Remind</button>`}</td>
+          </tr>`;}).join('')}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">🏆 Prize Payout Configuration</div>
+    <div style="font-size:12px;color:var(--tx2);margin-bottom:12px">Total pool: <strong style="color:var(--or)">$1,200</strong> + <strong style="color:var(--gr)">$3.17 interest</strong> = <strong style="color:var(--or)">$1,203.17</strong></div>
+    ${[['1st Place Champion','50%','$601.59','gold'],['2nd Place','30%','$360.95','nv3'],['3rd Place','10%','$120.32','pu'],['Weekly High Score Pool','10%','$120.32','gr']].map(([l,p,a,c])=>`
+      <div class="f jb ac" style="padding:8px 0;border-bottom:1px solid var(--bdr)">
+        <span style="font-size:13px">${l}</span>
+        <div class="f ac g8">
+          <span style="font-size:12px;color:var(--tx2)">${p}</span>
+          <span style="font-family:var(--fh);font-size:18px;font-weight:800;color:var(--${c})">${a}</span>
+        </div>
+      </div>`).join('')}
+    <div class="f g8 ac" style="margin-top:12px;flex-wrap:wrap">
+      <button class="btn-or" onclick="alert('Bank transfer payouts initiated! All managers will receive funds within 2 business days.')">🏦 Payout via Bank Transfer</button>
+      <button class="btn-out" onclick="alert('Venmo/Zelle payout links generated for each manager.')">📱 Venmo / Zelle</button>
+      <button class="btn-out" onclick="alert('Stripe payouts initiated.')">💳 Pay via Stripe</button>
+    </div>
+  </div>`;
+}
+
+// ── INIT ────────────────────────────────────────────────────────────────────
+renderNav();
+renderPanel();
+
+// ── FOUNDING MODAL FUNCTIONS ────────────────────────────────────
+function openFoundingModal(){
+  const m=document.getElementById('founding-modal');
+  m.style.display='flex';
+  m.onclick=function(e){if(e.target===m)closeFoundingModal();};
+}
+function closeFoundingModal(){
+  document.getElementById('founding-modal').style.display='none';
+}
+function submitFoundingModal(e){
+  if(e) e.preventDefault();
+  var n=document.getElementById('fm-name').value.trim();
+  var em=document.getElementById('fm-email').value.trim();
+  if(!n||!em){alert('Please enter your name and email.');return;}
+  // Submit to Netlify Forms via fetch
+  var formData=new FormData();
+  formData.append('form-name','founding-member');
+  formData.append('name',n);
+  formData.append('email',em);
+  var platform=document.getElementById('fm-platform').value.trim();
+  if(platform) formData.append('platform',platform);
+  fetch('/',{method:'POST',body:formData}).catch(function(){});
+  var el=document.getElementById('founding-modal-body');
+  el.innerHTML='';
+  var wrapper=document.createElement('div');
+  wrapper.style.cssText='text-align:center;padding:16px 0';
+  wrapper.innerHTML=[
+    '<div style="font-size:38px;margin-bottom:12px">&#127881;</div>',
+    '<div style="font-family:var(--fh);font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;color:var(--tx)">You are on the list!</div>',
+    '<div style="font-size:13px;color:var(--tx2);line-height:1.7;margin-bottom:16px">We will reach out from <strong style="color:var(--or)">hello@gridironhq.ai</strong> to confirm your spot. Your $4.99/mo rate is reserved.</div>',
+    '<div style="background:var(--or-d);border:1px solid rgba(255,107,0,.25);border-radius:8px;padding:12px;font-size:12px;color:var(--or);margin-bottom:14px">Share this demo with your league so they can request access too and lock in $5.99/mo for life.</div>',
+    '<button onclick="closeFoundingModal()" style="background:var(--or);border:none;border-radius:7px;color:#000;font-family:var(--fh);font-size:13px;font-weight:800;text-transform:uppercase;padding:9px 20px;cursor:pointer;width:100%">Got it - back to the demo</button>'
+  ].join('');
+  el.appendChild(wrapper);
+}
+// ────────────────────────────────────────────────────────────────
+
+// ── LEAGUE INTEL ─────────────────────────────────────────
+function vLeagueIntel(){
+  return `
+  <div class="g2" style="margin-bottom:11px">
+    <div class="card" style="border-top:2px solid var(--or)">
+      <div class="ct">&#128202; League FAAB Intelligence</div>
+      ${[
+        ['League Avg Bid','$21','Median across all managers'],
+        ['Your Avg Bid','$19','Slightly below — room to push'],
+        ['Highest Spender','Chris L. ($31)','Overtime Kings overbids WRs'],
+        ['Most Efficient','You','Best ROI per dollar in league'],
+        ['Total Trades','14','Across all teams this season'],
+        ['Your Trade Record','3-1','3 wins, 1 loss in trade value'],
+      ].map(([l,v,n])=>`
+        <div class="f jb ac" style="padding:6px 0;border-bottom:1px solid var(--bdr)">
+          <div><div style="font-size:12px;font-weight:500">${l}</div><div style="font-size:10px;color:var(--tx2)">${n}</div></div>
+          <span style="font-family:var(--fh);font-size:14px;font-weight:700;color:var(--or)">${v}</span>
+        </div>`).join('')}
+    </div>
+    <div class="card" style="border-top:2px solid var(--nv3)">
+      <div class="ct">&#128506; Positional Hoarding Map</div>
+      <div style="font-size:11px;color:var(--tx2);margin-bottom:8px">Who controls scarcity at each position. Use this as trade leverage.</div>
+      ${[
+        {pos:'QB', who:'Chris L.',  note:'Owns Allen + Lamar — QB2 value inflated'},
+        {pos:'RB', who:'Sarah M.',  note:'4 top-12 RBs — desperate for WR depth'},
+        {pos:'WR', who:'Chris L.',  note:'WR-heavy — less need for WRs in trades'},
+        {pos:'TE', who:'Dana S.',   note:'3 TEs — offer a TE to sweeten any deal'},
+      ].map(r=>`
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--bdr)">
+          <span style="font-family:var(--fh);font-size:12px;font-weight:800;color:var(--nv3);min-width:28px">${r.pos}</span>
+          <div><div style="font-size:12px;font-weight:500">${r.who}</div><div style="font-size:10px;color:var(--tx2)">${r.note}</div></div>
+        </div>`).join('')}
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct">&#129504; Manager Behavioral Profiles</div>
+    <div style="font-size:11px;color:var(--tx2);margin-bottom:12px">AI-built profiles from each manager's trading patterns, FAAB bids, and positional tendencies this season. Use these to structure offers that are most likely to be accepted.</div>
+    ${LEAGUE_INTEL.map(m=>`
+      <div style="background:var(--s2);border:1px solid var(--bdr);border-radius:8px;padding:12px;margin-bottom:10px;border-left:3px solid ${m.sc}">
+        <div class="f ac" style="gap:10px;margin-bottom:8px;flex-wrap:wrap">
+          <div style="flex:1;min-width:140px">
+            <div style="font-size:13px;font-weight:600">${m.name} <span style="font-size:11px;color:var(--tx2)">${m.team}</span></div>
+            <div style="font-size:10px;color:var(--tx2)">${m.rec} &middot; Rank #${m.rank}</div>
+          </div>
+          <span class="badge" style="background:${m.sc}18;color:${m.sc}">${m.style}</span>
+          <span style="font-family:var(--fh);font-size:14px;font-weight:700;color:${m.acceptRate>60?'var(--gr)':m.acceptRate>40?'var(--or)':'var(--rd)'}">${m.acceptRate}% accept</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+          <div style="font-size:11px;color:var(--tx2)"><strong style="color:var(--tx)">Pattern:</strong> ${m.pattern}</div>
+          <div style="font-size:11px;color:var(--tx2)"><strong style="color:var(--tx)">Hoards:</strong> ${m.hoard}</div>
+          <div style="font-size:11px;color:var(--tx2)"><strong style="color:var(--tx)">FAAB avg:</strong> $${m.faabAvg} &middot; ${m.faabStyle}</div>
+          <div style="font-size:11px;color:var(--tx2)"><strong style="color:var(--tx)">vs You:</strong> ${m.h2h}</div>
+        </div>
+        <div style="background:var(--or-d);border-radius:5px;padding:7px 10px;font-size:11px">
+          <strong style="color:var(--or)">&#127919; Approach:</strong> <span style="color:var(--tx)">${m.approach}</span>
+        </div>
+        ${m.urgency?`<div style="margin-top:5px;font-size:10px;color:var(--tx2)"><strong>Window:</strong> ${m.urgency}</div>`:''}
+      </div>`).join('')}
+  </div>`;
+}
+
+// ── THEME TOGGLE ──────────────────────────────────────────
+function toggleTheme(){
+  var isLight = document.body.dataset.theme === 'light';
+  document.body.dataset.theme = isLight ? 'dark' : 'light';
+  var btn = document.getElementById('theme-btn');
+  if(btn) btn.textContent = isLight ? '🌙' : '☀️';
+  try{ localStorage.setItem('ghq-theme', document.body.dataset.theme); }catch(e){}
+}
+(function(){
+  try{
+    var saved = localStorage.getItem('ghq-theme');
+    if(saved){
+      document.body.dataset.theme = saved;
+      var btn = document.getElementById('theme-btn');
+      if(btn) btn.textContent = saved === 'light' ? '☀️' : '🌙';
+    }
+  }catch(e){}
+})();
+// ─────────────────────────────────────────────────────────
+</script>
+</body>
+</html>
