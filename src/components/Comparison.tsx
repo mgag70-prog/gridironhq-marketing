@@ -8,6 +8,13 @@ function Cell({ value }: { value: string }) {
   if (value === "no") {
     return <div className="text-center text-lg text-red opacity-60">✗</div>;
   }
+  if (value === "N/A") {
+    return (
+      <div className="text-center text-[13px] font-semibold text-text-faint">
+        N/A
+      </div>
+    );
+  }
   return (
     <div className="text-center text-[13px] font-semibold text-orange">
       {value}

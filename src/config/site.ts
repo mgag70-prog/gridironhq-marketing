@@ -224,7 +224,7 @@ export const siteConfig = {
         icon: "💳",
         title: "League Treasury",
         description:
-          "Stripe dues collection, automatic payment reminders, funds swept nightly to a high-yield savings account earning a competitive interest rate, and one-click payouts at season end. Every commissioner's dream.",
+          "Collect league dues via Stripe, hold your prize pool in a segregated FDIC-insured financial account earning a competitive interest rate, and pay out winners at season end with one click. $14.99 flat fee per season — no percentage cuts, no hidden fees. Your league keeps every dollar of interest earned.",
         tag: "Stop chasing Venmo payments →",
       },
     ] satisfies Feature[],
@@ -279,6 +279,8 @@ export const siteConfig = {
       { feature: "AI advisor you can ask anything", gridironhq: "yes", competitor: "no" },
       { feature: "League behavioral analytics", gridironhq: "yes", competitor: "no" },
       { feature: "League treasury & dues collection", gridironhq: "yes", competitor: "no" },
+      { feature: "League keeps all interest earned", gridironhq: "yes", competitor: "no" },
+      { feature: "Flat-fee treasury (not percentage-based)", gridironhq: "$14.99/season", competitor: "N/A" },
       { feature: "Draft simulator with EV modeling", gridironhq: "yes", competitor: "Basic" },
       { feature: "Works with your existing platform", gridironhq: "yes", competitor: "yes" },
       { feature: "Waiver wire ranked by roster fit", gridironhq: "yes", competitor: "Generic" },
@@ -463,9 +465,9 @@ export const siteConfig = {
           "Sleeper at launch, with ESPN, Yahoo, and CBS to follow in rapid succession. Sleeper has the best developer API and is where we're starting — if your league is on Sleeper, you'll be first in the door.",
       },
       {
-        question: "How does the League Treasury work?",
+        question: "How does GridironHQ Treasury work?",
         answer:
-          "You send your league members a Stripe payment link. They pay their buy-in. The funds sit in a high-yield savings account earning a competitive interest rate through the season. At the end of the year, you pay out winners with one click via bank transfer, Venmo, or Zelle.",
+          "GridironHQ Treasury collects your league dues via Stripe payment links, holds the prize pool in a segregated FDIC-insured financial account, and pays out winners at season end with one click. We charge a flat $14.99 per season — compared to LeagueSafe which charges 2.9% of dues collected and keeps the interest. On a $1,200 league you save over $20 and your league keeps every dollar of interest earned.",
       },
       {
         question: "Does GridironHQ work for dynasty leagues?",
