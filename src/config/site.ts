@@ -128,7 +128,7 @@ export const siteConfig = {
   proofStats: [
     { value: "200", label: "Founding Member Spots" },
     { value: "8", label: "Feature Modules" },
-    { value: "4.75%", label: "APY on Prize Pool" },
+    { value: "HYSA", label: "Competitive Rate on Prize Pool" },
     { value: "$0", label: "Generic Rankings" },
   ] satisfies ProofStat[],
 
@@ -224,7 +224,7 @@ export const siteConfig = {
         icon: "💳",
         title: "League Treasury",
         description:
-          "Stripe dues collection, automatic payment reminders, funds swept nightly to a 4.75% APY high-yield account, and one-click payouts at season end. Every commissioner's dream.",
+          "Stripe dues collection, automatic payment reminders, funds swept nightly to a high-yield savings account earning a competitive interest rate, and one-click payouts at season end. Every commissioner's dream.",
         tag: "Stop chasing Venmo payments →",
       },
     ] satisfies Feature[],
@@ -241,7 +241,7 @@ export const siteConfig = {
         step: 1,
         title: "Connect Your League",
         description:
-          "Enter your Sleeper username. GridironHQ imports your league settings, your roster, your record, your scoring format — everything. Takes about 30 seconds.",
+          "Enter your fantasy league platform username — Sleeper, ESPN, Yahoo, or CBS. GridironHQ imports your league settings, your roster, your record, your scoring format — everything. Takes about 30 seconds.",
       },
       {
         step: 2,
@@ -419,7 +419,7 @@ export const siteConfig = {
       },
       {
         quote:
-          "Finally solved the 'chasing people for money' problem. Everyone in our league paid through the Stripe link, the money earns 4.75% APY until December, and one-click payout at the end. Dream feature.",
+          "Finally solved the 'chasing people for money' problem. Everyone in our league paid through the Stripe link, the money sits in a high-yield savings account earning a competitive interest rate until December, and one-click payout at the end. Dream feature.",
         author: "Alex B.",
         initials: "AB",
         meta: "Commissioner · $100 buy-in · 12 teams",
@@ -445,7 +445,7 @@ export const siteConfig = {
       {
         question: "When does GridironHQ launch?",
         answer:
-          "We're targeting late July to early August 2026 — before NFL drafts start. Founding members will get early access and will be the first to connect their leagues. You're not paying for a finished product yet, which is why the founding rate is 37% off regular price.",
+          "We're targeting late July to early August 2026 — in advance of your league draft. Founding members will get early access and will be the first to connect their leagues. You're not paying for a finished product yet, which is why the founding rate is 37% off regular price.",
       },
       {
         question: "What if GridironHQ doesn't launch?",
@@ -465,7 +465,7 @@ export const siteConfig = {
       {
         question: "How does the League Treasury work?",
         answer:
-          "You send your league members a Stripe payment link. They pay their buy-in. The funds sit in a high-yield savings account (4.75% APY) earning interest through the season. At the end of the year, you pay out winners with one click via bank transfer, Venmo, or Zelle.",
+          "You send your league members a Stripe payment link. They pay their buy-in. The funds sit in a high-yield savings account earning a competitive interest rate through the season. At the end of the year, you pay out winners with one click via bank transfer, Venmo, or Zelle.",
       },
       {
         question: "Does GridironHQ work for dynasty leagues?",
@@ -514,9 +514,10 @@ export const siteConfig = {
         heading: "Coming Soon",
         links: [
           { label: "DiamondHQ — MLB", href: "#" },
-          { label: "CourtHQ — NBA", href: "#" },
-          { label: "IceHQ — NHL", href: "#" },
-          { label: "PitchHQ — Soccer", href: "#" },
+          { label: "NBA", href: "#" },
+          { label: "NHL", href: "#" },
+          { label: "Soccer", href: "#" },
+          { label: "Golf", href: "#" },
         ],
       },
     ],
