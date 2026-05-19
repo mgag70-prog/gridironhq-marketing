@@ -1,12 +1,24 @@
 import { siteConfig } from "@/config/site";
 import { SectionHeader } from "./SectionHeader";
 
-function Cell({ value }: { value: string }) {
+function Cell({ value, inverted }: { value: string; inverted?: boolean }) {
   if (value === "yes") {
-    return <div className="text-center text-lg text-green">✓</div>;
+    return (
+      <div
+        className={`text-center text-lg ${inverted ? "text-red opacity-60" : "text-green"}`}
+      >
+        ✓
+      </div>
+    );
   }
   if (value === "no") {
-    return <div className="text-center text-lg text-red opacity-60">✗</div>;
+    return (
+      <div
+        className={`text-center text-lg ${inverted ? "text-green" : "text-red opacity-60"}`}
+      >
+        ✗
+      </div>
+    );
   }
   if (value === "N/A") {
     return (
@@ -24,6 +36,8 @@ function Cell({ value }: { value: string }) {
 
 export function Comparison() {
   const { comparison } = siteConfig;
+  const columnCount = 1 + 1 + comparison.competitors.length; // feature + GHQ + competitors
+  const gridTemplate = `minmax(180px, 2fr) repeat(${columnCount - 1}, minmax(100px, 1fr))`;
 
   return (
     <section className="py-[100px] section-grid-bg" id="compare">
@@ -36,31 +50,57 @@ export function Comparison() {
           center
         />
 
-        <div className="mt-15 rounded-[14px] overflow-hidden border border-border">
-          <div className="grid grid-cols-[2fr_1fr_1fr] bg-bg-card-2 px-4 md:px-7 py-5 gap-3 md:gap-5">
-            <div className="font-condensed text-[13px] md:text-[15px] font-extrabold uppercase tracking-[0.5px]">
-              Feature
-            </div>
-            <div className="font-condensed text-[13px] md:text-[15px] font-extrabold uppercase tracking-[0.5px] text-center text-orange">
-              {siteConfig.name}
-            </div>
-            <div className="font-condensed text-[13px] md:text-[15px] font-extrabold uppercase tracking-[0.5px] text-center">
-              {comparison.competitor}
+        <div className="mt-15 rounded-[14px] border border-border overflow-hidden">
+          <div className="overflow-x-auto">
+            <div className="min-w-[720px]">
+              <div
+                className="grid bg-bg-card-2 px-4 md:px-7 py-5 gap-3 md:gap-5"
+                style={{ gridTemplateColumns: gridTemplate }}
+              >
+                <div className="font-condensed text-[13px] md:text-[15px] font-extrabold uppercase tracking-[0.5px]">
+                  Feature
+                </div>
+                <div className="font-condensed text-[13px] md:text-[15px] font-extrabold uppercase tracking-[0.5px] text-center text-orange">
+                  {siteConfig.name}
+                </div>
+                {comparison.competitors.map((name) => (
+                  <div
+                    key={name}
+                    className="font-condensed text-[13px] md:text-[15px] font-extrabold uppercase tracking-[0.5px] text-center"
+                  >
+                    {name}
+                  </div>
+                ))}
+              </div>
+
+              {comparison.rows.map((row) => (
+                <div
+                  key={row.feature}
+                  className="grid px-4 md:px-7 py-4 gap-3 md:gap-5 border-t border-border items-center hover:bg-text/[0.02] transition-colors"
+                  style={{ gridTemplateColumns: gridTemplate }}
+                >
+                  <div className="text-[13px] md:text-sm text-text">
+                    {row.feature}
+                  </div>
+                  <div>
+                    <Cell value={row.gridironhq} inverted={row.inverted} />
+                    {row.gridironhqNote && (
+                      <div className="text-center text-[10px] text-text-muted mt-1 italic">
+                        ({row.gridironhqNote})
+                      </div>
+                    )}
+                  </div>
+                  {row.competitors.map((value, i) => (
+                    <Cell
+                      key={i}
+                      value={value}
+                      inverted={row.inverted}
+                    />
+                  ))}
+                </div>
+              ))}
             </div>
           </div>
-
-          {comparison.rows.map((row) => (
-            <div
-              key={row.feature}
-              className="grid grid-cols-[2fr_1fr_1fr] px-4 md:px-7 py-4 gap-3 md:gap-5 border-t border-border items-center hover:bg-text/[0.02] transition-colors"
-            >
-              <div className="text-[13px] md:text-sm text-text">
-                {row.feature}
-              </div>
-              <Cell value={row.gridironhq} />
-              <Cell value={row.competitor} />
-            </div>
-          ))}
         </div>
       </div>
     </section>

@@ -52,7 +52,9 @@ export type HowItWorksStep = {
 export type ComparisonRow = {
   feature: string;
   gridironhq: "yes" | "no" | string;
-  competitor: "yes" | "no" | string;
+  gridironhqNote?: string;
+  competitors: string[];
+  inverted?: boolean;
 };
 
 export type Testimonial = {
@@ -272,19 +274,20 @@ export const siteConfig = {
     titleAccent: "Everyone Else",
     subhead:
       "The platforms that exist today were built for casual players. GridironHQ is built for you.",
-    competitor: "FantasyPros",
+    competitors: ["FantasyPros", "PFF", "The Field"],
     rows: [
-      { feature: "Advice personalized to your exact roster", gridironhq: "yes", competitor: "no" },
-      { feature: "Championship probability on every decision", gridironhq: "yes", competitor: "no" },
-      { feature: "AI advisor you can ask anything", gridironhq: "yes", competitor: "no" },
-      { feature: "League behavioral analytics", gridironhq: "yes", competitor: "no" },
-      { feature: "League treasury & dues collection", gridironhq: "yes", competitor: "no" },
-      { feature: "League keeps all interest earned", gridironhq: "yes", competitor: "no" },
-      { feature: "Flat-fee treasury (not percentage-based)", gridironhq: "$14.99/season", competitor: "N/A" },
-      { feature: "Draft simulator with EV modeling", gridironhq: "yes", competitor: "Basic" },
-      { feature: "Works with your existing platform", gridironhq: "yes", competitor: "yes" },
-      { feature: "Waiver wire ranked by roster fit", gridironhq: "yes", competitor: "Generic" },
-      { feature: "Price", gridironhq: "$4.99/mo founding", competitor: "$8.99/mo" },
+      { feature: "Advice personalized to your roster", gridironhq: "yes", competitors: ["no", "no", "no"] },
+      { feature: "Championship probability on every decision", gridironhq: "yes", competitors: ["no", "no", "no"] },
+      { feature: "AI advisor you can ask anything", gridironhq: "yes", competitors: ["no", "no", "no"] },
+      { feature: "League behavioral analytics", gridironhq: "yes", competitors: ["no", "no", "no"] },
+      { feature: "League treasury & dues collection", gridironhq: "yes", competitors: ["no", "no", "no"] },
+      { feature: "League keeps all interest earned", gridironhq: "yes", competitors: ["no", "no", "no"] },
+      { feature: "Flat-fee treasury (not percentage-based)", gridironhq: "$14.99/season", competitors: ["N/A", "N/A", "N/A"] },
+      { feature: "Start/sit advice same for every user", gridironhq: "no", gridironhqNote: "personalized", competitors: ["yes", "yes", "yes"], inverted: true },
+      { feature: "Draft simulator with EV modeling", gridironhq: "yes", competitors: ["Partial", "Partial", "Partial"] },
+      { feature: "Works with your existing platform", gridironhq: "yes", competitors: ["yes", "yes", "yes"] },
+      { feature: "Waiver wire ranked by roster fit", gridironhq: "yes", competitors: ["Generic", "Generic", "Generic"] },
+      { feature: "Price", gridironhq: "$4.99/mo founding", competitors: ["$8.99/mo", "$9.99/mo", "$8-15/mo"] },
     ] satisfies ComparisonRow[],
   },
 
