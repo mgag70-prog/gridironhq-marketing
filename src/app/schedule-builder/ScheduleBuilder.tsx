@@ -472,6 +472,8 @@ export default function ScheduleBuilder() {
   const [generating, setGenerating] = useState<boolean>(false);
   const [expandedTeam, setExpandedTeam] = useState<number | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
+  const [printTeam, setPrintTeam] = useState<number | null>(null);
+  const [showTeamMenu, setShowTeamMenu] = useState<boolean>(false);
 
   const playoffs = useMemo(
     () => (schedule ? buildPlayoffs(teams, playoffTeams, weeks) : []),
@@ -583,27 +585,100 @@ export default function ScheduleBuilder() {
     return games;
   }, [schedule, expandedTeam]);
 
+  const teamPrintSchedule = useMemo(() => {
+    if (!schedule || printTeam == null) return [] as Matchup[];
+    const games: Matchup[] = [];
+    for (const week of schedule) {
+      for (const m of week) {
+        if (m.home === printTeam || m.away === printTeam) {
+          games.push(m);
+        }
+      }
+    }
+    return games;
+  }, [schedule, printTeam]);
+
+  function printAll() {
+    setPrintTeam(null);
+    setShowTeamMenu(false);
+    setTimeout(() => window.print(), 50);
+  }
+
+  function printByTeam(team: number) {
+    setPrintTeam(team);
+    setShowTeamMenu(false);
+    setTimeout(() => {
+      window.print();
+      setTimeout(() => setPrintTeam(null), 200);
+    }, 50);
+  }
+
   return (
-    <main className="min-h-screen px-6 py-12 md:py-16 section-grid-bg">
+    <main
+      className={`min-h-screen px-6 py-12 md:py-16 section-grid-bg ${
+        printTeam != null ? "print-team-mode" : ""
+      }`}
+    >
+      <style>{`
+        .print-only { display: none; }
+        @media print {
+          @page { size: landscape; margin: 0.5in; }
+          html, body {
+            background: #fff !important;
+            color: #000 !important;
+          }
+          body * {
+            visibility: hidden;
+          }
+          .print-root, .print-root * {
+            visibility: visible;
+          }
+          .print-root {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            background: #fff !important;
+            color: #000 !important;
+          }
+          .no-print { display: none !important; }
+          .print-only { display: block !important; }
+          .print-area, .print-area * {
+            color: #000 !important;
+            background: transparent !important;
+            border-color: #000 !important;
+          }
+          .print-area table { border-collapse: collapse; width: 100%; }
+          .print-area th, .print-area td {
+            border-bottom: 1px solid #000;
+            page-break-inside: avoid;
+          }
+          .print-team-mode .print-full-schedule { display: none !important; }
+          .print-full-schedule tr, .print-team-schedule tr { page-break-inside: avoid; }
+        }
+      `}</style>
+
       <div
         aria-hidden="true"
-        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none"
+        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none no-print"
         style={{
           background:
             "radial-gradient(circle, rgba(255,107,0,0.08) 0%, transparent 60%)",
         }}
       />
 
-      <div className="relative max-w-5xl mx-auto">
+      <div className="relative max-w-5xl mx-auto print-root">
         <Link
           href="/"
-          className="font-display text-[28px] tracking-[2px] no-underline block text-center mb-8"
+          className="font-display text-[28px] tracking-[2px] no-underline block text-center mb-8 no-print"
         >
           <span className="text-orange">GRIDIRON</span>
           <span className="text-text">HQ</span>
         </Link>
 
-        <header className="text-center mb-10">
+        <header className="text-center mb-10 no-print">
           <p className="text-text-muted text-xs uppercase tracking-[2px] font-condensed font-bold mb-3">
             Free Tool
           </p>
@@ -618,9 +693,11 @@ export default function ScheduleBuilder() {
           </p>
         </header>
 
-        <Stepper step={step} setStep={setStep} />
+        <div className="no-print">
+          <Stepper step={step} setStep={setStep} />
+        </div>
 
-        <section className="bg-bg-card border border-border rounded-2xl p-6 md:p-8 mb-6">
+        <section className="bg-bg-card border border-border rounded-2xl p-6 md:p-8 mb-6 no-print">
           {step === 1 && (
             <StepOne
               teams={teams}
@@ -691,7 +768,7 @@ export default function ScheduleBuilder() {
         </section>
 
         {error && (
-          <div className="bg-red/10 border border-red/40 rounded-xl p-5 mb-6">
+          <div className="bg-red/10 border border-red/40 rounded-xl p-5 mb-6 no-print">
             <p className="font-condensed font-bold uppercase tracking-wider text-red mb-1 text-sm">
               Could not generate schedule
             </p>
@@ -712,10 +789,16 @@ export default function ScheduleBuilder() {
             exportCsv={exportCsv}
             copyToClipboard={copyToClipboard}
             copied={copied}
+            printAll={printAll}
+            printByTeam={printByTeam}
+            printTeam={printTeam}
+            teamPrintSchedule={teamPrintSchedule}
+            showTeamMenu={showTeamMenu}
+            setShowTeamMenu={setShowTeamMenu}
           />
         )}
 
-        <div className="mt-12 bg-bg-card border border-border rounded-2xl p-8 text-center">
+        <div className="mt-12 bg-bg-card border border-border rounded-2xl p-8 text-center no-print">
           <h2 className="font-display text-[clamp(22px,3vw,32px)] uppercase tracking-[1px] mb-3">
             Want <span className="text-orange">SCOUT</span> to optimize your
             lineup decisions all season?
@@ -1118,10 +1201,36 @@ function ScheduleOutput(props: {
   exportCsv: () => void;
   copyToClipboard: () => void;
   copied: boolean;
+  printAll: () => void;
+  printByTeam: (team: number) => void;
+  printTeam: number | null;
+  teamPrintSchedule: Matchup[];
+  showTeamMenu: boolean;
+  setShowTeamMenu: (b: boolean) => void;
 }) {
+  const today = new Date().toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const seasonYear = new Date().getFullYear();
+  const teamList = Array.from({ length: props.teams }, (_, i) => i + 1);
+
   return (
-    <section className="bg-bg-card border border-border rounded-2xl p-6 md:p-8">
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+    <section className="bg-bg-card border border-border rounded-2xl p-6 md:p-8 print-area">
+      <div className="print-only mb-6">
+        <div className="flex items-center justify-between border-b-2 border-black pb-3">
+          <div>
+            <p className="font-display text-2xl tracking-[2px]">GRIDIRONHQ</p>
+            {props.leagueName && (
+              <p className="text-sm mt-1">{props.leagueName}</p>
+            )}
+          </div>
+          <p className="text-xs">Generated {today}</p>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6 no-print">
         <div>
           <h2 className="font-display text-[clamp(22px,3vw,32px)] uppercase tracking-[1px]">
             {props.leagueName ? props.leagueName : "Your Schedule"}
@@ -1130,7 +1239,7 @@ function ScheduleOutput(props: {
             {props.schedule.length} regular season weeks · {props.teams} teams
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={props.copyToClipboard}
@@ -1145,10 +1254,79 @@ function ScheduleOutput(props: {
           >
             Export CSV
           </button>
+          <button
+            type="button"
+            onClick={props.printAll}
+            className="btn btn-outline btn-small"
+          >
+            Print Full Schedule
+          </button>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => props.setShowTeamMenu(!props.showTeamMenu)}
+              className="btn btn-outline btn-small"
+              aria-haspopup="menu"
+              aria-expanded={props.showTeamMenu}
+            >
+              Print by Team ▾
+            </button>
+            {props.showTeamMenu && (
+              <div
+                role="menu"
+                className="absolute right-0 top-full mt-1 z-20 bg-bg-card border border-border rounded-lg shadow-xl max-h-72 overflow-y-auto min-w-[160px]"
+              >
+                {teamList.map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    role="menuitem"
+                    onClick={() => props.printByTeam(t)}
+                    className="block w-full text-left px-4 py-2 text-sm text-text hover:bg-bg-card-2"
+                  >
+                    {props.teamLabel(t)}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      <div className="overflow-x-auto">
+      {props.printTeam != null && (
+        <div className="print-only print-team-schedule mb-6">
+          <h2 className="text-xl font-bold mb-3">
+            {props.teamLabel(props.printTeam)} — {seasonYear} Season Schedule
+          </h2>
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-left border-b-2 border-black">
+                <th className="py-2 pr-4">Week</th>
+                <th className="py-2 pr-4">Opponent</th>
+                <th className="py-2 pr-4">Home / Away</th>
+              </tr>
+            </thead>
+            <tbody>
+              {props.teamPrintSchedule.map((m, i) => {
+                const isHome = m.home === props.printTeam;
+                const opp = isHome ? m.away : m.home;
+                return (
+                  <tr key={i}>
+                    <td className="py-1.5 pr-4">Week {m.week}</td>
+                    <td className="py-1.5 pr-4">{props.teamLabel(opp)}</td>
+                    <td className="py-1.5 pr-4">
+                      {isHome ? "Home" : "Away"}
+                      {m.pinned && " (Pinned)"}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      <div className="overflow-x-auto print-full-schedule">
         <table className="w-full text-sm">
           <thead>
             <tr className="text-left text-text-muted text-xs uppercase tracking-wider font-condensed font-bold border-b border-border">
@@ -1205,7 +1383,7 @@ function ScheduleOutput(props: {
       </div>
 
       {props.expandedTeam != null && (
-        <div className="mt-6 bg-bg-card-2 border border-border rounded-xl p-5">
+        <div className="mt-6 bg-bg-card-2 border border-border rounded-xl p-5 no-print">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-condensed font-bold uppercase tracking-wider text-orange">
               {props.teamLabel(props.expandedTeam)} — Full Schedule
@@ -1238,7 +1416,7 @@ function ScheduleOutput(props: {
         </div>
       )}
 
-      <div className="mt-10 pt-8 border-t border-border">
+      <div className="mt-10 pt-8 border-t border-border print-full-schedule">
         <h3 className="font-display text-[clamp(20px,2.5vw,26px)] uppercase tracking-[1px] mb-1">
           Playoff <span className="text-orange">Bracket</span>
         </h3>
