@@ -91,8 +91,8 @@ export const siteConfig = {
   },
 
   company: {
-    legalName: "FrontOffice Technologies LLC",
-    copyright: "© 2026 FrontOffice Technologies LLC. All rights reserved.",
+    legalName: "HQ Sports Technologies LLC",
+    copyright: "© 2026 HQ Sports Technologies LLC. All rights reserved.",
   },
 
   launch: {
