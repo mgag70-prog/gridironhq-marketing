@@ -102,6 +102,12 @@ export function Comparison() {
             </div>
           </div>
         </div>
+        <p className="text-center text-sm text-text-muted italic mt-6 max-w-[720px] mx-auto leading-relaxed">
+          Evaluated against the leading fantasy tools including FantasyPros,
+          PFF, Draft Sharks, Establish the Run, and others. GridironHQ is the
+          only product that personalizes every recommendation to your specific
+          roster.
+        </p>
       </div>
     </section>
   );
