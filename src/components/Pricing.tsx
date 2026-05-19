@@ -115,6 +115,13 @@ export function Pricing() {
           </div>
         </div>
 
+        <p className="text-center text-[13px] text-text-muted mt-4">
+          🏆 $500 in prizes for founding members —{" "}
+          <a href="/prize" className="text-orange no-underline hover:underline">
+            See official rules →
+          </a>
+        </p>
+
         {/* Season passes */}
         <div className="mt-5 grid md:grid-cols-2 gap-4">
           {seasonPasses.map((pass) => (

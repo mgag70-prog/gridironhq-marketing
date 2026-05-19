@@ -108,7 +108,7 @@ function DashboardMockup() {
           {[
             { label: "Dashboard", active: true },
             { label: "My Team" },
-            { label: "AI Advisor" },
+            { label: "SCOUT" },
             { label: "Trades" },
             { label: "Wire" },
             { label: "League Intel" },
@@ -193,7 +193,7 @@ function DashboardMockup() {
 
             <div className="bg-bg-card-2 rounded-md p-2.5 border border-border-soft">
               <div className="font-condensed text-[10px] font-bold uppercase tracking-[0.5px] text-orange mb-1.5">
-                AI Alerts
+                SCOUT Alerts
               </div>
               {[
                 {

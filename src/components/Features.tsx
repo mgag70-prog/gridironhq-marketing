@@ -42,6 +42,14 @@ export function Features() {
                 <span className="font-condensed text-[11px] font-bold uppercase tracking-[0.5px] text-orange">
                   {feature.tag}
                 </span>
+                {feature.id === "ai-advisor" && (
+                  <div className="mt-4 pt-3 border-t border-border-soft">
+                    <span className="inline-flex items-center gap-1.5 font-condensed text-[10px] font-bold uppercase tracking-[1px] text-text-muted">
+                      <span className="w-1 h-1 rounded-full bg-orange" />
+                      Powered by SCOUT™
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           ))}

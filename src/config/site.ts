@@ -106,6 +106,7 @@ export const siteConfig = {
       { label: "How It Works", href: "#how" },
       { label: "Pricing", href: "#pricing" },
       { label: "FAQ", href: "#faq" },
+      { label: "Prizes", href: "/prize" },
     ],
     signInHref: "https://app.gridironhq.ai",
     ctaLabel: "Get Early Access",
@@ -184,9 +185,9 @@ export const siteConfig = {
       {
         id: "ai-advisor",
         icon: "🤖",
-        title: "AI Advisor",
+        title: "SCOUT AI Advisor",
         description:
-          "Ask anything in plain English. Your AI advisor has your full roster loaded — start/sit, trade analysis, waiver targets, playoff strategy. Every answer is specific to your team, not a generic list.",
+          "Ask anything in plain English. SCOUT, GridironHQ's proprietary AI advisory engine, has your full roster loaded — start/sit, trade analysis, waiver targets, playoff strategy. Every answer is specific to your team, not a generic list.",
         tag: "Personalized to your roster →",
       },
       {
@@ -249,7 +250,7 @@ export const siteConfig = {
         step: 2,
         title: "Get Personalized Advice",
         description:
-          "Ask your AI advisor anything or browse your dashboard. Every recommendation is built around your specific situation — not what's good for the average team in the average league.",
+          "Ask SCOUT anything or browse your dashboard. Every recommendation is built around your specific situation — not what's good for the average team in the average league.",
       },
       {
         step: 3,
@@ -264,7 +265,7 @@ export const siteConfig = {
     title: "See It In Action",
     titleAccent: "In Action",
     description:
-      "Try the fully interactive demo — live AI advisor, real EV framework, League Intel behavioral profiles, mock draft simulator. No account required.",
+      "Try the fully interactive demo — live SCOUT, real EV framework, League Intel behavioral profiles, mock draft simulator. No account required.",
     cta: { label: "Try the Live Demo", href: "https://gridironhq.ai/demo" },
   },
 
@@ -278,7 +279,7 @@ export const siteConfig = {
     rows: [
       { feature: "Advice personalized to your roster", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "Championship probability on every decision", gridironhq: "yes", competitors: ["no", "no", "no"] },
-      { feature: "AI advisor you can ask anything", gridironhq: "yes", competitors: ["no", "no", "no"] },
+      { feature: "SCOUT proprietary AI advisor", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "League behavioral analytics", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "League treasury & dues collection", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "League keeps all interest earned", gridironhq: "yes", competitors: ["no", "no", "no"] },
@@ -305,9 +306,9 @@ export const siteConfig = {
         cadence: "/month, billed annually ($47.88/yr)",
         annualTotal: "$47.88/yr",
         description:
-          "Core AI advisor for the serious casual player. Everything you need to make better decisions every week.",
+          "Core SCOUT access for the serious casual player. Everything you need to make better decisions every week.",
         features: [
-          "AI Advisor — personalized start/sit",
+          "SCOUT — personalized start/sit",
           "Waiver wire with roster fit scoring",
           "Basic trade analyzer",
           "Player news with AI impact notes",
@@ -458,7 +459,7 @@ export const siteConfig = {
           "Full refund, no questions asked. You can cancel any time before launch from your Stripe account. We're not asking you to take a risk — if the product doesn't ship, you don't pay for it.",
       },
       {
-        question: "Does the AI advisor actually know my roster?",
+        question: "Does SCOUT actually know my roster?",
         answer:
           "Yes — this is the whole point. When you connect your Sleeper league, GridironHQ imports your actual roster, your scoring format, your record, and your playoff situation. Every AI response is built around your specific team, not generic advice.",
       },
@@ -475,7 +476,7 @@ export const siteConfig = {
       {
         question: "Does GridironHQ work for dynasty leagues?",
         answer:
-          "Yes — Dynasty Elite tier includes dynasty rankings, career outcome models, rookie profiling, and keeper value tools. The AI advisor understands multi-year roster building, not just week-to-week decisions.",
+          "Yes — Dynasty Elite tier includes dynasty rankings, career outcome models, rookie profiling, and keeper value tools. SCOUT understands multi-year roster building, not just week-to-week decisions.",
       },
     ] satisfies FaqItem[],
   },
@@ -503,6 +504,7 @@ export const siteConfig = {
         links: [
           { label: "Features", href: "#features" },
           { label: "Pricing", href: "#pricing" },
+          { label: "Founding Member Prizes", href: "/prize" },
           { label: "Live Demo", href: "https://gridironhq.ai/demo" },
           { label: "Sign In", href: "https://app.gridironhq.ai" },
         ],
