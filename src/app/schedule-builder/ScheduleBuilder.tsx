@@ -113,9 +113,12 @@ function divisionsToTeamLists(
   return lists;
 }
 
-function divisionRoundRobin(div: number[]): Array<Array<[number, number]>> {
+function divisionRoundRobin(
+  div: number[],
+  rand: () => number,
+): Array<Array<[number, number]>> {
   if (div.length < 2) return [];
-  const teams = div.slice();
+  const teams = shuffle(div.slice(), rand);
   if (teams.length % 2 === 1) teams.push(0);
   const n = teams.length;
   let circle = teams.slice();
@@ -173,6 +176,7 @@ function computeDivisionAutoPins(
   teams: number,
   weeks: number,
   userPins: Pin[],
+  rand: () => number,
 ): { pins: Pin[]; rivalryPairs: Set<string> } {
   const out: Pin[] = [];
   const rivalryPairs = new Set<string>();
@@ -196,7 +200,7 @@ function computeDivisionAutoPins(
 
   for (const div of divisions) {
     if (div.length < 2) continue;
-    const rounds = divisionRoundRobin(div);
+    const rounds = shuffle(divisionRoundRobin(div, rand), rand);
     let roundIdx = 0;
     for (const step of sequence) {
       if (roundIdx >= rounds.length) break;
@@ -220,6 +224,7 @@ type GenerateInput = {
   pins: Pin[];
   constraints: Constraints;
   divisionConfig: DivisionConfig;
+  generationKey: number;
 };
 
 type GenerateResult =
@@ -227,7 +232,14 @@ type GenerateResult =
   | { ok: false; error: string };
 
 function generateSchedule(input: GenerateInput): GenerateResult {
-  const { teams, weeks, pins: userPins, constraints, divisionConfig } = input;
+  const {
+    teams,
+    weeks,
+    pins: userPins,
+    constraints,
+    divisionConfig,
+    generationKey,
+  } = input;
 
   if (teams % 2 !== 0) {
     return { ok: false, error: "Team count must be even." };
@@ -243,11 +255,13 @@ function generateSchedule(input: GenerateInput): GenerateResult {
     };
   }
 
+  const setupRand = mulberry32(0xbadbeef + generationKey * 7919);
   const { pins: autoPins, rivalryPairs } = computeDivisionAutoPins(
     divisionConfig,
     teams,
     weeks,
     userPins,
+    setupRand,
   );
   const userPinKeys = new Set<string>();
   for (const p of userPins) {
@@ -323,7 +337,9 @@ function generateSchedule(input: GenerateInput): GenerateResult {
 
   const ATTEMPTS = 250;
   for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
-    const rand = mulberry32(0xc0ffee + attempt * 1009);
+    const rand = mulberry32(
+      0xc0ffee + attempt * 1009 + generationKey * 7919,
+    );
     const result = tryBuild(teams, weeks, gamesPerWeek, pins, constraints, rand);
     if (result) {
       const finalized = assignHomeAway(result, teams, constraints, rand, pins);
@@ -722,6 +738,7 @@ export default function ScheduleBuilder() {
   const [copied, setCopied] = useState<boolean>(false);
   const [printTeam, setPrintTeam] = useState<number | null>(null);
   const [showTeamMenu, setShowTeamMenu] = useState<boolean>(false);
+  const [generationKey, setGenerationKey] = useState<number>(0);
 
   const playoffs = useMemo(
     () => (schedule ? buildPlayoffs(teams, playoffTeams, weeks) : []),
@@ -766,6 +783,8 @@ export default function ScheduleBuilder() {
   }
 
   function handleGenerate() {
+    const nextKey = generationKey + 1;
+    setGenerationKey(nextKey);
     setError(null);
     setSchedule(null);
     setExpandedTeam(null);
@@ -781,6 +800,7 @@ export default function ScheduleBuilder() {
           balanceHomeAway,
         },
         divisionConfig,
+        generationKey: nextKey,
       });
       if (result.ok) {
         setSchedule(result.schedule);
