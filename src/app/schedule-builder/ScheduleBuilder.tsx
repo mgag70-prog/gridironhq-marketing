@@ -8,6 +8,8 @@ type Matchup = {
   home: number;
   away: number;
   pinned: boolean;
+  division: boolean;
+  rivalry: boolean;
 };
 
 type Pin = {
@@ -31,9 +33,22 @@ type PlayoffGame = {
   label: string;
 };
 
+type DivCount = 2 | 4;
+
+type DivisionConfig = {
+  enabled: boolean;
+  count: DivCount;
+  assignments: Record<number, number>;
+  startWeeks: number;
+  endWeeks: number;
+  rivalryWeek: number | null;
+};
+
 const TEAM_OPTIONS = [8, 10, 12, 14] as const;
 const WEEK_OPTIONS = [10, 11, 12, 13, 14] as const;
 const PLAYOFF_OPTIONS = [2, 4, 6] as const;
+const DIVISION_COUNT_OPTIONS = [2, 4] as const;
+const DIVISION_NAMES = ["A", "B", "C", "D"];
 
 function pairKey(a: number, b: number): string {
   return a < b ? `${a}-${b}` : `${b}-${a}`;
@@ -59,11 +74,152 @@ function mulberry32(seed: number): () => number {
   };
 }
 
+function autoAssignTeams(
+  teams: number,
+  divCount: number,
+): Record<number, number> {
+  const result: Record<number, number> = {};
+  for (let t = 1; t <= teams; t++) {
+    result[t] = (t - 1) % divCount;
+  }
+  return result;
+}
+
+function computeEffectiveAssignments(
+  enabled: boolean,
+  assignments: Record<number, number>,
+  teams: number,
+  divCount: number,
+): Record<number, number> {
+  if (!enabled) return assignments;
+  for (let t = 1; t <= teams; t++) {
+    const d = assignments[t];
+    if (d === undefined || d < 0 || d >= divCount) {
+      return autoAssignTeams(teams, divCount);
+    }
+  }
+  return assignments;
+}
+
+function divisionsToTeamLists(
+  config: DivisionConfig,
+  teams: number,
+): number[][] {
+  const lists: number[][] = Array.from({ length: config.count }, () => []);
+  for (let t = 1; t <= teams; t++) {
+    const d = config.assignments[t];
+    if (d !== undefined && d >= 0 && d < config.count) lists[d].push(t);
+  }
+  return lists;
+}
+
+function divisionRoundRobin(div: number[]): Array<Array<[number, number]>> {
+  if (div.length < 2) return [];
+  const teams = div.slice();
+  if (teams.length % 2 === 1) teams.push(0);
+  const n = teams.length;
+  let circle = teams.slice();
+  const rounds: Array<Array<[number, number]>> = [];
+  for (let r = 0; r < n - 1; r++) {
+    const round: Array<[number, number]> = [];
+    for (let i = 0; i < n / 2; i++) {
+      const a = circle[i];
+      const b = circle[n - 1 - i];
+      if (a !== 0 && b !== 0) round.push([a, b]);
+    }
+    rounds.push(round);
+    const fixed = circle[0];
+    const rest = circle.slice(1);
+    rest.unshift(rest.pop()!);
+    circle = [fixed, ...rest];
+  }
+  return rounds;
+}
+
+function buildDivisionWeekSequence(
+  config: DivisionConfig,
+  weeks: number,
+): { week: number; kind: "start" | "end" | "rivalry" }[] {
+  const sequence: { week: number; kind: "start" | "end" | "rivalry" }[] = [];
+  const used = new Set<number>();
+  for (let i = 0; i < config.startWeeks; i++) {
+    const w = i + 1;
+    if (w >= 1 && w <= weeks && !used.has(w)) {
+      sequence.push({ week: w, kind: "start" });
+      used.add(w);
+    }
+  }
+  if (
+    config.rivalryWeek != null &&
+    config.rivalryWeek >= 1 &&
+    config.rivalryWeek <= weeks &&
+    !used.has(config.rivalryWeek)
+  ) {
+    sequence.push({ week: config.rivalryWeek, kind: "rivalry" });
+    used.add(config.rivalryWeek);
+  }
+  for (let i = 0; i < config.endWeeks; i++) {
+    const w = weeks - config.endWeeks + 1 + i;
+    if (w >= 1 && w <= weeks && !used.has(w)) {
+      sequence.push({ week: w, kind: "end" });
+      used.add(w);
+    }
+  }
+  return sequence;
+}
+
+function computeDivisionAutoPins(
+  config: DivisionConfig,
+  teams: number,
+  weeks: number,
+  userPins: Pin[],
+): { pins: Pin[]; rivalryPairs: Set<string> } {
+  const out: Pin[] = [];
+  const rivalryPairs = new Set<string>();
+  if (!config.enabled) return { pins: out, rivalryPairs };
+
+  const userBusy = new Map<number, Set<number>>();
+  for (const p of userPins) {
+    const s = userBusy.get(p.week) ?? new Set<number>();
+    s.add(p.teamA);
+    s.add(p.teamB);
+    userBusy.set(p.week, s);
+  }
+
+  const divisions = divisionsToTeamLists(config, teams);
+  const sequence = buildDivisionWeekSequence(config, weeks);
+  let autoId = 0;
+  function nextId() {
+    autoId++;
+    return `auto-div-${autoId}`;
+  }
+
+  for (const div of divisions) {
+    if (div.length < 2) continue;
+    const rounds = divisionRoundRobin(div);
+    let roundIdx = 0;
+    for (const step of sequence) {
+      if (roundIdx >= rounds.length) break;
+      const round = rounds[roundIdx];
+      const busy = userBusy.get(step.week) ?? new Set<number>();
+      for (const [a, b] of round) {
+        if (busy.has(a) || busy.has(b)) continue;
+        out.push({ id: nextId(), week: step.week, teamA: a, teamB: b });
+        if (step.kind === "rivalry") rivalryPairs.add(pairKey(a, b));
+      }
+      roundIdx++;
+    }
+  }
+
+  return { pins: out, rivalryPairs };
+}
+
 type GenerateInput = {
   teams: number;
   weeks: number;
   pins: Pin[];
   constraints: Constraints;
+  divisionConfig: DivisionConfig;
 };
 
 type GenerateResult =
@@ -71,7 +227,7 @@ type GenerateResult =
   | { ok: false; error: string };
 
 function generateSchedule(input: GenerateInput): GenerateResult {
-  const { teams, weeks, pins, constraints } = input;
+  const { teams, weeks, pins: userPins, constraints, divisionConfig } = input;
 
   if (teams % 2 !== 0) {
     return { ok: false, error: "Team count must be even." };
@@ -86,6 +242,18 @@ function generateSchedule(input: GenerateInput): GenerateResult {
       }. Either raise max meetings to 2x or reduce weeks.`,
     };
   }
+
+  const { pins: autoPins, rivalryPairs } = computeDivisionAutoPins(
+    divisionConfig,
+    teams,
+    weeks,
+    userPins,
+  );
+  const userPinKeys = new Set<string>();
+  for (const p of userPins) {
+    userPinKeys.add(`${p.week}-${pairKey(p.teamA, p.teamB)}`);
+  }
+  const pins = [...userPins, ...autoPins];
 
   for (const pin of pins) {
     if (pin.teamA === pin.teamB) {
@@ -108,7 +276,7 @@ function generateSchedule(input: GenerateInput): GenerateResult {
     if (set.has(pin.teamA) || set.has(pin.teamB)) {
       return {
         ok: false,
-        error: `Conflict in week ${pin.week}: a team is pinned to more than one matchup.`,
+        error: `Conflict in week ${pin.week}: a team is pinned to more than one matchup. Check user pins against division scheduling rules.`,
       };
     }
     set.add(pin.teamA);
@@ -159,7 +327,13 @@ function generateSchedule(input: GenerateInput): GenerateResult {
     const result = tryBuild(teams, weeks, gamesPerWeek, pins, constraints, rand);
     if (result) {
       const finalized = assignHomeAway(result, teams, constraints, rand, pins);
-      return { ok: true, schedule: finalized };
+      const marked = markDivisionFlags(
+        finalized,
+        userPinKeys,
+        rivalryPairs,
+        divisionConfig,
+      );
+      return { ok: true, schedule: marked };
     }
   }
 
@@ -168,6 +342,36 @@ function generateSchedule(input: GenerateInput): GenerateResult {
     error:
       "Could not generate a valid schedule with these constraints. Try relaxing rules — raise max meetings to 2x, remove some pinned matchups, or disable back-to-back prevention.",
   };
+}
+
+function markDivisionFlags(
+  schedule: Matchup[][],
+  userPinKeys: Set<string>,
+  rivalryPairs: Set<string>,
+  divisionConfig: DivisionConfig,
+): Matchup[][] {
+  const divEnabled = divisionConfig.enabled;
+  return schedule.map((week) =>
+    week.map((m) => {
+      const key = `${m.week}-${pairKey(m.home, m.away)}`;
+      const sameDiv =
+        divEnabled &&
+        divisionConfig.assignments[m.home] !== undefined &&
+        divisionConfig.assignments[m.home] ===
+          divisionConfig.assignments[m.away];
+      const isRivalry =
+        sameDiv &&
+        divisionConfig.rivalryWeek != null &&
+        m.week === divisionConfig.rivalryWeek &&
+        rivalryPairs.has(pairKey(m.home, m.away));
+      return {
+        ...m,
+        pinned: userPinKeys.has(key),
+        division: sameDiv,
+        rivalry: isRivalry,
+      };
+    }),
+  );
 }
 
 function tryBuild(
@@ -259,6 +463,8 @@ function tryBuild(
         home: p.a,
         away: p.b,
         pinned: p.pinned,
+        division: false,
+        rivalry: false,
       });
     }
   }
@@ -418,10 +624,22 @@ function toCsv(
   schedule: Matchup[][],
   playoffs: PlayoffGame[],
   leagueName: string,
+  divisionConfig: DivisionConfig,
+  teams: number,
 ): string {
   const rows: string[][] = [];
   if (leagueName) rows.push([`League: ${leagueName}`]);
-  rows.push(["Week", "Home", "Away", "Pinned"]);
+  if (divisionConfig.enabled) {
+    const divisions = divisionsToTeamLists(divisionConfig, teams);
+    divisions.forEach((teamList, i) => {
+      rows.push([
+        `Division ${DIVISION_NAMES[i]}`,
+        ...teamList.map((t) => `Team ${t}`),
+      ]);
+    });
+    rows.push([]);
+  }
+  rows.push(["Week", "Home", "Away", "Pinned", "Division", "Rivalry"]);
   for (const week of schedule) {
     for (const m of week) {
       rows.push([
@@ -429,6 +647,8 @@ function toCsv(
         `Team ${m.home}`,
         `Team ${m.away}`,
         m.pinned ? "Yes" : "",
+        m.division ? "Yes" : "",
+        m.rivalry ? "Yes" : "",
       ]);
     }
   }
@@ -465,6 +685,34 @@ export default function ScheduleBuilder() {
   const [maxMeetings, setMaxMeetings] = useState<1 | 2>(1);
   const [noBackToBack, setNoBackToBack] = useState<boolean>(true);
   const [balanceHomeAway, setBalanceHomeAway] = useState<boolean>(true);
+
+  const [divisionsEnabled, setDivisionsEnabled] = useState<boolean>(false);
+  const [divisionCount, setDivisionCount] = useState<DivCount>(2);
+  const [divisionAssignments, setDivisionAssignments] = useState<
+    Record<number, number>
+  >({});
+  const [divisionStartWeeks, setDivisionStartWeeks] = useState<number>(1);
+  const [divisionEndWeeks, setDivisionEndWeeks] = useState<number>(1);
+  const [rivalryWeek, setRivalryWeek] = useState<number | null>(null);
+
+  const effectiveDivisionAssignments = computeEffectiveAssignments(
+    divisionsEnabled,
+    divisionAssignments,
+    teams,
+    divisionCount,
+  );
+  const effectiveRivalryWeek =
+    rivalryWeek == null || rivalryWeek < 1 || rivalryWeek > weeks
+      ? null
+      : rivalryWeek;
+  const divisionConfig: DivisionConfig = {
+    enabled: divisionsEnabled,
+    count: divisionCount,
+    assignments: effectiveDivisionAssignments,
+    startWeeks: Math.max(0, Math.min(weeks, divisionStartWeeks)),
+    endWeeks: Math.max(0, Math.min(weeks, divisionEndWeeks)),
+    rivalryWeek: effectiveRivalryWeek,
+  };
 
   const [step, setStep] = useState<Step>(1);
   const [schedule, setSchedule] = useState<Matchup[][] | null>(null);
@@ -532,6 +780,7 @@ export default function ScheduleBuilder() {
           noBackToBack,
           balanceHomeAway,
         },
+        divisionConfig,
       });
       if (result.ok) {
         setSchedule(result.schedule);
@@ -548,7 +797,7 @@ export default function ScheduleBuilder() {
 
   function exportCsv() {
     if (!schedule) return;
-    const csv = toCsv(schedule, playoffs, leagueName);
+    const csv = toCsv(schedule, playoffs, leagueName, divisionConfig, teams);
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -562,7 +811,7 @@ export default function ScheduleBuilder() {
 
   async function copyToClipboard() {
     if (!schedule) return;
-    const text = toCsv(schedule, playoffs, leagueName);
+    const text = toCsv(schedule, playoffs, leagueName, divisionConfig, teams);
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
@@ -708,6 +957,18 @@ export default function ScheduleBuilder() {
               setPlayoffTeams={setPlayoffTeams}
               leagueName={leagueName}
               setLeagueName={setLeagueName}
+              divisionsEnabled={divisionsEnabled}
+              setDivisionsEnabled={setDivisionsEnabled}
+              divisionCount={divisionCount}
+              setDivisionCount={setDivisionCount}
+              divisionAssignments={effectiveDivisionAssignments}
+              setDivisionAssignments={setDivisionAssignments}
+              divisionStartWeeks={divisionStartWeeks}
+              setDivisionStartWeeks={setDivisionStartWeeks}
+              divisionEndWeeks={divisionEndWeeks}
+              setDivisionEndWeeks={setDivisionEndWeeks}
+              rivalryWeek={effectiveRivalryWeek}
+              setRivalryWeek={setRivalryWeek}
             />
           )}
           {step === 2 && (
@@ -795,6 +1056,7 @@ export default function ScheduleBuilder() {
             teamPrintSchedule={teamPrintSchedule}
             showTeamMenu={showTeamMenu}
             setShowTeamMenu={setShowTeamMenu}
+            divisionConfig={divisionConfig}
           />
         )}
 
@@ -886,7 +1148,44 @@ function StepOne(props: {
   setPlayoffTeams: (n: number) => void;
   leagueName: string;
   setLeagueName: (s: string) => void;
+  divisionsEnabled: boolean;
+  setDivisionsEnabled: (b: boolean) => void;
+  divisionCount: DivCount;
+  setDivisionCount: (n: DivCount) => void;
+  divisionAssignments: Record<number, number>;
+  setDivisionAssignments: (a: Record<number, number>) => void;
+  divisionStartWeeks: number;
+  setDivisionStartWeeks: (n: number) => void;
+  divisionEndWeeks: number;
+  setDivisionEndWeeks: (n: number) => void;
+  rivalryWeek: number | null;
+  setRivalryWeek: (n: number | null) => void;
 }) {
+  const teamList = Array.from({ length: props.teams }, (_, i) => i + 1);
+  const weekList = Array.from({ length: props.weeks }, (_, i) => i + 1);
+  const divIdxList = Array.from({ length: props.divisionCount }, (_, i) => i);
+
+  function assignTeam(team: number, div: number) {
+    props.setDivisionAssignments({
+      ...props.divisionAssignments,
+      [team]: div,
+    });
+  }
+
+  function autoAssign() {
+    props.setDivisionAssignments(
+      autoAssignTeams(props.teams, props.divisionCount),
+    );
+  }
+
+  const divCounts = divIdxList.map(
+    (d) =>
+      teamList.filter((t) => props.divisionAssignments[t] === d).length,
+  );
+  const unbalanced =
+    divCounts.length > 0 &&
+    Math.max(...divCounts) - Math.min(...divCounts) > 1;
+
   return (
     <div>
       <h2 className="font-condensed font-bold uppercase tracking-wider text-orange text-sm mb-4">
@@ -946,6 +1245,160 @@ function StepOne(props: {
             maxLength={60}
           />
         </div>
+      </div>
+
+      <div className="mt-8 pt-6 border-t border-border">
+        <Toggle
+          label="Enable Divisions"
+          description="Group teams into divisions with division-week scheduling and rivalry weeks"
+          value={props.divisionsEnabled}
+          onChange={props.setDivisionsEnabled}
+        />
+
+        {props.divisionsEnabled && (
+          <div className="mt-6 space-y-6">
+            <div>
+              <FieldLabel>Number of Divisions</FieldLabel>
+              <div className="flex gap-3">
+                {DIVISION_COUNT_OPTIONS.map((n) => (
+                  <label
+                    key={n}
+                    className={`flex-1 cursor-pointer border rounded-lg px-4 py-3 text-sm transition-colors ${
+                      props.divisionCount === n
+                        ? "border-[#22d3ee] bg-[#22d3ee]/10 text-text"
+                        : "border-border text-text-muted hover:border-[#22d3ee]/40"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="divisionCount"
+                      className="sr-only"
+                      checked={props.divisionCount === n}
+                      onChange={() => props.setDivisionCount(n as DivCount)}
+                    />
+                    <span className="font-condensed font-bold uppercase tracking-wider">
+                      {n} Divisions
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <FieldLabel>Team Division Assignments</FieldLabel>
+                <button
+                  type="button"
+                  onClick={autoAssign}
+                  className="text-[#22d3ee] hover:underline text-xs font-condensed font-bold uppercase tracking-wider"
+                >
+                  Auto-Assign Evenly
+                </button>
+              </div>
+              {unbalanced && (
+                <p className="text-xs text-text-faint mb-2">
+                  Divisions are uneven —{" "}
+                  {divCounts
+                    .map(
+                      (c, i) =>
+                        `Div ${DIVISION_NAMES[i]}: ${c}`,
+                    )
+                    .join(", ")}
+                </p>
+              )}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                {teamList.map((t) => (
+                  <div
+                    key={t}
+                    className="flex items-center gap-2 bg-bg-card-2 border border-border rounded-lg px-3 py-2"
+                  >
+                    <span className="text-text text-sm flex-shrink-0">
+                      Team {t}
+                    </span>
+                    <select
+                      value={props.divisionAssignments[t] ?? 0}
+                      onChange={(e) =>
+                        assignTeam(t, Number(e.target.value))
+                      }
+                      className="ml-auto bg-bg border border-border rounded px-2 py-1 text-xs text-text focus:outline-none focus:border-[#22d3ee]"
+                    >
+                      {divIdxList.map((d) => (
+                        <option key={d} value={d}>
+                          Div {DIVISION_NAMES[d]}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-border">
+              <p className="font-condensed font-bold uppercase tracking-wider text-text-muted text-xs mb-4">
+                Division Scheduling Rules
+              </p>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div>
+                  <FieldLabel>Division Weeks at Start</FieldLabel>
+                  <input
+                    type="number"
+                    min={0}
+                    max={props.weeks}
+                    value={props.divisionStartWeeks}
+                    onChange={(e) =>
+                      props.setDivisionStartWeeks(
+                        Math.max(
+                          0,
+                          Math.min(props.weeks, Number(e.target.value) || 0),
+                        ),
+                      )
+                    }
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <FieldLabel>Division Weeks at End</FieldLabel>
+                  <input
+                    type="number"
+                    min={0}
+                    max={props.weeks}
+                    value={props.divisionEndWeeks}
+                    onChange={(e) =>
+                      props.setDivisionEndWeeks(
+                        Math.max(
+                          0,
+                          Math.min(props.weeks, Number(e.target.value) || 0),
+                        ),
+                      )
+                    }
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <FieldLabel>Rivalry Week (Optional)</FieldLabel>
+                  <select
+                    value={props.rivalryWeek ?? ""}
+                    onChange={(e) =>
+                      props.setRivalryWeek(
+                        e.target.value === ""
+                          ? null
+                          : Number(e.target.value),
+                      )
+                    }
+                    className={selectClass}
+                  >
+                    <option value="">None</option>
+                    {weekList.map((w) => (
+                      <option key={w} value={w}>
+                        Week {w}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -1207,6 +1660,7 @@ function ScheduleOutput(props: {
   teamPrintSchedule: Matchup[];
   showTeamMenu: boolean;
   setShowTeamMenu: (b: boolean) => void;
+  divisionConfig: DivisionConfig;
 }) {
   const today = new Date().toLocaleDateString(undefined, {
     year: "numeric",
@@ -1215,6 +1669,20 @@ function ScheduleOutput(props: {
   });
   const seasonYear = new Date().getFullYear();
   const teamList = Array.from({ length: props.teams }, (_, i) => i + 1);
+  const divisionLists = props.divisionConfig.enabled
+    ? divisionsToTeamLists(props.divisionConfig, props.teams)
+    : [];
+
+  function divBadge(team: number) {
+    if (!props.divisionConfig.enabled) return null;
+    const d = props.divisionConfig.assignments[team];
+    if (d === undefined) return null;
+    return (
+      <span className="ml-1 inline-block text-[10px] font-condensed font-bold uppercase tracking-wider px-1 py-0.5 rounded bg-[#22d3ee]/15 text-[#22d3ee] no-print">
+        {DIVISION_NAMES[d]}
+      </span>
+    );
+  }
 
   return (
     <section className="bg-bg-card border border-border rounded-2xl p-6 md:p-8 print-area">
@@ -1228,6 +1696,16 @@ function ScheduleOutput(props: {
           </div>
           <p className="text-xs">Generated {today}</p>
         </div>
+        {props.divisionConfig.enabled && divisionLists.length > 0 && (
+          <div className="mt-3 text-xs grid grid-cols-2 md:grid-cols-4 gap-2">
+            {divisionLists.map((list, i) => (
+              <div key={i}>
+                <span className="font-bold">Division {DIVISION_NAMES[i]}:</span>{" "}
+                {list.map((t) => `Team ${t}`).join(", ")}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6 no-print">
@@ -1296,7 +1774,21 @@ function ScheduleOutput(props: {
       {props.printTeam != null && (
         <div className="print-only print-team-schedule mb-6">
           <h2 className="text-xl font-bold mb-3">
-            {props.teamLabel(props.printTeam)} — {seasonYear} Season Schedule
+            {props.teamLabel(props.printTeam)}
+            {props.divisionConfig.enabled &&
+              props.divisionConfig.assignments[props.printTeam] !==
+                undefined && (
+                <span className="ml-2 text-sm">
+                  (Division{" "}
+                  {
+                    DIVISION_NAMES[
+                      props.divisionConfig.assignments[props.printTeam]
+                    ]
+                  }
+                  )
+                </span>
+              )}{" "}
+            — {seasonYear} Season Schedule
           </h2>
           <table className="w-full text-sm">
             <thead>
@@ -1304,20 +1796,25 @@ function ScheduleOutput(props: {
                 <th className="py-2 pr-4">Week</th>
                 <th className="py-2 pr-4">Opponent</th>
                 <th className="py-2 pr-4">Home / Away</th>
+                <th className="py-2 pr-4">Notes</th>
               </tr>
             </thead>
             <tbody>
               {props.teamPrintSchedule.map((m, i) => {
                 const isHome = m.home === props.printTeam;
                 const opp = isHome ? m.away : m.home;
+                const notes: string[] = [];
+                if (m.pinned) notes.push("Pinned");
+                if (m.rivalry) notes.push("Rivalry");
+                else if (m.division) notes.push("Division");
                 return (
                   <tr key={i}>
                     <td className="py-1.5 pr-4">Week {m.week}</td>
                     <td className="py-1.5 pr-4">{props.teamLabel(opp)}</td>
                     <td className="py-1.5 pr-4">
                       {isHome ? "Home" : "Away"}
-                      {m.pinned && " (Pinned)"}
                     </td>
+                    <td className="py-1.5 pr-4">{notes.join(", ")}</td>
                   </tr>
                 );
               })}
@@ -1345,35 +1842,56 @@ function ScheduleOutput(props: {
                 </td>
                 <td className="py-3 pr-4">
                   <ul className="space-y-1.5">
-                    {week.map((m, j) => (
-                      <li
-                        key={j}
-                        className={`flex items-center gap-2 ${
-                          m.pinned
-                            ? "text-orange font-medium"
-                            : "text-text"
-                        }`}
-                      >
-                        <TeamButton
-                          team={m.home}
-                          onClick={() => props.setExpandedTeam(m.home)}
-                          label={props.teamLabel(m.home)}
-                          accent={m.pinned}
-                        />
-                        <span className="text-text-muted text-xs">@</span>
-                        <TeamButton
-                          team={m.away}
-                          onClick={() => props.setExpandedTeam(m.away)}
-                          label={props.teamLabel(m.away)}
-                          accent={m.pinned}
-                        />
-                        {m.pinned && (
-                          <span className="text-xs px-1.5 py-0.5 rounded bg-orange/20 text-orange font-condensed font-bold uppercase tracking-wider">
-                            Pinned
+                    {week.map((m, j) => {
+                      const tone = m.pinned
+                        ? "text-orange font-medium"
+                        : m.division
+                          ? "text-[#22d3ee] font-medium"
+                          : "text-text";
+                      return (
+                        <li
+                          key={j}
+                          className={`flex items-center gap-2 flex-wrap ${tone}`}
+                        >
+                          <span className="flex items-center">
+                            <TeamButton
+                              team={m.home}
+                              onClick={() => props.setExpandedTeam(m.home)}
+                              label={props.teamLabel(m.home)}
+                              accent={m.pinned}
+                              divisionAccent={m.division && !m.pinned}
+                            />
+                            {divBadge(m.home)}
                           </span>
-                        )}
-                      </li>
-                    ))}
+                          <span className="text-text-muted text-xs">@</span>
+                          <span className="flex items-center">
+                            <TeamButton
+                              team={m.away}
+                              onClick={() => props.setExpandedTeam(m.away)}
+                              label={props.teamLabel(m.away)}
+                              accent={m.pinned}
+                              divisionAccent={m.division && !m.pinned}
+                            />
+                            {divBadge(m.away)}
+                          </span>
+                          {m.pinned && (
+                            <span className="text-xs px-1.5 py-0.5 rounded bg-orange/20 text-orange font-condensed font-bold uppercase tracking-wider">
+                              Pinned
+                            </span>
+                          )}
+                          {m.rivalry && !m.pinned && (
+                            <span className="text-xs px-1.5 py-0.5 rounded bg-[#22d3ee]/25 text-[#22d3ee] font-condensed font-bold uppercase tracking-wider">
+                              Rivalry
+                            </span>
+                          )}
+                          {m.division && !m.pinned && !m.rivalry && (
+                            <span className="text-xs px-1.5 py-0.5 rounded bg-[#22d3ee]/15 text-[#22d3ee] font-condensed font-bold uppercase tracking-wider">
+                              Division
+                            </span>
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </td>
               </tr>
@@ -1407,6 +1925,12 @@ function ScheduleOutput(props: {
                     {isHome ? "vs" : "@"} {props.teamLabel(opp)}
                     {m.pinned && (
                       <span className="ml-2 text-orange text-xs">★</span>
+                    )}
+                    {m.rivalry && !m.pinned && (
+                      <span className="ml-2 text-[#22d3ee] text-xs">★</span>
+                    )}
+                    {m.division && !m.pinned && !m.rivalry && (
+                      <span className="ml-2 text-[#22d3ee] text-xs">•</span>
                     )}
                   </span>
                 </li>
@@ -1454,17 +1978,24 @@ function TeamButton({
   onClick,
   label,
   accent,
+  divisionAccent,
 }: {
   team: number;
   onClick: () => void;
   label: string;
   accent: boolean;
+  divisionAccent?: boolean;
 }) {
+  const color = accent
+    ? "text-orange"
+    : divisionAccent
+      ? "text-[#22d3ee]"
+      : "text-text";
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`hover:underline ${accent ? "text-orange" : "text-text"}`}
+      className={`hover:underline ${color}`}
     >
       {label}
     </button>
