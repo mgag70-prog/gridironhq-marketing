@@ -45,7 +45,7 @@ type DivisionConfig = {
 };
 
 const TEAM_OPTIONS = [8, 10, 12, 14] as const;
-const WEEK_OPTIONS = [10, 11, 12, 13, 14] as const;
+const WEEK_OPTIONS = [10, 11, 12, 13, 14, 15] as const;
 const PLAYOFF_OPTIONS = [2, 4, 6] as const;
 const DIVISION_COUNT_OPTIONS = [2, 4] as const;
 const DIVISION_NAMES = ["A", "B", "C", "D"];
