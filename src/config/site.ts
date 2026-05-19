@@ -106,6 +106,7 @@ export const siteConfig = {
       { label: "How It Works", href: "#how" },
       { label: "Pricing", href: "#pricing" },
       { label: "FAQ", href: "#faq" },
+      { label: "Schedule Builder", href: "/schedule-builder" },
       { label: "Prizes", href: "/prize" },
     ],
     signInHref: "https://app.gridironhq.ai",
@@ -504,6 +505,7 @@ export const siteConfig = {
         links: [
           { label: "Features", href: "#features" },
           { label: "Pricing", href: "#pricing" },
+          { label: "Free Schedule Builder", href: "/schedule-builder" },
           { label: "Founding Member Prizes", href: "/prize" },
           { label: "Live Demo", href: "https://gridironhq.ai/demo" },
           { label: "Sign In", href: "https://app.gridironhq.ai" },
