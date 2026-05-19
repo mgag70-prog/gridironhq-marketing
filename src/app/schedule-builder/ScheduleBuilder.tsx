@@ -33,7 +33,7 @@ type PlayoffGame = {
   label: string;
 };
 
-type DivCount = 2 | 4;
+type DivCount = 2 | 3 | 4;
 
 type DivisionConfig = {
   enabled: boolean;
@@ -47,7 +47,7 @@ type DivisionConfig = {
 const TEAM_OPTIONS = [8, 10, 12, 14] as const;
 const WEEK_OPTIONS = [10, 11, 12, 13, 14, 15] as const;
 const PLAYOFF_OPTIONS = [2, 4, 6] as const;
-const DIVISION_COUNT_OPTIONS = [2, 4] as const;
+const DIVISION_COUNT_OPTIONS = [2, 3, 4] as const;
 const DIVISION_NAMES = ["A", "B", "C", "D"];
 
 function pairKey(a: number, b: number): string {
