@@ -394,9 +394,9 @@ export const siteConfig = {
   },
 
   founding: {
-    heading: "Founding Member Offer — First 200 Commissioners",
+    heading: "Founding Member Offer — First 200 Founding Members",
     description:
-      "Founding member pricing closes July 15, 2026 — Pro Advisor at $4.99/mo and Dynasty Elite at $9.99/mo locked forever at signup. Regular pricing resumes after July 15.",
+      "Three founding rates for three roles — commissioners at $4.99/mo, league members at $5.99/mo, and dynasty players at $9.99/mo. Founding member pricing closes July 15, 2026 — every rate is locked forever at signup. Regular pricing resumes after July 15.",
     spots: 200,
     tiers: [
       {
