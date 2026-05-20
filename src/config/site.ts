@@ -121,7 +121,7 @@ export const siteConfig = {
       accentLine: "Actually Knows",
     },
     subhead:
-      "Stop getting the same generic rankings as everyone else. GridironHQ is the AI-powered advisor built around your specific roster, your league, and your championship odds — every single week.",
+      "Stop getting the same generic rankings as everyone else. GridironHQ is the AI-powered advisor built around your specific roster, your league, and your championship odds — plus The Vault for complete league history and the Portfolio Dashboard to manage every league from one command center.",
     primaryCta: { label: "Lock In Founding Rate", href: "#pricing" },
     secondaryCta: { label: "Try the Demo", href: "https://gridironhq.ai/demo" },
     socialProof:
@@ -131,9 +131,9 @@ export const siteConfig = {
 
   proofStats: [
     { value: "200", label: "Founding Member Spots" },
-    { value: "8", label: "Feature Modules" },
+    { value: "9", label: "Feature Modules" },
     { value: "HYSA", label: "Competitive Rate on Prize Pool" },
-    { value: "$0", label: "Generic Rankings" },
+    { value: "A–F", label: "Personalized SCOUT Team Grade" },
   ] satisfies ProofStat[],
 
   problem: {
@@ -188,8 +188,16 @@ export const siteConfig = {
         icon: "🤖",
         title: "SCOUT AI Advisor",
         description:
-          "Ask anything in plain English. SCOUT, GridironHQ's proprietary AI advisory engine, has your full roster loaded — start/sit, trade analysis, waiver targets, playoff strategy. Every answer is specific to your team, not a generic list.",
+          "Ask anything in plain English. SCOUT, GridironHQ's proprietary AI advisory engine, has your full roster loaded — start/sit, trade analysis, waiver targets, playoff strategy, plus the SCOUT Offseason Report with personalized team grade, draft strategy, and player spotlights. Every answer is specific to your team, not a generic list.",
         tag: "Personalized to your roster →",
+      },
+      {
+        id: "offseason-report",
+        icon: "📋",
+        title: "SCOUT Offseason Report",
+        description:
+          "Get your personalized team grade, roster strengths and concerns, player spotlights, and draft strategy right now — before the season even starts. SCOUT analyzes your specific roster and delivers a printable PDF report.",
+        tag: "Available right now →",
       },
       {
         id: "decision-ev",
@@ -224,6 +232,22 @@ export const siteConfig = {
         tag: "Real-time championship modeling →",
       },
       {
+        id: "vault",
+        icon: "🏛️",
+        title: "The Vault",
+        description:
+          "Complete league history, all-time standings, H2H records, Luck Index, Clutch Factor, Dynasty Power Rankings, and SCOUT analysis of your league's all-time trends. Built for dynasty and keeper leagues.",
+        tag: "All-time stats unlocked →",
+      },
+      {
+        id: "portfolio-dashboard",
+        icon: "📈",
+        title: "Portfolio Dashboard",
+        description:
+          "All your leagues in one command center. Combined record, championship probability across all leagues, SCOUT cross-league alerts, and player exposure tracking across every team you manage.",
+        tag: "Every league, one view →",
+      },
+      {
         id: "league-treasury",
         icon: "💳",
         title: "League Treasury",
@@ -251,7 +275,7 @@ export const siteConfig = {
         step: 2,
         title: "Get Personalized Advice",
         description:
-          "Ask SCOUT anything or browse your dashboard. Every recommendation is built around your specific situation — not what's good for the average team in the average league.",
+          "Ask SCOUT anything or check your personalized Offseason Report — team grade, concerns, player spotlights, and draft strategy ready before the season starts.",
       },
       {
         step: 3,
@@ -478,6 +502,21 @@ export const siteConfig = {
         question: "Does GridironHQ work for dynasty leagues?",
         answer:
           "Yes — Dynasty Elite tier includes dynasty rankings, career outcome models, rookie profiling, and keeper value tools. SCOUT understands multi-year roster building, not just week-to-week decisions.",
+      },
+      {
+        question: "What is The Vault?",
+        answer:
+          "The Vault is GridironHQ's league history module. It connects to your Sleeper league, walks your complete season history, and builds all-time standings, H2H records, championship history, and four analytics metrics: Luck Index, Clutch Factor, Consistency Score, and Dynasty Power Rankings. SCOUT analyzes your league's history and surfaces patterns, rivalries, and trends.",
+      },
+      {
+        question: "What is the SCOUT Offseason Report?",
+        answer:
+          "SCOUT analyzes your current roster, recent player news, and depth chart positions to generate a personalized team grade (A–F), key strengths and concerns, player spotlights with buy/sell/hold ratings, and a customized draft strategy. Available right now during the offseason — no need to wait for September.",
+      },
+      {
+        question: "Can I connect multiple leagues?",
+        answer:
+          "Yes. GridironHQ supports multiple Sleeper leagues per account. Connect all your leagues and view them together on the Portfolio Dashboard. ESPN, Yahoo, and CBS integrations are coming in July 2026.",
       },
     ] satisfies FaqItem[],
   },
