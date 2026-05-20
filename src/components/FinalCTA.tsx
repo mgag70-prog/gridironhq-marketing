@@ -57,7 +57,11 @@ export function FinalCTA() {
                   className={`btn ${tier.ctaVariant === "primary" ? "btn-primary" : "btn-outline"} btn-large w-full`}
                 >
                   Subscribe as{" "}
-                  {tier.id === "commissioner" ? "Commissioner" : "League Member"}
+                  {tier.id === "commissioner"
+                    ? "Commissioner"
+                    : tier.id === "league-member"
+                      ? "League Member"
+                      : "Dynasty Elite"}
                 </a>
               </div>
             </div>

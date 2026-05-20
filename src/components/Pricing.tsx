@@ -45,10 +45,17 @@ export function Pricing() {
                 </span>
                 {tier.price.toFixed(2)}
               </div>
-              <div className="text-[13px] text-text-muted mb-6">
+              <div className="text-[13px] text-text-muted">
                 {tier.cadence}
               </div>
-              <p className="text-sm text-text-muted leading-[1.6] mb-6">
+              {tier.note && (
+                <div className="text-[12px] text-orange/90 mt-1 mb-2 leading-snug">
+                  {tier.note}
+                </div>
+              )}
+              <p
+                className={`text-sm text-text-muted leading-[1.6] mb-6 ${tier.note ? "mt-3" : "mt-6"}`}
+              >
                 {tier.description}
               </p>
 
@@ -76,39 +83,68 @@ export function Pricing() {
           ))}
         </div>
 
+        {/* Starter waitlist */}
+        <div
+          id="waitlist"
+          className="mt-10 max-w-md mx-auto bg-bg-card border border-orange/30 rounded-[10px] p-6 text-center"
+        >
+          <h3 className="font-condensed text-lg font-extrabold uppercase tracking-[0.5px] mb-3">
+            <span className="text-orange">Starter Plan</span> — Coming July 15
+          </h3>
+          <form
+            name="starter-waitlist"
+            method="POST"
+            data-netlify="true"
+            className="flex flex-col sm:flex-row gap-2"
+          >
+            <input type="hidden" name="form-name" value="starter-waitlist" />
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="you@email.com"
+              aria-label="Email address"
+              className="flex-1 bg-bg border border-border rounded-md px-3 py-2 text-sm text-text focus:outline-none focus:border-orange transition-colors"
+            />
+            <button type="submit" className="btn btn-primary btn-small">
+              Notify Me
+            </button>
+          </form>
+          <p className="text-[12px] text-text-muted mt-3">
+            We&apos;ll email you when Starter launches at $3.99/mo
+          </p>
+        </div>
+
         {/* Founding member box */}
         <div
           id="founding"
-          className="bg-orange/[0.06] border border-orange/20 rounded-[10px] p-5 mt-15 flex items-center justify-between gap-5 flex-wrap"
+          className="bg-orange/[0.06] border border-orange/20 rounded-[10px] p-5 mt-15 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5"
         >
-          <div>
+          <div className="lg:max-w-sm">
             <h3 className="font-condensed text-[22px] font-extrabold uppercase tracking-[0.5px] mb-1.5">
               ⭐ {founding.heading}
             </h3>
             <p className="text-sm text-text-muted">{founding.description}</p>
           </div>
-          <div className="flex gap-5 items-center flex-wrap">
-            {founding.tiers.map((tier, i) => (
-              <div key={tier.id} className="flex items-center gap-5">
-                {i > 0 && (
-                  <div className="text-text-faint font-display text-2xl">+</div>
-                )}
-                <div className="text-center">
-                  <div className="font-display text-3xl text-orange">
-                    ${tier.price}
-                    <span className="text-sm text-text-muted">{tier.cadence}</span>
-                  </div>
-                  <div className="text-[11px] text-text-muted uppercase tracking-[0.5px]">
-                    {tier.name}
-                  </div>
-                  <div className="mt-2.5">
-                    <a
-                      href={tier.stripeUrl}
-                      className={`btn ${tier.ctaVariant === "primary" ? "btn-primary" : "btn-outline"} btn-small`}
-                    >
-                      {tier.ctaLabel}
-                    </a>
-                  </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 items-center">
+            {founding.tiers.map((tier) => (
+              <div key={tier.id} className="text-center">
+                <div className="font-display text-3xl text-orange">
+                  ${tier.price}
+                  <span className="text-sm text-text-muted">
+                    {tier.cadence}
+                  </span>
+                </div>
+                <div className="text-[11px] text-text-muted uppercase tracking-[0.5px]">
+                  {tier.name}
+                </div>
+                <div className="mt-2.5">
+                  <a
+                    href={tier.stripeUrl}
+                    className={`btn ${tier.ctaVariant === "primary" ? "btn-primary" : "btn-outline"} btn-small`}
+                  >
+                    {tier.ctaLabel}
+                  </a>
                 </div>
               </div>
             ))}

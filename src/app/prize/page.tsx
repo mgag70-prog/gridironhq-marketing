@@ -47,8 +47,9 @@ const sections: Section[] = [
     body: (
       <ul className="list-disc list-outside ml-5 space-y-2 marker:text-orange">
         <li>
-          Must be a paying GridironHQ founding member (Commissioner or League
-          Member rate) with an active subscription as of August 1, 2026.
+          Must be a paying GridironHQ founding member (Commissioner, League
+          Member, or Dynasty Elite rate) with an active subscription as of
+          August 1, 2026.
         </li>
         <li>
           Must have an active Sleeper league connected OR manually provide

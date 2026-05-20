@@ -9,10 +9,11 @@ export type PricingTier = {
   cta: { label: string; href: string };
   featured?: boolean;
   badge?: string;
+  note?: string;
 };
 
 export type FoundingTier = {
-  id: "commissioner" | "league-member";
+  id: "commissioner" | "league-member" | "dynasty-elite";
   name: string;
   price: number;
   cadence: string;
@@ -343,7 +344,8 @@ export const siteConfig = {
           "Player news with AI impact notes",
           "Sleeper, ESPN, Yahoo, CBS support",
         ],
-        cta: { label: "Get Started", href: "https://app.gridironhq.ai" },
+        cta: { label: "Join Waitlist", href: "#waitlist" },
+        note: "Launches July 15, 2026 at $3.99/mo",
       },
       {
         id: "pro",
@@ -369,9 +371,9 @@ export const siteConfig = {
       {
         id: "dynasty",
         name: "Dynasty Elite",
-        price: 11.99,
-        cadence: "/month, billed annually ($143.88/yr)",
-        annualTotal: "$143.88/yr",
+        price: 9.99,
+        cadence: "/mo",
+        annualTotal: "$120/yr",
         description:
           "Built for the dynasty and keeper manager. Career outcome models, prospect profiling, and multi-season behavioral analytics.",
         features: [
@@ -382,7 +384,11 @@ export const siteConfig = {
           "Keeper value engine",
           "Multi-season behavioral analytics",
         ],
-        cta: { label: "Get Started", href: "https://app.gridironhq.ai" },
+        cta: {
+          label: "Lock In Founding Rate → $9.99/mo",
+          href: "https://buy.stripe.com/cNi8wO8bmgGF0rA1561RC02",
+        },
+        note: "$9.99/mo or $120/yr · locked for life · Regular price $11.99/mo after July 15",
       },
     ] satisfies PricingTier[],
   },
@@ -390,7 +396,7 @@ export const siteConfig = {
   founding: {
     heading: "Founding Member Offer — First 200 Commissioners",
     description:
-      "Lock in your rate before launch. Both rates are locked forever — they never increase, even as we add features and raise prices for new subscribers.",
+      "Founding member pricing closes July 15, 2026 — Pro Advisor at $4.99/mo and Dynasty Elite at $9.99/mo locked forever at signup. Regular pricing resumes after July 15.",
     spots: 200,
     tiers: [
       {
@@ -408,6 +414,15 @@ export const siteConfig = {
         price: 5.99,
         cadence: "/mo",
         stripeUrl: "https://buy.stripe.com/6oUeVc77icqpcaicNO1RC01",
+        ctaLabel: "Subscribe Now",
+        ctaVariant: "outline",
+      },
+      {
+        id: "dynasty-elite",
+        name: "Dynasty Elite",
+        price: 9.99,
+        cadence: "/mo locked for life",
+        stripeUrl: "https://buy.stripe.com/cNi8wO8bmgGF0rA1561RC02",
         ctaLabel: "Subscribe Now",
         ctaVariant: "outline",
       },
