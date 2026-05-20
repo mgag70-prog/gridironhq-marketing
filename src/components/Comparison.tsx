@@ -104,9 +104,10 @@ export function Comparison() {
         </div>
         <p className="text-center text-sm text-text-muted italic mt-6 max-w-[720px] mx-auto leading-relaxed">
           Evaluated against the leading fantasy tools including FantasyPros,
-          PFF, Draft Sharks, Establish the Run, and others. GridironHQ is the
-          only product that personalizes every recommendation to your specific
-          roster.
+          PFF, Draft Sharks, StatChasers, RosterAudit, Establish the Run, and
+          others. GridironHQ is the only product that combines personalized AI
+          advice, complete league history, multi-league portfolio management,
+          and league treasury tools in one subscription.
         </p>
       </div>
     </section>
