@@ -256,18 +256,18 @@ function generateSchedule(input: GenerateInput): GenerateResult {
       if (divSize === 0) continue;
       const divName = DIVISION_NAMES[i];
       const divGames = (divSize - 1) * divisionConfig.frequency;
-      const nonDivGames = (teams - divSize) * constraints.maxMeetings;
-      const total = divGames + nonDivGames;
-      if (total > weeks) {
+      const nonDivGames = weeks - divGames;
+      const nonDivCapacity = (teams - divSize) * constraints.maxMeetings;
+      if (divGames > weeks) {
         return {
           ok: false,
-          error: `Cannot fit ${divisionConfig.frequency}x divisional schedule: a team in Division ${divName} (${divSize} teams) needs ${total} games (${divGames} divisional + ${nonDivGames} non-divisional) but the season is only ${weeks} weeks. Lower divisional frequency, reduce max meetings, or extend the season.`,
+          error: `Cannot fit ${divisionConfig.frequency}x divisional schedule: a team in Division ${divName} (${divSize} teams) needs ${divGames} divisional games alone but the season is only ${weeks} weeks. Lower divisional frequency or extend the season.`,
         };
       }
-      if (total < weeks) {
+      if (nonDivGames > nonDivCapacity) {
         return {
           ok: false,
-          error: `Not enough opponents to fill ${weeks} weeks: a team in Division ${divName} (${divSize} teams) only has ${total} games available (${divGames} divisional + ${nonDivGames} non-divisional). Raise divisional frequency, increase max meetings, or shorten the season.`,
+          error: `Cannot fit schedule: a team in Division ${divName} (${divSize} teams) needs ${nonDivGames} non-divisional games to fill ${weeks} weeks (after ${divGames} divisional), but the ${constraints.maxMeetings}x max-meetings cap allows only ${nonDivCapacity}. Raise max meetings, lower divisional frequency, or shorten the season.`,
         };
       }
     }
