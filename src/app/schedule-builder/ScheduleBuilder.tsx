@@ -34,6 +34,7 @@ type PlayoffGame = {
 };
 
 type DivCount = 2 | 3 | 4;
+type DivFreq = 1 | 2 | 3;
 
 type DivisionConfig = {
   enabled: boolean;
@@ -42,12 +43,14 @@ type DivisionConfig = {
   startWeeks: number;
   endWeeks: number;
   rivalryWeek: number | null;
+  frequency: DivFreq;
 };
 
 const TEAM_OPTIONS = [8, 10, 12, 14] as const;
 const WEEK_OPTIONS = [10, 11, 12, 13, 14, 15] as const;
 const PLAYOFF_OPTIONS = [2, 4, 6] as const;
 const DIVISION_COUNT_OPTIONS = [2, 3, 4] as const;
+const DIVISION_FREQUENCY_OPTIONS = [1, 2, 3] as const;
 const DIVISION_NAMES = ["A", "B", "C", "D"];
 
 function pairKey(a: number, b: number): string {
@@ -246,7 +249,29 @@ function generateSchedule(input: GenerateInput): GenerateResult {
   }
   const gamesPerWeek = teams / 2;
 
-  if (constraints.maxMeetings === 1 && weeks > teams - 1) {
+  if (divisionConfig.enabled) {
+    const divisions = divisionsToTeamLists(divisionConfig, teams);
+    for (let i = 0; i < divisions.length; i++) {
+      const divSize = divisions[i].length;
+      if (divSize === 0) continue;
+      const divName = DIVISION_NAMES[i];
+      const divGames = (divSize - 1) * divisionConfig.frequency;
+      const nonDivGames = (teams - divSize) * constraints.maxMeetings;
+      const total = divGames + nonDivGames;
+      if (total > weeks) {
+        return {
+          ok: false,
+          error: `Cannot fit ${divisionConfig.frequency}x divisional schedule: a team in Division ${divName} (${divSize} teams) needs ${total} games (${divGames} divisional + ${nonDivGames} non-divisional) but the season is only ${weeks} weeks. Lower divisional frequency, reduce max meetings, or extend the season.`,
+        };
+      }
+      if (total < weeks) {
+        return {
+          ok: false,
+          error: `Not enough opponents to fill ${weeks} weeks: a team in Division ${divName} (${divSize} teams) only has ${total} games available (${divGames} divisional + ${nonDivGames} non-divisional). Raise divisional frequency, increase max meetings, or shorten the season.`,
+        };
+      }
+    }
+  } else if (constraints.maxMeetings === 1 && weeks > teams - 1) {
     return {
       ok: false,
       error: `With ${teams} teams and 1x max meetings, the maximum number of regular-season weeks is ${
@@ -304,11 +329,18 @@ function generateSchedule(input: GenerateInput): GenerateResult {
     pinPairCount.set(k, (pinPairCount.get(k) ?? 0) + 1);
   }
   for (const [k, count] of pinPairCount.entries()) {
-    if (count > constraints.maxMeetings) {
-      const [a, b] = k.split("-").map(Number);
+    const [a, b] = k.split("-").map(Number);
+    const isDiv =
+      divisionConfig.enabled &&
+      divisionConfig.assignments[a] !== undefined &&
+      divisionConfig.assignments[a] === divisionConfig.assignments[b];
+    const cap = isDiv ? divisionConfig.frequency : constraints.maxMeetings;
+    if (count > cap) {
       return {
         ok: false,
-        error: `Team ${a} and Team ${b} are pinned ${count} times but max meetings is ${constraints.maxMeetings}x.`,
+        error: `Team ${a} and Team ${b} are pinned ${count} times but max ${
+          isDiv ? "divisional meetings" : "meetings"
+        } is ${cap}x.`,
       };
     }
   }
@@ -340,7 +372,15 @@ function generateSchedule(input: GenerateInput): GenerateResult {
     const rand = mulberry32(
       0xc0ffee + attempt * 1009 + generationKey * 7919,
     );
-    const result = tryBuild(teams, weeks, gamesPerWeek, pins, constraints, rand);
+    const result = tryBuild(
+      teams,
+      weeks,
+      gamesPerWeek,
+      pins,
+      constraints,
+      divisionConfig,
+      rand,
+    );
     if (result) {
       const finalized = assignHomeAway(result, teams, constraints, rand, pins);
       const marked = markDivisionFlags(
@@ -396,6 +436,7 @@ function tryBuild(
   gamesPerWeek: number,
   pins: Pin[],
   constraints: Constraints,
+  divisionConfig: DivisionConfig,
   rand: () => number,
 ): Matchup[][] | null {
   const weekPairs: { a: number; b: number; pinned: boolean }[][] = Array.from(
@@ -407,6 +448,16 @@ function tryBuild(
     () => new Set<number>(),
   );
   const pairCount = new Map<string, number>();
+
+  function pairCap(a: number, b: number): number {
+    if (!divisionConfig.enabled) return constraints.maxMeetings;
+    const da = divisionConfig.assignments[a];
+    const db = divisionConfig.assignments[b];
+    if (da !== undefined && db !== undefined && da === db) {
+      return divisionConfig.frequency;
+    }
+    return constraints.maxMeetings;
+  }
 
   for (const pin of pins) {
     const wIdx = pin.week - 1;
@@ -430,7 +481,7 @@ function tryBuild(
     const candidates = shuffle(
       shuffled.slice(1).filter((c) => {
         const k = pairKey(t, c);
-        if ((pairCount.get(k) ?? 0) >= constraints.maxMeetings) return false;
+        if ((pairCount.get(k) ?? 0) >= pairCap(t, c)) return false;
         if (constraints.noBackToBack) {
           if (wIdx > 0 && weekHasPair(weekPairs[wIdx - 1], t, c)) return false;
           if (
@@ -710,6 +761,7 @@ export default function ScheduleBuilder() {
   const [divisionStartWeeks, setDivisionStartWeeks] = useState<number>(1);
   const [divisionEndWeeks, setDivisionEndWeeks] = useState<number>(1);
   const [rivalryWeek, setRivalryWeek] = useState<number | null>(null);
+  const [divisionalFrequency, setDivisionalFrequency] = useState<DivFreq>(2);
 
   const effectiveDivisionAssignments = computeEffectiveAssignments(
     divisionsEnabled,
@@ -728,6 +780,7 @@ export default function ScheduleBuilder() {
     startWeeks: Math.max(0, Math.min(weeks, divisionStartWeeks)),
     endWeeks: Math.max(0, Math.min(weeks, divisionEndWeeks)),
     rivalryWeek: effectiveRivalryWeek,
+    frequency: divisionalFrequency,
   };
 
   const [step, setStep] = useState<Step>(1);
@@ -989,6 +1042,8 @@ export default function ScheduleBuilder() {
               setDivisionEndWeeks={setDivisionEndWeeks}
               rivalryWeek={effectiveRivalryWeek}
               setRivalryWeek={setRivalryWeek}
+              divisionalFrequency={divisionalFrequency}
+              setDivisionalFrequency={setDivisionalFrequency}
             />
           )}
           {step === 2 && (
@@ -1180,6 +1235,8 @@ function StepOne(props: {
   setDivisionEndWeeks: (n: number) => void;
   rivalryWeek: number | null;
   setRivalryWeek: (n: number | null) => void;
+  divisionalFrequency: DivFreq;
+  setDivisionalFrequency: (n: DivFreq) => void;
 }) {
   const teamList = Array.from({ length: props.teams }, (_, i) => i + 1);
   const weekList = Array.from({ length: props.weeks }, (_, i) => i + 1);
@@ -1357,6 +1414,25 @@ function StepOne(props: {
               <p className="font-condensed font-bold uppercase tracking-wider text-text-muted text-xs mb-4">
                 Division Scheduling Rules
               </p>
+              <div className="mb-4">
+                <FieldLabel>Divisional Matchup Frequency</FieldLabel>
+                <select
+                  value={props.divisionalFrequency}
+                  onChange={(e) =>
+                    props.setDivisionalFrequency(Number(e.target.value) as DivFreq)
+                  }
+                  className={selectClass}
+                >
+                  {DIVISION_FREQUENCY_OPTIONS.map((n) => (
+                    <option key={n} value={n}>
+                      {n}x — each divisional opponent {n} time{n === 1 ? "" : "s"}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-xs text-text-faint mt-1">
+                  Overrides the league-wide max-meetings cap for divisional pairs only.
+                </p>
+              </div>
               <div className="grid md:grid-cols-3 gap-4">
                 <div>
                   <FieldLabel>Division Weeks at Start</FieldLabel>
