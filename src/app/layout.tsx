@@ -3,6 +3,7 @@ import { Bebas_Neue, DM_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 const bebasNeue = Bebas_Neue({
   variable: "--font-bebas-neue",
@@ -90,6 +91,7 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
