@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: { absolute: "GridironHQ Demo" },
   description:
-    "Try the fully interactive GridironHQ demo — SCOUT, championship EV framework, League Intel behavioral profiles, and mock draft simulator. No account required.",
+    "Try the fully interactive GridironHQ demo — ARGUS, championship EV framework, League Intel behavioral profiles, and mock draft simulator. No account required.",
   robots: { index: false, follow: true },
 };
 
