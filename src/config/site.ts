@@ -134,7 +134,7 @@ export const siteConfig = {
     { value: "200", label: "Founding Member Spots" },
     { value: "9", label: "Feature Modules" },
     { value: "HYSA", label: "Competitive Rate on Prize Pool" },
-    { value: "A–F", label: "Personalized SCOUT Team Grade" },
+    { value: "A–F", label: "Personalized ARGUS Team Grade" },
   ] satisfies ProofStat[],
 
   problem: {
@@ -160,7 +160,7 @@ export const siteConfig = {
         icon: "💸",
         title: "Zero financial management tools",
         description:
-          "You're chasing Venmo payments, losing prize pool interest, and manually tracking who's paid. Every commissioner knows this pain.",
+          "You're chasing Venmo payments, losing the prize-pool paper trail, and manually tracking who's paid. Every commissioner knows this pain.",
       },
     ] satisfies ProblemItem[],
     solution: {
@@ -169,7 +169,7 @@ export const siteConfig = {
       points: [
         "AI that knows your exact roster, your record, and your playoff situation",
         "Every decision framed as championship probability impact — not just points",
-        "Built-in league treasury, Stripe dues collection, high-yield prize pool savings",
+        "Built-in league treasury with dues collection and rules-based payouts (coming soon)",
         "Behavioral profiles on every manager in your league — negotiate smarter",
         "Mock draft simulator with real-time championship probability modeling",
         "Works with Sleeper, ESPN, Yahoo, and CBS — no new platform required",
@@ -187,17 +187,17 @@ export const siteConfig = {
       {
         id: "ai-advisor",
         icon: "🤖",
-        title: "SCOUT AI Advisor",
+        title: "ARGUS AI Advisor",
         description:
-          "Ask anything in plain English. SCOUT, GridironHQ's proprietary AI advisory engine, has your full roster loaded — start/sit, trade analysis, waiver targets, playoff strategy, plus the SCOUT Offseason Report with personalized team grade, draft strategy, and player spotlights. Every answer is specific to your team, not a generic list.",
+          "Ask anything in plain English. ARGUS, GridironHQ's proprietary AI advisory engine, has your full roster loaded — start/sit, trade analysis, waiver targets, playoff strategy, plus the ARGUS Offseason Report with personalized team grade, draft strategy, and player spotlights. Every answer is specific to your team, not a generic list.",
         tag: "Personalized to your roster →",
       },
       {
         id: "offseason-report",
         icon: "📋",
-        title: "SCOUT Offseason Report",
+        title: "ARGUS Offseason Report",
         description:
-          "Get your personalized team grade, roster strengths and concerns, player spotlights, and draft strategy right now — before the season even starts. SCOUT analyzes your specific roster and delivers a printable PDF report.",
+          "Get your personalized team grade, roster strengths and concerns, player spotlights, and draft strategy right now — before the season even starts. ARGUS analyzes your specific roster and delivers a printable PDF report.",
         tag: "Available right now →",
       },
       {
@@ -237,7 +237,7 @@ export const siteConfig = {
         icon: "🏛️",
         title: "The Vault",
         description:
-          "Complete league history, all-time standings, H2H records, Luck Index, Clutch Factor, Dynasty Power Rankings, and SCOUT analysis of your league's all-time trends. Built for dynasty and keeper leagues.",
+          "Complete league history, all-time standings, H2H records, Luck Index, Clutch Factor, Dynasty Power Rankings, and ARGUS analysis of your league's all-time trends. Built for dynasty and keeper leagues.",
         tag: "All-time stats unlocked →",
       },
       {
@@ -245,15 +245,15 @@ export const siteConfig = {
         icon: "📈",
         title: "Portfolio Dashboard",
         description:
-          "All your leagues in one command center. Combined record, championship probability across all leagues, SCOUT cross-league alerts, and player exposure tracking across every team you manage.",
+          "All your leagues in one command center. Combined record, championship probability across all leagues, ARGUS cross-league alerts, and player exposure tracking across every team you manage.",
         tag: "Every league, one view →",
       },
       {
         id: "league-treasury",
         icon: "💳",
-        title: "League Treasury",
+        title: "League Treasury (Coming Soon)",
         description:
-          "Collect league dues via Stripe, hold your prize pool in a segregated FDIC-insured financial account earning a competitive interest rate, and pay out winners at season end with one click. $14.99 flat fee per season — no percentage cuts, no hidden fees. Your league keeps every dollar of interest earned.",
+          "A protected league treasury is on our roadmap — collect dues, hold the prize pool in a segregated account, and pay out winners on your league's rules. Launching after our financial partner review; founding members get first access.",
         tag: "Stop chasing Venmo payments →",
       },
     ] satisfies Feature[],
@@ -276,7 +276,7 @@ export const siteConfig = {
         step: 2,
         title: "Get Personalized Advice",
         description:
-          "Ask SCOUT anything or check your personalized Offseason Report — team grade, concerns, player spotlights, and draft strategy ready before the season starts.",
+          "Ask ARGUS anything or check your personalized Offseason Report — team grade, concerns, player spotlights, and draft strategy ready before the season starts.",
       },
       {
         step: 3,
@@ -291,7 +291,7 @@ export const siteConfig = {
     title: "See It In Action",
     titleAccent: "In Action",
     description:
-      "Try the fully interactive demo — live SCOUT, real EV framework, League Intel behavioral profiles, mock draft simulator. No account required.",
+      "Try the fully interactive demo — live ARGUS, real EV framework, League Intel behavioral profiles, mock draft simulator. No account required.",
     cta: { label: "Try the Live Demo", href: "https://gridironhq.ai/demo" },
   },
 
@@ -305,11 +305,10 @@ export const siteConfig = {
     rows: [
       { feature: "Advice personalized to your roster", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "Championship probability on every decision", gridironhq: "yes", competitors: ["no", "no", "no"] },
-      { feature: "SCOUT proprietary AI advisor", gridironhq: "yes", competitors: ["no", "no", "no"] },
+      { feature: "ARGUS proprietary AI advisor", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "League behavioral analytics", gridironhq: "yes", competitors: ["no", "no", "no"] },
-      { feature: "League treasury & dues collection", gridironhq: "yes", competitors: ["no", "no", "no"] },
-      { feature: "League keeps all interest earned", gridironhq: "yes", competitors: ["no", "no", "no"] },
-      { feature: "Flat-fee treasury (not percentage-based)", gridironhq: "$14.99/season", competitors: ["N/A", "N/A", "N/A"] },
+      { feature: "League treasury & dues collection", gridironhq: "Coming soon", competitors: ["no", "no", "no"] },
+      { feature: "Flat-fee treasury, not percentage-based", gridironhq: "Coming soon", competitors: ["N/A", "N/A", "N/A"] },
       { feature: "Start/sit advice same for every user", gridironhq: "no", gridironhqNote: "personalized", competitors: ["yes", "yes", "yes"], inverted: true },
       { feature: "Draft simulator with EV modeling", gridironhq: "yes", competitors: ["Partial", "Partial", "Partial"] },
       { feature: "Works with your existing platform", gridironhq: "yes", competitors: ["yes", "yes", "yes"] },
@@ -336,9 +335,9 @@ export const siteConfig = {
         cadence: "/month, billed annually ($47.88/yr)",
         annualTotal: "$47.88/yr",
         description:
-          "Core SCOUT access for the serious casual player. Everything you need to make better decisions every week.",
+          "Core ARGUS access for the serious casual player. Everything you need to make better decisions every week.",
         features: [
-          "SCOUT — personalized start/sit",
+          "ARGUS — personalized start/sit",
           "Waiver wire with roster fit scoring",
           "Basic trade analyzer",
           "Player news with AI impact notes",
@@ -361,7 +360,7 @@ export const siteConfig = {
           "League Intel behavioral profiles",
           "Full trade analyzer + AI verdict",
           "Draft Center + mock draft simulator",
-          "League Treasury + dues collection",
+          "League Treasury + dues collection (coming soon)",
           "Playoff probability modeling",
         ],
         cta: { label: "Lock In Founding Rate", href: "#founding" },
@@ -469,7 +468,7 @@ export const siteConfig = {
       },
       {
         quote:
-          "Finally solved the 'chasing people for money' problem. Everyone in our league paid through the Stripe link, the money sits in a high-yield savings account earning a competitive interest rate until December, and one-click payout at the end. Dream feature.",
+          "Finally solved the 'chasing people for money' problem. Everyone in our league paid through the Stripe link, the money stays protected until the season ends, then one-click payout. Dream feature.",
         author: "Alex B.",
         initials: "AB",
         meta: "Commissioner · $100 buy-in · 12 teams",
@@ -503,7 +502,7 @@ export const siteConfig = {
           "Full refund, no questions asked. You can cancel any time before launch from your Stripe account. We're not asking you to take a risk — if the product doesn't ship, you don't pay for it.",
       },
       {
-        question: "Does SCOUT actually know my roster?",
+        question: "Does ARGUS actually know my roster?",
         answer:
           "Yes — this is the whole point. When you connect your Sleeper league, GridironHQ imports your actual roster, your scoring format, your record, and your playoff situation. Every AI response is built around your specific team, not generic advice.",
       },
@@ -515,22 +514,22 @@ export const siteConfig = {
       {
         question: "How does GridironHQ Treasury work?",
         answer:
-          "GridironHQ Treasury collects your league dues via Stripe payment links, holds the prize pool in a segregated FDIC-insured financial account, and pays out winners at season end with one click. We charge a flat $14.99 per season — compared to LeagueSafe which charges 2.9% of dues collected and keeps the interest. On a $1,200 league you save over $20 and your league keeps every dollar of interest earned.",
+          "League Treasury is coming soon. It will let commissioners collect dues and hold the prize pool in a segregated account with rules-based payouts at season's end. We're finalizing our financial partner and will open it to founding members first.",
       },
       {
         question: "Does GridironHQ work for dynasty leagues?",
         answer:
-          "Yes — Dynasty Elite tier includes dynasty rankings, career outcome models, rookie profiling, and keeper value tools. SCOUT understands multi-year roster building, not just week-to-week decisions.",
+          "Yes — Dynasty Elite tier includes dynasty rankings, career outcome models, rookie profiling, and keeper value tools. ARGUS understands multi-year roster building, not just week-to-week decisions.",
       },
       {
         question: "What is The Vault?",
         answer:
-          "The Vault is GridironHQ's league history module. It connects to your Sleeper league, walks your complete season history, and builds all-time standings, H2H records, championship history, and four analytics metrics: Luck Index, Clutch Factor, Consistency Score, and Dynasty Power Rankings. SCOUT analyzes your league's history and surfaces patterns, rivalries, and trends.",
+          "The Vault is GridironHQ's league history module. It connects to your Sleeper league, walks your complete season history, and builds all-time standings, H2H records, championship history, and four analytics metrics: Luck Index, Clutch Factor, Consistency Score, and Dynasty Power Rankings. ARGUS analyzes your league's history and surfaces patterns, rivalries, and trends.",
       },
       {
-        question: "What is the SCOUT Offseason Report?",
+        question: "What is the ARGUS Offseason Report?",
         answer:
-          "SCOUT analyzes your current roster, recent player news, and depth chart positions to generate a personalized team grade (A–F), key strengths and concerns, player spotlights with buy/sell/hold ratings, and a customized draft strategy. Available right now during the offseason — no need to wait for September.",
+          "ARGUS analyzes your current roster, recent player news, and depth chart positions to generate a personalized team grade (A–F), key strengths and concerns, player spotlights with buy/sell/hold ratings, and a customized draft strategy. Available right now during the offseason — no need to wait for September.",
       },
       {
         question: "Can I connect multiple leagues?",

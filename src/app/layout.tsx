@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   applicationName: siteConfig.name,
   keywords: [
     "fantasy football",
-    "SCOUT",
+    "ARGUS",
     "AI advisor",
     "fantasy football AI",
     "Sleeper",

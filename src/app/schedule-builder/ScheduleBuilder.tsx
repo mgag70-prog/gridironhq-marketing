@@ -1137,7 +1137,7 @@ export default function ScheduleBuilder() {
 
         <div className="mt-12 bg-bg-card border border-border rounded-2xl p-8 text-center no-print">
           <h2 className="font-display text-[clamp(22px,3vw,32px)] uppercase tracking-[1px] mb-3">
-            Want <span className="text-orange">SCOUT</span> to optimize your
+            Want <span className="text-orange">ARGUS</span> to optimize your
             lineup decisions all season?
           </h2>
           <p className="text-text-muted mb-6 max-w-xl mx-auto">
