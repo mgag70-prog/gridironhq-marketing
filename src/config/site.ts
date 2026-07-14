@@ -344,7 +344,7 @@ export const siteConfig = {
           "Sleeper, ESPN, Yahoo, CBS support",
         ],
         cta: { label: "Join Waitlist", href: "#waitlist" },
-        note: "Launches July 15, 2026 at $3.99/mo",
+        note: "Launches July 31, 2026 at $3.99/mo",
       },
       {
         id: "pro",
@@ -387,7 +387,7 @@ export const siteConfig = {
           label: "Lock In Founding Rate → $9.99/mo",
           href: "https://app.gridironhq.ai/subscribe?plan=dynasty",
         },
-        note: "$9.99/mo or $120/yr · locked for life · Regular price $11.99/mo after July 15",
+        note: "$9.99/mo or $120/yr · locked for life · Regular price $11.99/mo after July 31",
       },
     ] satisfies PricingTier[],
   },
@@ -395,7 +395,7 @@ export const siteConfig = {
   founding: {
     heading: "Founding Member Offer — First 200 Founding Members",
     description:
-      "Three founding rates for three roles — commissioners at $4.99/mo, league members at $5.99/mo, and dynasty players at $9.99/mo. Founding member pricing closes July 15, 2026 — every rate is locked forever at signup. Regular pricing resumes after July 15.",
+      "Three founding rates for three roles — commissioners at $4.99/mo, league members at $5.99/mo, and dynasty players at $9.99/mo. Founding member pricing closes July 31, 2026 — every rate is locked forever at signup. Regular pricing resumes after July 31.",
     spots: 200,
     tiers: [
       {

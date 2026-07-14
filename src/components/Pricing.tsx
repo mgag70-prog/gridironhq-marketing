@@ -89,7 +89,7 @@ export function Pricing() {
           className="mt-10 max-w-md mx-auto bg-bg-card border border-orange/30 rounded-[10px] p-6 text-center"
         >
           <h3 className="font-condensed text-lg font-extrabold uppercase tracking-[0.5px] mb-3">
-            <span className="text-orange">Starter Plan</span> — Coming July 15
+            <span className="text-orange">Starter Plan</span> — Coming July 31
           </h3>
           <form
             name="starter-waitlist"
