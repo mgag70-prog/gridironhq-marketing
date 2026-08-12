@@ -107,7 +107,7 @@ export function Comparison() {
           PFF, Draft Sharks, StatChasers, RosterAudit, Establish the Run, and
           others. GridironHQ is the only product that combines personalized AI
           advice, complete league history, multi-league portfolio management,
-          and league treasury tools in one subscription.
+          and league dues tracking in one subscription.
         </p>
       </div>
     </section>

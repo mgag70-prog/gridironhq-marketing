@@ -246,7 +246,7 @@ table.t{width:100%;border-collapse:collapse;font-size:12px}
 <div style="background:linear-gradient(90deg,#FF6B00,#FF8C3A,#FF6B00);padding:0 20px;height:32px;display:flex;align-items:center;justify-content:center;gap:12px;flex-shrink:0;position:relative;overflow:hidden;cursor:default" id="founding-strip">
   <div style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(255,255,255,.05) 40px,rgba(255,255,255,.05) 41px)"></div>
   <span style="font-family:var(--fh);font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#000;position:relative">⭐ 14-Day Free Trial</span>
-  <span style="background:rgba(0,0,0,.2);border-radius:20px;padding:2px 10px;font-family:var(--fh);font-size:11px;font-weight:700;color:#000;letter-spacing:.3px;position:relative">No credit card · Founding rate $4.99/mo locked for life</span>
+  <span style="background:rgba(0,0,0,.2);border-radius:20px;padding:2px 10px;font-family:var(--fh);font-size:11px;font-weight:700;color:#000;letter-spacing:.3px;position:relative">No credit card · Plans from $3.99/mo</span>
   <button onclick="openFoundingModal()" style="background:#000;color:#FF6B00;font-family:var(--fh);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;border:none;border-radius:20px;padding:3px 12px;cursor:pointer;position:relative">Start free trial →</button>
   <button onclick="document.getElementById('founding-strip').style.display='none'" style="background:none;border:none;color:rgba(0,0,0,.4);font-size:16px;cursor:pointer;position:absolute;right:12px;line-height:1">×</button>
 </div>
@@ -258,15 +258,15 @@ table.t{width:100%;border-collapse:collapse;font-size:12px}
     <div id="founding-modal-body">
       <div style="font-size:28px;text-align:center;margin-bottom:10px">🏈</div>
       <div style="font-family:var(--fh);font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:1px;text-align:center;margin-bottom:4px;color:var(--tx)">Start Your Free Trial</div>
-      <div style="font-size:12px;color:var(--tx2);text-align:center;margin-bottom:16px;line-height:1.6">Full access to GridironHQ free for <strong style="color:var(--or)">14 days — no credit card required.</strong> Lock in founding pricing before it closes July 31.</div>
+      <div style="font-size:12px;color:var(--tx2);text-align:center;margin-bottom:16px;line-height:1.6">Full access to GridironHQ free for <strong style="color:var(--or)">14 days — no credit card required.</strong></div>
       <div style="background:var(--or-d);border:1px solid rgba(255,107,0,.25);border-radius:8px;padding:12px 14px;margin-bottom:14px">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--tx2);margin-bottom:8px;font-weight:700">Founding pricing — locked for life</div>
-        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span style="color:var(--tx2)">Commissioner</span><span style="font-family:var(--fh);font-size:16px;font-weight:800;color:var(--or)">$4.99/mo</span></div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--tx2);margin-bottom:8px;font-weight:700">Pricing after your trial</div>
         <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span style="color:var(--tx2)">League Member</span><span style="font-family:var(--fh);font-size:16px;font-weight:800;color:#FF8C3A">$5.99/mo</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--tx2)">Dynasty Elite</span><span style="font-family:var(--fh);font-size:16px;font-weight:800;color:#FF8C3A">$9.99/mo</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span style="color:var(--tx2)">Commissioner</span><span style="font-family:var(--fh);font-size:16px;font-weight:800;color:var(--or)">$7.99/mo</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--tx2)">Dynasty Elite</span><span style="font-family:var(--fh);font-size:16px;font-weight:800;color:#FF8C3A">$11.99/mo</span></div>
       </div>
       <a href="https://app.gridironhq.ai/subscribe" target="_blank" rel="noopener" style="display:block;text-align:center;width:100%;background:var(--or);border:none;border-radius:7px;color:#000;font-family:var(--fh);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:11px;cursor:pointer;text-decoration:none">Start 14-Day Free Trial →</a>
-      <div style="font-size:10px;color:var(--tx3);text-align:center;margin-top:10px">No credit card required · Cancel anytime · Founding rate locked for life</div>
+      <div style="font-size:10px;color:var(--tx3);text-align:center;margin-top:10px">No credit card required · Cancel anytime</div>
     </div>
   </div>
 </div>
@@ -1290,25 +1290,26 @@ function vTreasury(){
   return `
   <div class="g2" style="margin-bottom:12px">
     <div class="bank-card">
-      <div class="bank-lbl">League Savings Account</div>
-      <div class="bank-bal">$803.17</div>
-      <div class="bank-sub">Marcus by Goldman Sachs · ···4821 · 4.75% APY</div>
-      <div class="f g8 ac" style="margin-top:12px">
-        <span class="badge bg">● Live Balance</span>
-        <span class="badge bb">Auto-Sweep On</span>
-        <span style="font-size:11px;color:rgba(74,127,212,.5);margin-left:4px">+$3.17 interest earned</span>
+      <div class="bank-lbl">Your League Payment Hub</div>
+      <div class="bank-bal">$${coll}</div>
+      <div class="bank-sub">reported as paid · ${paid} of 12 managers</div>
+      <div class="f g8 ac" style="margin-top:12px;flex-wrap:wrap">
+        <span class="badge bg">Venmo @commish-mike</span>
+        <span class="badge bb">Zelle · mike@example.com</span>
+        <span class="badge bb">Cash App $commishmike</span>
       </div>
+      <div style="font-size:11px;color:rgba(74,127,212,.55);margin-top:10px;line-height:1.5">Managers pay you directly through these methods. GridironHQ tracks who has paid — it never holds or moves your league's money.</div>
     </div>
     <div class="g2" style="gap:10px">
-      <div class="sm"><div class="sv" style="color:var(--gr)">$${coll}</div><div class="sl">Collected</div><div class="sn">${paid}/12 paid</div></div>
+      <div class="sm"><div class="sv" style="color:var(--gr)">$${coll}</div><div class="sl">Reported Paid</div><div class="sn">${paid}/12 managers</div></div>
       <div class="sm"><div class="sv" style="color:var(--rd)">$${pot-coll}</div><div class="sl">Outstanding</div><div class="sn">${12-paid} managers</div></div>
-      <div class="sm"><div class="sv" style="color:var(--nv3)">$${pot}</div><div class="sl">Total Prize Pool</div></div>
-      <div class="sm"><div class="sv" style="color:var(--or)">4.75%</div><div class="sl">APY Rate</div></div>
+      <div class="sm"><div class="sv" style="color:var(--nv3)">$${pot}</div><div class="sl">Total Dues Expected</div></div>
+      <div class="sm"><div class="sv" style="color:var(--or)">$100</div><div class="sl">Buy-In Per Team</div></div>
     </div>
   </div>
 
   <div class="card">
-    <div class="ct">👥 Manager Payment Status</div>
+    <div class="ct">👥 Manager Payment Status <span style="font-weight:400;font-size:11px;color:var(--tx3);text-transform:none;letter-spacing:0">— members mark themselves paid, you confirm</span></div>
     <table class="t">
       <thead><tr><th>Manager</th><th>Team</th><th>Amount</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
       <tbody>
@@ -1320,8 +1321,8 @@ function vTreasury(){
             <td style="font-size:11px;color:var(--tx2)">${t.name}</td>
             <td style="font-family:var(--fh);font-size:15px;font-weight:700;color:${paid?'var(--gr)':'var(--tx3)'}">${paid?'$100':'—'}</td>
             <td style="font-size:11px;color:var(--tx2)">${date}</td>
-            <td>${paid?`<span class="badge bg">✓ Paid</span>`:`<span class="badge br">Unpaid</span>`}</td>
-            <td>${paid?`<button onclick="alert('Receipt sent to ${t.mgr}')" style="background:var(--s2);border:1px solid var(--bdr);color:var(--tx2);font-family:var(--fh);font-size:10px;font-weight:700;text-transform:uppercase;padding:3px 8px;border-radius:4px;cursor:pointer">Receipt</button>`:
+            <td>${paid?`<span class="badge bg">✓ Confirmed</span>`:`<span class="badge br">Unpaid</span>`}</td>
+            <td>${paid?`<button onclick="alert('Payment record for ${t.mgr} reopened — mark unpaid if this was logged in error.')" style="background:var(--s2);border:1px solid var(--bdr);color:var(--tx2);font-family:var(--fh);font-size:10px;font-weight:700;text-transform:uppercase;padding:3px 8px;border-radius:4px;cursor:pointer">Undo</button>`:
             `<button onclick="alert('Payment reminder sent to ${t.mgr}')" style="background:var(--or-d);border:1px solid rgba(255,107,0,.3);color:var(--or);font-family:var(--fh);font-size:10px;font-weight:700;text-transform:uppercase;padding:3px 8px;border-radius:4px;cursor:pointer">Remind</button>`}</td>
           </tr>`;}).join('')}
       </tbody>
@@ -1329,9 +1330,9 @@ function vTreasury(){
   </div>
 
   <div class="card">
-    <div class="ct">🏆 Prize Payout Configuration</div>
-    <div style="font-size:12px;color:var(--tx2);margin-bottom:12px">Total pool: <strong style="color:var(--or)">$1,200</strong> + <strong style="color:var(--gr)">$3.17 interest</strong> = <strong style="color:var(--or)">$1,203.17</strong></div>
-    ${[['1st Place Champion','50%','$601.59','gold'],['2nd Place','30%','$360.95','nv3'],['3rd Place','10%','$120.32','pu'],['Weekly High Score Pool','10%','$120.32','gr']].map(([l,p,a,c])=>`
+    <div class="ct">🏆 Prize Split Calculator</div>
+    <div style="font-size:12px;color:var(--tx2);margin-bottom:12px">Record your league's agreed split so everyone can see it. Total dues: <strong style="color:var(--or)">$1,200</strong></div>
+    ${[['1st Place Champion','50%','$600','gold'],['2nd Place','30%','$360','nv3'],['3rd Place','10%','$120','pu'],['Weekly High Score','10%','$120','gr']].map(([l,p,a,c])=>`
       <div class="f jb ac" style="padding:8px 0;border-bottom:1px solid var(--bdr)">
         <span style="font-size:13px">${l}</span>
         <div class="f ac g8">
@@ -1339,11 +1340,7 @@ function vTreasury(){
           <span style="font-family:var(--fh);font-size:18px;font-weight:800;color:var(--${c})">${a}</span>
         </div>
       </div>`).join('')}
-    <div class="f g8 ac" style="margin-top:12px;flex-wrap:wrap">
-      <button class="btn-or" onclick="alert('Bank transfer payouts initiated! All managers will receive funds within 2 business days.')">🏦 Payout via Bank Transfer</button>
-      <button class="btn-out" onclick="alert('Venmo/Zelle payout links generated for each manager.')">📱 Venmo / Zelle</button>
-      <button class="btn-out" onclick="alert('Stripe payouts initiated.')">💳 Pay via Stripe</button>
-    </div>
+    <div style="font-size:11px;color:var(--tx3);margin-top:12px;line-height:1.6">This is a reference calculation only. As commissioner you pay your winners directly, using whatever method your league already uses. GridironHQ does not hold, transfer, or pay out any funds.</div>
   </div>`;
 }
 
@@ -1379,9 +1376,9 @@ function submitFoundingModal(e){
   wrapper.style.cssText='text-align:center;padding:16px 0';
   wrapper.innerHTML=[
     '<div style="font-size:38px;margin-bottom:12px">&#127881;</div>',
-    '<div style="font-family:var(--fh);font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;color:var(--tx)">You are on the list!</div>',
-    '<div style="font-size:13px;color:var(--tx2);line-height:1.7;margin-bottom:16px">We will reach out from <strong style="color:var(--or)">hello@gridironhq.ai</strong> to confirm your spot. Your $4.99/mo rate is reserved.</div>',
-    '<div style="background:var(--or-d);border:1px solid rgba(255,107,0,.25);border-radius:8px;padding:12px;font-size:12px;color:var(--or);margin-bottom:14px">Share this demo with your league so they can request access too and lock in $5.99/mo for life.</div>',
+    '<div style="font-family:var(--fh);font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;color:var(--tx)">You are all set!</div>',
+    '<div style="font-size:13px;color:var(--tx2);line-height:1.7;margin-bottom:16px">We will reach out from <strong style="color:var(--or)">hello@gridironhq.ai</strong> with your next steps. Your 14-day free trial starts whenever you are ready.</div>',
+    '<div style="background:var(--or-d);border:1px solid rgba(255,107,0,.25);border-radius:8px;padding:12px;font-size:12px;color:var(--or);margin-bottom:14px">Share this demo with your league so they can try GridironHQ too.</div>',
     '<button onclick="closeFoundingModal()" style="background:var(--or);border:none;border-radius:7px;color:#000;font-family:var(--fh);font-size:13px;font-weight:800;text-transform:uppercase;padding:9px 20px;cursor:pointer;width:100%">Got it - back to the demo</button>'
   ].join('');
   el.appendChild(wrapper);

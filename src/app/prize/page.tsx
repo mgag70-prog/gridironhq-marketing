@@ -136,7 +136,7 @@ export default function PrizePage() {
             href="https://gridironhq.ai/#pricing"
             className="btn btn-primary btn-large"
           >
-            Lock In Founding Rate →
+            See Pricing →
           </a>
         </div>
       </article>

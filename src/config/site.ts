@@ -9,25 +9,6 @@ export type PricingTier = {
   cta: { label: string; href: string };
   featured?: boolean;
   badge?: string;
-  note?: string;
-};
-
-export type FoundingTier = {
-  id: "commissioner" | "league-member" | "dynasty-elite";
-  name: string;
-  price: number;
-  cadence: string;
-  stripeUrl: string;
-  ctaLabel: string;
-  ctaVariant: "primary" | "outline";
-};
-
-export type SeasonPass = {
-  id: "season-pass-pro" | "league-pass-pro";
-  name: string;
-  price: number;
-  description: string;
-  cta: { label: string; href: string };
 };
 
 export type Feature = {
@@ -80,7 +61,7 @@ export const siteConfig = {
   domain: "gridironhq.ai",
   tagline: "The Fantasy Football Advisor That Actually Knows Your Team",
   description:
-    "Stop getting generic rankings. GridironHQ is the AI-powered fantasy football advisor built around your roster, your league, and your championship odds. Founding member pricing available now.",
+    "Stop getting generic rankings. GridironHQ is the AI-powered fantasy football advisor built around your roster, your league, and your championship odds. Free 14-day trial, no credit card required.",
 
   urls: {
     app: "https://app.gridironhq.ai",
@@ -96,11 +77,6 @@ export const siteConfig = {
     copyright: "© 2026 HQ Sports Technologies LLC. All rights reserved.",
   },
 
-  launch: {
-    window: "late July to early August 2026",
-    short: "Late July – Early August 2026",
-  },
-
   nav: {
     links: [
       { label: "Features", href: "#features" },
@@ -111,29 +87,29 @@ export const siteConfig = {
       { label: "Prizes", href: "/prize" },
     ],
     signInHref: "https://app.gridironhq.ai",
-    ctaLabel: "Get Early Access",
+    ctaLabel: "Start Free Trial",
     ctaHref: "#pricing",
   },
 
   hero: {
-    eyebrow: "Founding Member Access Open Now",
+    eyebrow: "Live Now — 14-Day Free Trial",
     headline: {
       lines: ["The Fantasy", "Advisor That", "Actually Knows", "Your Team"],
       accentLine: "Actually Knows",
     },
     subhead:
       "Stop getting the same generic rankings as everyone else. GridironHQ is the AI-powered advisor built around your specific roster, your league, and your championship odds — plus The Vault for complete league history and the Portfolio Dashboard to manage every league from one command center.",
-    primaryCta: { label: "Lock In Founding Rate", href: "#pricing" },
+    primaryCta: { label: "Start Free Trial", href: "#pricing" },
     secondaryCta: { label: "Try the Demo", href: "https://gridironhq.ai/demo" },
     socialProof:
-      "200 founding member spots — first 200 commissioners lock in $4.99/mo for life",
+      "14-day free trial — no credit card required, cancel any time",
     avatars: ["CM", "JR", "AB", "TK", "+"],
   },
 
   proofStats: [
-    { value: "200", label: "Founding Member Spots" },
+    { value: "14", label: "Day Free Trial — No Card" },
     { value: "9", label: "Feature Modules" },
-    { value: "HYSA", label: "Competitive Rate on Prize Pool" },
+    { value: "$3.99", label: "Starting Price Per Month" },
     { value: "A–F", label: "Personalized ARGUS Team Grade" },
   ] satisfies ProofStat[],
 
@@ -169,10 +145,10 @@ export const siteConfig = {
       points: [
         "AI that knows your exact roster, your record, and your playoff situation",
         "Every decision framed as championship probability impact — not just points",
-        "Built-in league treasury with dues collection and rules-based payouts (coming soon)",
+        "Built-in league treasury with dues tracking and payment status (coming soon)",
         "Behavioral profiles on every manager in your league — negotiate smarter",
         "Mock draft simulator with real-time championship probability modeling",
-        "Works with Sleeper, ESPN, Yahoo, and CBS — no new platform required",
+        "Works with Sleeper and ESPN — no new platform required (Yahoo and CBS planned)",
       ],
     },
   },
@@ -253,8 +229,8 @@ export const siteConfig = {
         icon: "💳",
         title: "League Treasury (Coming Soon)",
         description:
-          "A protected league treasury is on our roadmap — collect dues, hold the prize pool in a segregated account, and pay out winners on your league's rules. Launching after our financial partner review; founding members get first access.",
-        tag: "Stop chasing Venmo payments →",
+          "A shared payment directory for your league. Publish the payment methods you already use — Venmo, Cash App, Zelle, PayPal, bank transfer — members send you money directly and mark themselves paid, and you approve or reject each claim. GridironHQ tracks who has paid. It never holds, moves, or handles your league's money.",
+        tag: "Stop chasing who's paid →",
       },
     ] satisfies Feature[],
   },
@@ -270,7 +246,7 @@ export const siteConfig = {
         step: 1,
         title: "Connect Your League",
         description:
-          "Enter your fantasy league platform username — Sleeper, ESPN, Yahoo, or CBS. GridironHQ imports your league settings, your roster, your record, your scoring format — everything. Takes about 30 seconds.",
+          "Connect your Sleeper league with your username, or import an ESPN league. GridironHQ pulls in your league settings, your roster, your record, and your scoring format. Takes about 30 seconds. Yahoo and CBS are planned but not available yet.",
       },
       {
         step: 2,
@@ -307,17 +283,16 @@ export const siteConfig = {
       { feature: "Championship probability on every decision", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "ARGUS proprietary AI advisor", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "League behavioral analytics", gridironhq: "yes", competitors: ["no", "no", "no"] },
-      { feature: "League treasury & dues collection", gridironhq: "Coming soon", competitors: ["no", "no", "no"] },
-      { feature: "Flat-fee treasury, not percentage-based", gridironhq: "Coming soon", competitors: ["N/A", "N/A", "N/A"] },
+      { feature: "League dues tracking (no money held)", gridironhq: "Coming soon", competitors: ["no", "no", "no"] },
       { feature: "Start/sit advice same for every user", gridironhq: "no", gridironhqNote: "personalized", competitors: ["yes", "yes", "yes"], inverted: true },
       { feature: "Draft simulator with EV modeling", gridironhq: "yes", competitors: ["Partial", "Partial", "Partial"] },
-      { feature: "Works with your existing platform", gridironhq: "yes", competitors: ["yes", "yes", "yes"] },
+      { feature: "Works with your existing platform", gridironhq: "Partial", gridironhqNote: "Sleeper + ESPN", competitors: ["yes", "yes", "yes"] },
       { feature: "Waiver wire ranked by roster fit", gridironhq: "yes", competitors: ["Generic", "Generic", "Generic"] },
       { feature: "Complete league history & analytics (The Vault)", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "Portfolio view across all leagues", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "Personalized AI team grade & report", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "Free schedule builder with divisions", gridironhq: "yes", competitors: ["no", "no", "no"] },
-      { feature: "Price", gridironhq: "$4.99/mo founding", competitors: ["$8.99/mo", "$9.99/mo", "$8-15/mo"] },
+      { feature: "Price", gridironhq: "$3.99–$11.99/mo", competitors: ["$8.99/mo", "$9.99/mo", "$8-15/mo"] },
     ] satisfies ComparisonRow[],
   },
 
@@ -326,7 +301,7 @@ export const siteConfig = {
     title: "Simple, Transparent Pricing",
     titleAccent: "Transparent",
     subhead:
-      "Start with the founding member rate while it lasts. Regular pricing takes effect at launch.",
+      "Every plan starts with a 14-day free trial. No credit card to start, cancel any time.",
     tiers: [
       {
         id: "starter",
@@ -341,10 +316,12 @@ export const siteConfig = {
           "Waiver wire with roster fit scoring",
           "Basic trade analyzer",
           "Player news with AI impact notes",
-          "Sleeper, ESPN, Yahoo, CBS support",
+          "Sleeper and ESPN support",
         ],
-        cta: { label: "Join Waitlist", href: "#waitlist" },
-        note: "Launches July 31, 2026 at $3.99/mo",
+        cta: {
+          label: "Start Free Trial",
+          href: "https://app.gridironhq.ai/subscribe?plan=starter",
+        },
       },
       {
         id: "pro",
@@ -360,19 +337,22 @@ export const siteConfig = {
           "League Intel behavioral profiles",
           "Full trade analyzer + AI verdict",
           "Draft Center + mock draft simulator",
-          "League Treasury + dues collection (coming soon)",
+          "League Treasury + dues tracking (coming soon)",
           "Playoff probability modeling",
         ],
-        cta: { label: "Lock In Founding Rate", href: "#founding" },
+        cta: {
+          label: "Start Free Trial",
+          href: "https://app.gridironhq.ai/subscribe?plan=commissioner",
+        },
         featured: true,
         badge: "Most Popular",
       },
       {
         id: "dynasty",
         name: "Dynasty Elite",
-        price: 9.99,
-        cadence: "/mo",
-        annualTotal: "$120/yr",
+        price: 11.99,
+        cadence: "/mo, or billed annually",
+        annualTotal: "$143.88/yr",
         description:
           "Built for the dynasty and keeper manager. Career outcome models, prospect profiling, and multi-season behavioral analytics.",
         features: [
@@ -384,72 +364,16 @@ export const siteConfig = {
           "Multi-season behavioral analytics",
         ],
         cta: {
-          label: "Lock In Founding Rate → $9.99/mo",
+          label: "Start Free Trial",
           href: "https://app.gridironhq.ai/subscribe?plan=dynasty",
         },
-        note: "$9.99/mo or $120/yr · locked for life · Regular price $11.99/mo after July 31",
       },
     ] satisfies PricingTier[],
   },
 
-  founding: {
-    heading: "Founding Member Offer — First 200 Founding Members",
-    description:
-      "Three founding rates for three roles — commissioners at $4.99/mo, league members at $5.99/mo, and dynasty players at $9.99/mo. Founding member pricing closes July 31, 2026 — every rate is locked forever at signup. Regular pricing resumes after July 31.",
-    spots: 200,
-    tiers: [
-      {
-        id: "commissioner",
-        name: "Commissioner Rate",
-        price: 4.99,
-        cadence: "/mo",
-        stripeUrl: "https://app.gridironhq.ai/subscribe?plan=commissioner",
-        ctaLabel: "Subscribe Now",
-        ctaVariant: "primary",
-      },
-      {
-        id: "league-member",
-        name: "League Member Rate",
-        price: 5.99,
-        cadence: "/mo",
-        stripeUrl: "https://app.gridironhq.ai/subscribe?plan=league",
-        ctaLabel: "Subscribe Now",
-        ctaVariant: "outline",
-      },
-      {
-        id: "dynasty-elite",
-        name: "Dynasty Elite",
-        price: 9.99,
-        cadence: "/mo locked for life",
-        stripeUrl: "https://app.gridironhq.ai/subscribe?plan=dynasty",
-        ctaLabel: "Subscribe Now",
-        ctaVariant: "outline",
-      },
-    ] satisfies FoundingTier[],
-  },
-
-  seasonPasses: [
-    {
-      id: "season-pass-pro",
-      name: "Season Pass — Pro",
-      price: 44.99,
-      description:
-        "Full Pro Advisor access August – February. One payment, no recurring.",
-      cta: { label: "Get Season Pass", href: "https://app.gridironhq.ai" },
-    },
-    {
-      id: "league-pass-pro",
-      name: "League Pass — Pro",
-      price: 79.99,
-      description:
-        "All 12 league members get Pro Advisor for the full season. Commissioner pays once.",
-      cta: { label: "Get League Pass", href: "https://app.gridironhq.ai" },
-    },
-  ] satisfies SeasonPass[],
-
   testimonials: {
     label: "Early Feedback",
-    title: "What Founding Members Are Saying",
+    title: "What Early Members Are Saying",
     titleAccent: "Saying",
     items: [
       {
@@ -464,14 +388,7 @@ export const siteConfig = {
           "The League Intel tab is wild. It showed me that our league's biggest trader is 40% more likely to accept when you offer 2 players instead of 1. Used it immediately on a deal and it worked.",
         author: "Jake R.",
         initials: "JR",
-        meta: "Founding member · ESPN 10-team PPR",
-      },
-      {
-        quote:
-          "Finally solved the 'chasing people for money' problem. Everyone in our league paid through the Stripe link, the money stays protected until the season ends, then one-click payout. Dream feature.",
-        author: "Alex B.",
-        initials: "AB",
-        meta: "Commissioner · $100 buy-in · 12 teams",
+        meta: "Early member · ESPN 10-team PPR",
       },
     ] satisfies Testimonial[],
   },
@@ -484,22 +401,17 @@ export const siteConfig = {
       {
         question: "Does GridironHQ replace my current fantasy platform?",
         answer:
-          "No — GridironHQ works on top of Sleeper, ESPN, Yahoo, and CBS. You keep your league exactly where it is. GridironHQ connects to it and gives you a smarter advisory layer on top. No migration, no convincing your league to switch platforms.",
+          "No — GridironHQ works on top of your league. You keep your league exactly where it is; GridironHQ connects to it and gives you a smarter advisory layer on top. Sleeper is fully supported and ESPN leagues can be imported today. Yahoo and CBS are planned but not available yet.",
       },
       {
-        question: "What does \"founding member rate locked for life\" actually mean?",
+        question: "How do I try GridironHQ before I pay?",
         answer:
-          "Your $4.99/mo (or $5.99/mo for league members) rate never goes up — even as we raise prices for new subscribers, add features, or change tiers. You locked in your price before launch and it stays forever as long as you keep your subscription active.",
+          "Every plan starts with a 14-day free trial and no credit card is required to begin. If you don't add a payment method by the end of the trial, access simply pauses — you're never charged by surprise. You can also try the full interactive demo with no account at all.",
       },
       {
-        question: "When does GridironHQ launch?",
+        question: "Can I cancel?",
         answer:
-          "We're targeting late July to early August 2026 — in advance of your league draft. Founding members will get early access and will be the first to connect their leagues. You're not paying for a finished product yet, which is why the founding rate is 37% off regular price.",
-      },
-      {
-        question: "What if GridironHQ doesn't launch?",
-        answer:
-          "Full refund, no questions asked. You can cancel any time before launch from your Stripe account. We're not asking you to take a risk — if the product doesn't ship, you don't pay for it.",
+          "Yes — one click from your account page, any time. Cancelling stops future billing and you keep access through the end of the period you've already paid for.",
       },
       {
         question: "Does ARGUS actually know my roster?",
@@ -507,14 +419,14 @@ export const siteConfig = {
           "Yes — this is the whole point. When you connect your Sleeper league, GridironHQ imports your actual roster, your scoring format, your record, and your playoff situation. Every AI response is built around your specific team, not generic advice.",
       },
       {
-        question: "What platforms does GridironHQ support at launch?",
+        question: "What platforms does GridironHQ support?",
         answer:
-          "Sleeper at launch, with ESPN, Yahoo, and CBS to follow in rapid succession. Sleeper has the best developer API and is where we're starting — if your league is on Sleeper, you'll be first in the door.",
+          "Sleeper is fully supported — connect with your username and everything imports automatically. ESPN leagues can be imported today. Yahoo and CBS are on the roadmap and are not available yet.",
       },
       {
         question: "How does GridironHQ Treasury work?",
         answer:
-          "League Treasury is coming soon. It will let commissioners collect dues and hold the prize pool in a segregated account with rules-based payouts at season's end. We're finalizing our financial partner and will open it to founding members first.",
+          "It's a payment directory and a ledger — not a bank. You publish the payment methods your league already uses (Venmo, Cash App, Zelle, PayPal, bank transfer) on a shareable page, members pay you directly through those methods and mark themselves as paid, and you approve or reject each claim. GridironHQ shows you who has paid and who hasn't. GridironHQ never holds, moves, escrows, or pays out your league's money — the money never touches us.",
       },
       {
         question: "Does GridironHQ work for dynasty leagues?",
@@ -534,7 +446,7 @@ export const siteConfig = {
       {
         question: "Can I connect multiple leagues?",
         answer:
-          "Yes. GridironHQ supports multiple Sleeper leagues per account. Connect all your leagues and view them together on the Portfolio Dashboard. ESPN, Yahoo, and CBS integrations are coming in July 2026.",
+          "Yes. GridironHQ supports multiple leagues per account. Connect your Sleeper leagues and import your ESPN leagues, then view them all together on the Portfolio Dashboard. Yahoo and CBS integrations are planned.",
       },
     ] satisfies FaqItem[],
   },
@@ -546,7 +458,7 @@ export const siteConfig = {
       accentLine: "Actually Win",
     },
     subhead:
-      "Founding member pricing is available for a limited time. First 200 commissioners lock in $4.99/mo for life. Your league members lock in $5.99/mo.",
+      "Start with a 14-day free trial — no credit card required. Plans start at $3.99/mo and you can cancel any time.",
     signInPrompt: "Already have an account?",
     signInLabel: "Sign in to your dashboard →",
     demoPrompt: "Not ready to pay?",

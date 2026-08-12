@@ -4,7 +4,7 @@ export function Hero() {
   const { hero } = siteConfig;
 
   return (
-    <section className="relative min-h-screen flex items-center pt-[100px] pb-[60px] overflow-hidden section-grid-bg">
+    <section className="relative min-h-[100dvh] flex items-center pt-[100px] pb-[60px] overflow-hidden section-grid-bg">
       <div
         aria-hidden="true"
         className="absolute -top-[200px] -right-[200px] w-[700px] h-[700px] pointer-events-none"
@@ -32,7 +32,7 @@ export function Hero() {
               </span>
             </div>
 
-            <h1 className="font-display text-[clamp(52px,6vw,80px)] leading-none tracking-[2px] uppercase mb-5 animate-fadeup delay-1">
+            <h1 className="font-display text-[clamp(52px,6vw,80px)] leading-none tracking-[2px] uppercase mb-5 animate-fadeup delay-1 text-balance">
               {hero.headline.lines.map((line, i) => (
                 <span key={i} className="block">
                   {line === hero.headline.accentLine ? (
@@ -70,8 +70,8 @@ export function Hero() {
                 ))}
               </div>
               <p className="text-[13px] text-text-muted">
-                <strong className="text-text">200 founding member spots</strong>{" "}
-                — first 200 commissioners lock in $4.99/mo for life
+                <strong className="text-text">14-day free trial</strong> — no
+                credit card required, cancel any time
               </p>
             </div>
           </div>
@@ -85,8 +85,9 @@ export function Hero() {
 
 function DashboardMockup() {
   return (
+    <div className="animate-fadeup delay-2 transition-transform duration-500 ease-out will-change-transform hover:-translate-y-1.5">
     <div
-      className="relative rounded-[14px] overflow-hidden bg-bg-card border border-border lg:[transform:perspective(1000px)_rotateY(-3deg)_rotateX(2deg)] animate-fadeup delay-2"
+      className="relative rounded-[14px] overflow-hidden bg-bg-card border border-border lg:[transform:perspective(1000px)_rotateY(-3deg)_rotateX(2deg)]"
       style={{
         boxShadow:
           "0 40px 100px rgba(0,0,0,0.6), 0 0 60px rgba(255,107,0,0.08)",
@@ -154,7 +155,17 @@ function DashboardMockup() {
           </div>
 
           <div className="bg-green/10 border border-green/20 rounded-md px-2.5 py-2 mb-2.5 flex items-center gap-2">
-            <span>🎯</span>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              className="w-3.5 h-3.5 shrink-0 text-green"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+            >
+              <circle cx="12" cy="12" r="8" />
+              <circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none" />
+            </svg>
             <div className="text-[11px]">
               <strong className="text-green">
                 +2.1% championship equity
@@ -197,17 +208,17 @@ function DashboardMockup() {
               </div>
               {[
                 {
-                  tag: "⚠ SWAP",
+                  tag: "SWAP",
                   color: "text-red",
                   text: "Williams (BN) outprojects Gibbs by 1.7 pts",
                 },
                 {
-                  tag: "🤝 DECLINE",
+                  tag: "DECLINE",
                   color: "text-orange",
                   text: "Trade offer costs 4.4% champ equity",
                 },
                 {
-                  tag: "📋 ADD",
+                  tag: "ADD",
                   color: "text-green",
                   text: "Kareem Hunt — Fit 91, +3.4% champ EV",
                 },
@@ -216,7 +227,10 @@ function DashboardMockup() {
                   key={alert.tag}
                   className="flex flex-col items-start gap-0.5 py-1 border-b border-border-soft last:border-0"
                 >
-                  <div className={`text-[9px] font-bold ${alert.color}`}>
+                  <div
+                    className={`flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.5px] ${alert.color}`}
+                  >
+                    <span className="w-1 h-1 rounded-full bg-current" />
                     {alert.tag}
                   </div>
                   <div className="text-[10px]">{alert.text}</div>
@@ -226,6 +240,7 @@ function DashboardMockup() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

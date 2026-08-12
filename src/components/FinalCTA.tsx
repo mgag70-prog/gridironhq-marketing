@@ -1,7 +1,7 @@
 import { siteConfig } from "@/config/site";
 
 export function FinalCTA() {
-  const { finalCta, founding, urls } = siteConfig;
+  const { finalCta, pricing, urls } = siteConfig;
 
   return (
     <section className="text-center py-[100px] relative overflow-hidden section-grid-bg">
@@ -39,29 +39,22 @@ export function FinalCTA() {
         </p>
 
         <div className="flex justify-center gap-8 mb-10 flex-wrap">
-          {founding.tiers.map((tier) => (
+          {pricing.tiers.map((tier) => (
             <div
               key={tier.id}
               className="text-center px-7 py-5 bg-bg-card border border-border rounded-[10px] min-w-[200px]"
             >
               <div className="font-display text-4xl text-orange leading-none">
-                ${tier.price}
-                <span className="text-base text-text-muted">{tier.cadence}</span>
+                ${tier.price.toFixed(2)}
+                <span className="text-base text-text-muted">/mo</span>
               </div>
-              <div className="text-xs text-text-muted mt-1">
-                {tier.name} · Locked forever
-              </div>
+              <div className="text-xs text-text-muted mt-1">{tier.name}</div>
               <div className="mt-3">
                 <a
-                  href={tier.stripeUrl}
-                  className={`btn ${tier.ctaVariant === "primary" ? "btn-primary" : "btn-outline"} btn-large w-full`}
+                  href={tier.cta.href}
+                  className={`btn ${tier.featured ? "btn-primary" : "btn-outline"} btn-large w-full`}
                 >
-                  Subscribe as{" "}
-                  {tier.id === "commissioner"
-                    ? "Commissioner"
-                    : tier.id === "league-member"
-                      ? "League Member"
-                      : "Dynasty Elite"}
+                  {tier.cta.label}
                 </a>
               </div>
             </div>

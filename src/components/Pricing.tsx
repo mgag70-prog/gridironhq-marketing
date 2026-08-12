@@ -2,7 +2,7 @@ import { siteConfig } from "@/config/site";
 import { SectionHeader } from "./SectionHeader";
 
 export function Pricing() {
-  const { pricing, founding, seasonPasses } = siteConfig;
+  const { pricing } = siteConfig;
 
   return (
     <section className="py-[100px] section-grid-bg" id="pricing">
@@ -48,14 +48,7 @@ export function Pricing() {
               <div className="text-[13px] text-text-muted">
                 {tier.cadence}
               </div>
-              {tier.note && (
-                <div className="text-[12px] text-orange/90 mt-1 mb-2 leading-snug">
-                  {tier.note}
-                </div>
-              )}
-              <p
-                className={`text-sm text-text-muted leading-[1.6] mb-6 ${tier.note ? "mt-3" : "mt-6"}`}
-              >
+              <p className="text-sm text-text-muted leading-[1.6] mb-6 mt-6">
                 {tier.description}
               </p>
 
@@ -83,110 +76,11 @@ export function Pricing() {
           ))}
         </div>
 
-        {/* Starter waitlist */}
-        <div
-          id="waitlist"
-          className="mt-10 max-w-md mx-auto bg-bg-card border border-orange/30 rounded-[10px] p-6 text-center"
-        >
-          <h3 className="font-condensed text-lg font-extrabold uppercase tracking-[0.5px] mb-3">
-            <span className="text-orange">Starter Plan</span> — Coming July 31
-          </h3>
-          <form
-            name="starter-waitlist"
-            method="POST"
-            data-netlify="true"
-            className="flex flex-col sm:flex-row gap-2"
-          >
-            <input type="hidden" name="form-name" value="starter-waitlist" />
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="you@email.com"
-              aria-label="Email address"
-              className="flex-1 bg-bg border border-border rounded-md px-3 py-2 text-sm text-text focus:outline-none focus:border-orange transition-colors"
-            />
-            <button type="submit" className="btn btn-primary btn-small">
-              Notify Me
-            </button>
-          </form>
-          <p className="text-[12px] text-text-muted mt-3">
-            We&apos;ll email you when Starter launches at $3.99/mo
-          </p>
-        </div>
-
-        {/* Founding member box */}
-        <div
-          id="founding"
-          className="bg-orange/[0.06] border border-orange/20 rounded-[10px] p-5 mt-15 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5"
-        >
-          <div className="lg:max-w-sm">
-            <h3 className="font-condensed text-[22px] font-extrabold uppercase tracking-[0.5px] mb-1.5">
-              ⭐ {founding.heading}
-            </h3>
-            <p className="text-sm text-text-muted">{founding.description}</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 items-center">
-            {founding.tiers.map((tier) => (
-              <div key={tier.id} className="text-center">
-                <div className="font-display text-3xl text-orange">
-                  ${tier.price}
-                  <span className="text-sm text-text-muted">
-                    {tier.cadence}
-                  </span>
-                </div>
-                <div className="text-[11px] text-text-muted uppercase tracking-[0.5px]">
-                  {tier.name}
-                </div>
-                <div className="mt-2.5">
-                  <a
-                    href={tier.stripeUrl}
-                    className={`btn ${tier.ctaVariant === "primary" ? "btn-primary" : "btn-outline"} btn-small`}
-                  >
-                    {tier.ctaLabel}
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <p className="text-center text-[13px] text-text-muted mt-4">
-          🏆 $500 in prizes for founding members —{" "}
-          <a href="/prize" className="text-orange no-underline hover:underline">
-            See official rules →
-          </a>
+        <p className="text-center text-[13px] text-text-muted mt-8">
+          Every plan starts with a 14-day free trial. No credit card required to
+          start.
         </p>
 
-        {/* Season passes */}
-        <div className="mt-5 grid md:grid-cols-2 gap-4">
-          {seasonPasses.map((pass) => (
-            <div
-              key={pass.id}
-              className="bg-bg-card border border-border rounded-[10px] p-5 flex justify-between items-center flex-wrap gap-3"
-            >
-              <div>
-                <div className="font-condensed text-sm font-bold uppercase tracking-[0.5px] mb-1">
-                  {pass.name}
-                </div>
-                <div className="text-[13px] text-text-muted">
-                  {pass.description}
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="font-display text-3xl text-orange">
-                  ${pass.price}
-                </div>
-                <a
-                  href={pass.cta.href}
-                  className="btn btn-outline btn-small mt-2"
-                >
-                  {pass.cta.label}
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );

@@ -1142,10 +1142,11 @@ export default function ScheduleBuilder() {
           </h2>
           <p className="text-text-muted mb-6 max-w-xl mx-auto">
             GridironHQ&apos;s proprietary AI advisor builds every recommendation
-            around your specific roster. Founding member rate locked for life.
+            around your specific roster. Start with a 14-day free trial — no
+            credit card required.
           </p>
           <a href="https://gridironhq.ai/#pricing" className="btn btn-primary">
-            Get GridironHQ Free Founding Member Access →
+            Start Your Free Trial →
           </a>
         </div>
       </div>
