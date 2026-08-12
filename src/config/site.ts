@@ -84,7 +84,6 @@ export const siteConfig = {
       { label: "Pricing", href: "#pricing" },
       { label: "FAQ", href: "#faq" },
       { label: "Schedule Builder", href: "/schedule-builder" },
-      { label: "Prizes", href: "/prize" },
     ],
     signInHref: "https://app.gridironhq.ai",
     ctaLabel: "Start Free Trial",
@@ -145,7 +144,7 @@ export const siteConfig = {
       points: [
         "AI that knows your exact roster, your record, and your playoff situation",
         "Every decision framed as championship probability impact — not just points",
-        "Built-in league treasury with dues tracking and payment status (coming soon)",
+        "Built-in league treasury with dues tracking and payment status",
         "Behavioral profiles on every manager in your league — negotiate smarter",
         "Mock draft simulator with real-time championship probability modeling",
         "Works with Sleeper and ESPN — no new platform required (Yahoo and CBS planned)",
@@ -227,7 +226,7 @@ export const siteConfig = {
       {
         id: "league-treasury",
         icon: "💳",
-        title: "League Treasury (Coming Soon)",
+        title: "League Treasury",
         description:
           "A shared payment directory for your league. Publish the payment methods you already use — Venmo, Cash App, Zelle, PayPal, bank transfer — members send you money directly and mark themselves paid, and you approve or reject each claim. GridironHQ tracks who has paid. It never holds, moves, or handles your league's money.",
         tag: "Stop chasing who's paid →",
@@ -283,7 +282,7 @@ export const siteConfig = {
       { feature: "Championship probability on every decision", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "ARGUS proprietary AI advisor", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "League behavioral analytics", gridironhq: "yes", competitors: ["no", "no", "no"] },
-      { feature: "League dues tracking (no money held)", gridironhq: "Coming soon", competitors: ["no", "no", "no"] },
+      { feature: "League dues tracking (no money held)", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "Start/sit advice same for every user", gridironhq: "no", gridironhqNote: "personalized", competitors: ["yes", "yes", "yes"], inverted: true },
       { feature: "Draft simulator with EV modeling", gridironhq: "yes", competitors: ["Partial", "Partial", "Partial"] },
       { feature: "Works with your existing platform", gridironhq: "Partial", gridironhqNote: "Sleeper + ESPN", competitors: ["yes", "yes", "yes"] },
@@ -325,7 +324,7 @@ export const siteConfig = {
       },
       {
         id: "pro",
-        name: "Pro Advisor",
+        name: "Commissioner",
         price: 7.99,
         cadence: "/month, billed annually ($95.88/yr)",
         annualTotal: "$95.88/yr",
@@ -337,7 +336,7 @@ export const siteConfig = {
           "League Intel behavioral profiles",
           "Full trade analyzer + AI verdict",
           "Draft Center + mock draft simulator",
-          "League Treasury + dues tracking (coming soon)",
+          "League Treasury + dues tracking",
           "Playoff probability modeling",
         ],
         cta: {
@@ -356,7 +355,7 @@ export const siteConfig = {
         description:
           "Built for the dynasty and keeper manager. Career outcome models, prospect profiling, and multi-season behavioral analytics.",
         features: [
-          "Everything in Pro Advisor",
+          "Everything in Commissioner",
           "Dynasty rankings + valuations",
           "Career outcome models",
           "Rookie profiling + breakout scores",
@@ -475,7 +474,6 @@ export const siteConfig = {
           { label: "Features", href: "#features" },
           { label: "Pricing", href: "#pricing" },
           { label: "Free Schedule Builder", href: "/schedule-builder" },
-          { label: "Founding Member Prizes", href: "/prize" },
           { label: "Live Demo", href: "https://gridironhq.ai/demo" },
           { label: "Sign In", href: "https://app.gridironhq.ai" },
         ],
