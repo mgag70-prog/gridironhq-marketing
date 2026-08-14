@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { siteConfig } from "@/config/site";
 
 export function Footer() {
@@ -8,10 +9,10 @@ export function Footer() {
       <div className="max-w-[1180px] mx-auto px-6">
         <div className="grid md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-10 mb-10">
           <div className="max-w-[280px]">
-            <a href="#" className="font-display text-[28px] tracking-[2px] no-underline block mb-3">
+            <Link href="/" className="font-display text-[28px] tracking-[2px] no-underline block mb-3">
               <span className="text-orange">GRIDIRON</span>
               <span className="text-text">HQ</span>
-            </a>
+            </Link>
             <p className="text-[13px] text-text-muted leading-[1.65] mb-4">
               {footer.tagline}
             </p>

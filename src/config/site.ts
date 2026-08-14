@@ -58,14 +58,18 @@ export type ProofStat = {
 
 export const siteConfig = {
   name: "GridironHQ",
-  domain: "gridironhq.ai",
+  // Canonical host. The apex (gridironhq.ai) 307-redirects to www in
+  // production, so every canonical, OG url, and sitemap entry derived from
+  // this must say www — otherwise search engines and social scrapers are
+  // pointed at a redirecting host.
+  domain: "www.gridironhq.ai",
   tagline: "The Fantasy Football Advisor That Actually Knows Your Team",
   description:
     "Stop getting generic rankings. GridironHQ is the AI-powered fantasy football advisor built around your roster, your league, and your championship odds. Free 14-day trial, no credit card required.",
 
   urls: {
     app: "https://app.gridironhq.ai",
-    demo: "https://gridironhq.ai/demo",
+    demo: "/demo",
   },
 
   contact: {
@@ -78,16 +82,23 @@ export const siteConfig = {
   },
 
   nav: {
+    // Section links are root-relative ("/#features", not "#features") so the
+    // nav works on subpages too. A bare hash on /blog/* or /schedule-builder
+    // resolves to nothing; "/#features" navigates home and scrolls. Behaviour
+    // on the homepage itself is unchanged.
     links: [
-      { label: "Features", href: "#features" },
-      { label: "How It Works", href: "#how" },
-      { label: "Pricing", href: "#pricing" },
-      { label: "FAQ", href: "#faq" },
+      { label: "Features", href: "/#features" },
+      { label: "How It Works", href: "/#how" },
+      { label: "Pricing", href: "/#pricing" },
+      { label: "FAQ", href: "/#faq" },
       { label: "Schedule Builder", href: "/schedule-builder" },
+      // Nav items render `hidden md:inline` and there is no mobile menu, so this
+      // link is desktop-only. The footer Blog link is the mobile-reachable path.
+      { label: "Blog", href: "/blog" },
     ],
     signInHref: "https://app.gridironhq.ai",
     ctaLabel: "Start Free Trial",
-    ctaHref: "#pricing",
+    ctaHref: "/#pricing",
   },
 
   hero: {
@@ -99,7 +110,7 @@ export const siteConfig = {
     subhead:
       "Stop getting the same generic rankings as everyone else. GridironHQ is the AI-powered advisor built around your specific roster, your league, and your championship odds — plus The Vault for complete league history and the Portfolio Dashboard to manage every league from one command center.",
     primaryCta: { label: "Start Free Trial", href: "#pricing" },
-    secondaryCta: { label: "Try the Demo", href: "https://gridironhq.ai/demo" },
+    secondaryCta: { label: "Try the Demo", href: "/demo" },
     socialProof:
       "14-day free trial — no credit card required, cancel any time",
     avatars: ["CM", "JR", "AB", "TK", "+"],
@@ -267,7 +278,7 @@ export const siteConfig = {
     titleAccent: "In Action",
     description:
       "Try the fully interactive demo — live ARGUS, real EV framework, League Intel behavioral profiles, mock draft simulator. No account required.",
-    cta: { label: "Try the Live Demo", href: "https://gridironhq.ai/demo" },
+    cta: { label: "Try the Live Demo", href: "/demo" },
   },
 
   comparison: {
@@ -471,10 +482,11 @@ export const siteConfig = {
       {
         heading: "Product",
         links: [
-          { label: "Features", href: "#features" },
-          { label: "Pricing", href: "#pricing" },
+          { label: "Features", href: "/#features" },
+          { label: "Pricing", href: "/#pricing" },
           { label: "Free Schedule Builder", href: "/schedule-builder" },
-          { label: "Live Demo", href: "https://gridironhq.ai/demo" },
+          { label: "Blog", href: "/blog" },
+          { label: "Live Demo", href: "/demo" },
           { label: "Sign In", href: "https://app.gridironhq.ai" },
         ],
       },
@@ -482,7 +494,7 @@ export const siteConfig = {
         heading: "Company",
         links: [
           { label: "About", href: "#" },
-          { label: "FAQ", href: "#faq" },
+          { label: "FAQ", href: "/#faq" },
           { label: "Contact", href: "mailto:hello@gridironhq.ai" },
         ],
       },

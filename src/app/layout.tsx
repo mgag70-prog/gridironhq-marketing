@@ -27,6 +27,10 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
+  // NOTE: deliberately no `alternates.canonical` here. Root-layout metadata is
+  // inherited by every route, so a canonical set here would tell search engines
+  // that /schedule-builder and every blog post ARE the homepage. Canonicals are
+  // set per page instead.
   keywords: [
     "fantasy football",
     "ARGUS",
@@ -41,17 +45,18 @@ export const metadata: Metadata = {
     "league treasury",
   ],
   authors: [{ name: siteConfig.company.legalName }],
+  // Only site-wide-safe fields belong here. `title`, `description`, and `url`
+  // are per-page and were previously set at this level, which meant every
+  // subpage advertised the HOMEPAGE's og:title/og:description/og:url — so
+  // sharing /schedule-builder showed the homepage. Next fills og:title and
+  // og:description from each page's own title/description when they aren't
+  // overridden here, and pages that need og:url set it themselves.
   openGraph: {
     type: "website",
     siteName: siteConfig.name,
-    title: `${siteConfig.name} — ${siteConfig.tagline}`,
-    description: siteConfig.description,
-    url: `https://${siteConfig.domain}`,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} — ${siteConfig.tagline}`,
-    description: siteConfig.description,
   },
   robots: { index: true, follow: true },
   icons: {

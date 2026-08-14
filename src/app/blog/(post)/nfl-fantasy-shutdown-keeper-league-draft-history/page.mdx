@@ -1,0 +1,226 @@
+import { ArticleJsonLd } from "@/components/ArticleJsonLd";
+import { postMetadata } from "@/content/posts";
+
+{/* Title, description, canonical, OG card and Twitter card all derive from
+    the registry entry in src/content/posts.ts. */}
+export const metadata = postMetadata("nfl-fantasy-shutdown-keeper-league-draft-history");
+
+<ArticleJsonLd slug="nfl-fantasy-shutdown-keeper-league-draft-history" />
+
+# NFL Fantasy Is Gone. Here's What Your Keeper League Just Lost — And How to Get It Back
+
+**The short version:** NFL Fantasy shut down for the 2026 season. ESPN is the official replacement, and the migration at `espn.com/importnfl` carries over your standings, your records, your champions, and — for keeper leagues — last season's rosters. It does **not** carry over your draft results or your transaction history.
+
+If your league sets keeper costs by the round a player was drafted in, that's not an inconvenience. That's your entire keeper system, deleted, three weeks before your draft.
+
+This guide is in four parts: what actually got lost, how to recover it, what to do if it's genuinely unrecoverable, and how to make sure this never happens to your league again — on any platform.
+
+---
+
+## What happened
+
+On July 16, 2026, the NFL announced it was shutting down NFL Fantasy for the 2026 season. ESPN was named the official replacement, with a migration path at `espn.com/importnfl` for leagues that want to move intact.
+
+For redraft leagues, this is mostly an afternoon of annoyance. Move the league, re-invite everyone, argue about scoring settings, draft.
+
+For keeper and dynasty leagues, it's something else. Those formats are built on continuity — the entire premise is that what happened in previous seasons constrains what you can do this season. When the record of previous seasons goes away, the rules stop working.
+
+## What the ESPN migration actually brings over
+
+Here's the split that matters:
+
+| Comes over | Does **not** come over |
+|---|---|
+| Final standings | **Draft results** (who was drafted, in what round, at what pick) |
+| Season-by-season records | **Transaction history** (adds, drops, waiver claims, FAAB spend, trades) |
+| Championship history | Draft-pick trades and future-pick ledgers |
+| Last season's rosters (keeper leagues) | Anything your league tracked in the platform's notes or message board |
+
+Read that right column again if you run a keeper league. Then go read your league constitution.
+
+## Why missing draft results breaks keeper leagues specifically
+
+The most common keeper-cost rule in fantasy football is some version of:
+
+> *A kept player costs you the draft pick one round earlier than where he was originally drafted.*
+
+It's a good rule. It's self-balancing, it's easy to explain, and it makes keeping a late-round breakout genuinely valuable while making you pay for keeping a first-rounder.
+
+It also depends entirely on one piece of data: **what round was this player drafted in?**
+
+That data lived in NFL Fantasy's draft recap. It did not come over. So on the morning of your 2026 draft, you have a roster full of keepers and no defensible way to price any of them. Your league's most contested rule now rests on twelve people's memories of a draft that happened a year ago — and the guy whose memory is most confident is usually the guy it benefits.
+
+That's how leagues end. Not from the shutdown. From the argument after the shutdown.
+
+### The second loss people notice a month later
+
+Transaction history matters more than commissioners expect, and its absence tends to surface mid-season rather than now:
+
+- **Keeper eligibility rules that reference acquisition.** Plenty of constitutions say something like *you can't keep a player added off waivers after Week 10*, or *players acquired by trade keep their original owner's draft cost*. Both need a transaction log.
+- **FAAB-based keeper pricing.** If a waiver pickup's keeper cost is tied to what you spent on him, that number is gone too.
+- **Dispute resolution.** Without a transaction log you have no audit trail. Every "I offered that trade first" argument becomes unresolvable.
+- **League lore.** Who dropped the eventual league-winner. Who blew their whole FAAB in Week 2. This is the stuff that keeps 12 adults in a group chat for a decade, and it's genuinely a loss.
+
+---
+
+## Part 1: How to recover your draft history
+
+Ranked by realistic odds of success. Do these in order, and do them this week — several of these routes get worse with time.
+
+### 1. Export from NFL.com right now, if you still can
+
+Before anything else: try to log in. If any part of your old league is still reachable, screenshot and save the draft recap, transaction log, and each season's standings **today**. Don't plan to do it this weekend. Decommissioned services don't usually announce the moment the data goes dark, and "I'll grab it later" is how most of this gets permanently lost.
+
+Save actual files — screenshots and CSVs on your own hard drive or cloud drive. A bookmark is not a backup.
+
+### 2. Search your email. This is the highest-yield move.
+
+Fantasy platforms are noisy by default, and that noise is now your archive. Most managers have years of automated NFL Fantasy email sitting in their inbox: draft recaps, "your draft results" summaries, trade notifications, waiver-claim confirmations, weekly recaps.
+
+Search your mail for the sender domain and for phrases like *draft results*, *draft recap*, *trade accepted*, *waiver claim*, *has been added*. Then — and this is the part commissioners skip — **ask all twelve managers to do the same search and forward you anything they find.** One person's retained inbox can reconstruct an entire draft board. Between twelve inboxes, your odds are genuinely good.
+
+### 3. Mine the group chat
+
+Your league's GroupMe, WhatsApp, Discord, or iMessage thread almost certainly contains draft-night photos of the board, screenshots of results, and the running commentary that timestamps who took whom. Search the thread's media around the date of each draft. Discord in particular retains searchable history indefinitely — if your league has a server, that's a real archive.
+
+### 4. Ask the spreadsheet guy
+
+Every league has one. Someone kept their own draft board, dynasty valuations, or keeper tracker in Excel or Google Sheets because they didn't trust the platform. Post in the group chat and ask. This is often the single fastest path to a complete recovery, and it takes one message.
+
+### 5. Long shots worth ten minutes
+
+The Wayback Machine (`web.archive.org`) is worth trying, but set expectations low — most league pages were behind a login, so crawlers rarely captured them. Public-facing league homepages sometimes got indexed. Ten minutes, not two hours.
+
+---
+
+## Part 2: If your draft history is genuinely gone
+
+Accept it and legislate. The failure mode here is a commissioner spending three weeks hunting for data that doesn't exist while draft day arrives with no rule in place.
+
+You need a keeper-cost basis that does **not** require your lost draft records. Four options, with honest tradeoffs:
+
+### Option A: Use ADP as a proxy for draft round *(closest to your old rule)*
+
+Take each keeper's current consensus ADP, and convert it to a round in your league size. In a 12-team league, ADP 1–12 is round 1, 13–24 is round 2, 25–36 is round 3, and so on. Then apply your existing keeper rule to that derived round.
+
+**Why it's the best option:** it preserves the *spirit* of your constitution — expensive players cost more — using data that's publicly available, reproducible by anyone, and impossible to argue was fudged. It also self-corrects for players whose value moved a lot since last August.
+
+**Tradeoff:** it erases the reward for having drafted a breakout late. The manager who took a WR in round 12 who finished as a top-10 receiver now pays near-market. Expect that manager to be loud about it, and they have a point.
+
+**Mitigation:** apply your normal round-escalation *on top* of the derived round (ADP round minus one), which restores some of the discount.
+
+### Option B: One-time keeper amnesty
+
+Everyone declares their keepers at a flat cost — by position tier, or simply "your first three picks are spent" — for 2026 only. Then normal rules resume from this year's draft, which you will record properly.
+
+**Why:** it's the fastest to agree on and the hardest to accuse anyone of manipulating.
+**Tradeoff:** it's a one-year competitive-balance reset. Teams that were mid-rebuild lose the payoff.
+
+### Option C: Reset the clock to zero
+
+Declare 2026 the new year one. Keepers this year are free or flat-cost; from this draft forward, keeper costs escalate normally using records your league now owns.
+
+**Why:** clean, simple, forward-looking.
+**Tradeoff:** it's the biggest break with league history — worst option for a long-running dynasty, most defensible for a keeper league that was already considering a reset.
+
+### Option D: Keeper auction
+
+Sidestep draft rounds entirely. Give every team an equal keeper budget and let them bid on the rights to their own keepers, or run a blind-bid round for contested players.
+
+**Why:** genuinely fun, and completely immune to missing historical data.
+**Tradeoff:** it's a real rules change, and you're introducing it under time pressure — the worst condition for adopting a new mechanic.
+
+### Whatever you pick: write it down and get a vote
+
+Put the chosen rule in writing in the group chat, state that it's a response to the NFL Fantasy shutdown, and get an explicit yes from a majority before draft day. A rule adopted by visible vote survives a bad outcome. A rule the commissioner announced on draft night does not.
+
+---
+
+## Part 3: The durable fix — own your league's history
+
+Here's the actual lesson of July 16, and it has nothing to do with the NFL or ESPN.
+
+**Your league's history was never yours. It was a feature of a product owned by a company that had no obligation to keep running it.** That was true of NFL Fantasy. It's equally true of ESPN, Sleeper, Yahoo, CBS, and every platform that comes next. Platforms get sunset, sold, redesigned, or quietly re-scoped, and a decade of your league's record can go with them.
+
+The fix is not "pick a better platform." The fix is to keep your own copy, in a format no company controls.
+
+### The archive every league should keep
+
+One spreadsheet. Four tabs. Twenty minutes a year. Google Sheets, Excel, or a CSV in a folder — the point is that you own the file.
+
+**Tab 1 — `draft_results`** *(the one that just cost everybody)*
+```text
+season | round | overall_pick | team | manager | player | position | auction_cost (if applicable)
+```
+
+**Tab 2 — `keepers`**
+```text
+season | team | player | keeper_cost_round | years_kept | keeper_rights_expire
+```
+
+**Tab 3 — `transactions`**
+```text
+date | type (add/drop/trade/waiver/FAAB) | team | player_in | player_out | faab_spent | notes
+```
+
+**Tab 4 — `seasons`**
+```text
+season | team | manager | W-L-T | points_for | points_against | regular_season_finish | playoff_finish | champion (y/n)
+```
+
+Tabs 1 and 4 are non-negotiable — they're what keeper rules and league lore both run on. Tab 3 is the one people skip and later regret.
+
+### The ritual that makes it work
+
+**Export in December or January, not August.** Right after your championship, while the season's data is still fully accessible and still fresh in everyone's memory. Most platforms let you export or at least screenshot standings, draft recaps, and transaction logs; do it as the last act of the season, the same week you pay out the winner.
+
+Then store it somewhere the league can see: a shared Drive folder, a pinned link in the group chat. Two people should have access, not just the commissioner — commissioners change, and laptops die.
+
+### Write rules that don't depend on someone else's database
+
+This is the constitutional version of the same idea. Audit your keeper rules for anything that requires platform-held data to adjudicate, and rewrite it to reference *your league's records* instead of *the platform's records*.
+
+Small wording change. It's the difference between a rule that survives a migration and a rule that doesn't.
+
+---
+
+## Part 4: Choosing where to land
+
+Both real options are defensible, and the honest answer depends on your format.
+
+**ESPN** is the official migration path, and it's the low-friction choice: standings, records, champions, and keeper rosters come over automatically, and your less-engaged managers already have an ESPN login. If your league is redraft or lightly keeper, take the easy road.
+
+**Sleeper** is where a lot of keeper and dynasty leagues are heading, and for good reason — the dynasty tooling, draft-pick trading, and mobile experience are built for the format rather than bolted onto it. The cost is that you're re-entering your league by hand rather than clicking an import button, and you'll need to sell it to eleven other people during draft season.
+
+Either way, the migration is the moment to start your archive — you're already handling every piece of data you'd need to put in it.
+
+## Where GridironHQ fits in this
+
+Straightforwardly: league continuity is the thing we built the product around, so we have a stake in this argument. Here's the honest scope of what we can and can't do for you right now.
+
+**What we do.** GridironHQ layers on top of your existing league rather than replacing it. **The Vault** connects to your Sleeper league, walks your season history, and builds all-time standings, head-to-head records, championship history, and four analytics metrics — Luck Index, Clutch Factor, Consistency Score, and Dynasty Power Rankings — with ARGUS, our AI advisor, surfacing the patterns and rivalries in it. Our **Dynasty Elite** tier adds keeper value tooling, dynasty rankings, career outcome models, and multi-season behavioral analytics for exactly the kind of league this shutdown hit hardest.
+
+**What we can't do.** We can't resurrect your NFL.com draft results. Nobody can — that data isn't ours to recover, and any tool claiming otherwise is guessing. The Vault's history walk works with Sleeper today; ESPN leagues can be imported, and Yahoo and CBS are planned but not available yet. And nothing here replaces your own spreadsheet. **Keep the spreadsheet.** A copy you control is the only backup with no company attached to it.
+
+If it's useful right now, our [schedule builder](https://www.gridironhq.ai/schedule-builder) is free with no account — divisions, pinned matchups, back-to-back prevention, and playoff brackets, which is one less thing to rebuild by hand this month. When you want ARGUS looking at your actual roster, there's a 14-day trial with no credit card, and a [full demo](https://www.gridironhq.ai/demo) you can poke at without signing up for anything.
+
+---
+
+## Commissioner checklist
+
+Copy this into your group chat.
+
+- [ ] **Today:** try to log into NFL.com; screenshot and save anything that loads
+- [ ] **Today:** ask all managers to search their email for NFL Fantasy draft recaps and forward them
+- [ ] **This week:** search the group chat for draft-board photos and screenshots
+- [ ] **This week:** ask whether anyone kept their own spreadsheet
+- [ ] **Before draft day:** pick a keeper-cost rule that works with the data you actually have, put it in writing, and get a majority vote
+- [ ] **Before draft day:** decide ESPN vs Sleeper and get everyone moved
+- [ ] **Draft night:** record your own draft results — round, pick, player, team — in your own file, as it happens
+- [ ] **End of season:** export standings, draft, and transactions to the league archive. Share it with a second person.
+
+Your league has survived commissioner turnover, managers ghosting, scoring arguments, and at least one guy who drafted a kicker in the sixth round. It'll survive this. Just don't let it survive without its history.
+
+---
+
+*Running a keeper or dynasty league through the migration? [GridironHQ](https://www.gridironhq.ai) is built around league history and continuity — ARGUS knows your actual roster, The Vault keeps your all-time record, and it works on top of the league you already have. 14-day free trial, no credit card.*

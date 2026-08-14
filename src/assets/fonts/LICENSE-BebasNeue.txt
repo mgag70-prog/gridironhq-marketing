@@ -1,0 +1,8 @@
+Bebas Neue — SIL Open Font License 1.1
+Copyright 2019 The Bebas Neue Project Authors
+https://github.com/dharmatype/Bebas-Neue
+
+Vendored (rather than fetched at build time) so OG image generation has no
+network dependency. Satori/next-og cannot read woff2, which is the only format
+next/font/google exposes — hence the separate .ttf copy of the same typeface
+already used by the site.

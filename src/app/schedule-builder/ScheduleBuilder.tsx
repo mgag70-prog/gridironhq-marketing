@@ -1145,9 +1145,9 @@ export default function ScheduleBuilder() {
             around your specific roster. Start with a 14-day free trial — no
             credit card required.
           </p>
-          <a href="https://gridironhq.ai/#pricing" className="btn btn-primary">
+          <Link href="/#pricing" className="btn btn-primary">
             Start Your Free Trial →
-          </a>
+          </Link>
         </div>
       </div>
     </main>

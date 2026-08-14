@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -24,13 +25,13 @@ export function Nav() {
       }}
     >
       <div className="max-w-[1180px] mx-auto h-full flex items-center gap-8">
-        <a
-          href="#"
+        <Link
+          href="/"
           className="font-display text-[26px] tracking-[2px] no-underline"
         >
           <span className="text-orange">GRIDIRON</span>
           <span className="text-text">HQ</span>
-        </a>
+        </Link>
         <div className="flex gap-6 ml-auto items-center">
           {siteConfig.nav.links.map((link) => (
             <a

@@ -203,3 +203,68 @@ body::before {
   position: relative;
   z-index: 1;
 }
+
+/* MDX prose list markers (see src/mdx-components.tsx).
+   Real CSS rather than Tailwind arbitrary variants, because the GFM task-list
+   overrides below need attribute selectors that don't survive that syntax. */
+.mdx-ul > li {
+  position: relative;
+}
+.mdx-ul > li::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 0.65em;
+  width: 8px;
+  height: 2px;
+  background: var(--orange);
+}
+
+/* GFM task lists (`- [ ]`) — used by the commissioner checklists. Drop the dash
+   marker and tint the native checkbox instead of shipping default gray. */
+.mdx-ul.contains-task-list {
+  padding-left: 0;
+}
+/* Hanging indent, NOT flex. With `display: flex` on the li, every child becomes
+   its own flex item — so a checklist row like "**Today:** do the thing" split
+   the bold lead-in into a separate column and wrapped badly. Keeping the li as
+   a block lets the text flow inline; the checkbox is positioned out of flow. */
+.mdx-ul.contains-task-list > li {
+  display: block;
+  padding-left: 26px;
+}
+.mdx-ul.contains-task-list > li::before {
+  display: none;
+}
+/* remark-gfm emits these checkboxes `disabled`, and every browser dims a
+   disabled control — accent-color alone renders washed-out gray. Draw the box
+   ourselves so a read-only checklist still looks like it belongs to the site. */
+.mdx-ul.contains-task-list input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+  left: 0;
+  top: 0.38em;
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid var(--text-faint);
+  border-radius: 3px;
+  background: transparent;
+  opacity: 1;
+}
+.mdx-ul.contains-task-list input[type="checkbox"]:checked {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+.mdx-ul.contains-task-list input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 3px;
+  height: 7px;
+  border: solid #000;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
