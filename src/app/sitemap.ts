@@ -17,11 +17,13 @@ const SITE_URL = `https://${siteConfig.domain}`;
  *   /                 2026-08-14  nav restructure + Blog link (this changeset)
  *   /schedule-builder 2026-08-12  marketing truth pass (744b238)
  *   /blog             2026-08-14  index created (this changeset)
+ *   /help/connect-espn 2026-08-25 page created (this changeset)
  */
 const STATIC_LAST_MODIFIED = {
   home: "2026-08-14",
   scheduleBuilder: "2026-08-12",
   blogIndex: "2026-08-14",
+  helpConnectEspn: "2026-08-25",
 } as const;
 
 /** Parse as UTC midnight so the date can't slip a day by timezone. */
@@ -56,6 +58,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: asDate(STATIC_LAST_MODIFIED.blogIndex),
       changeFrequency: "monthly",
       priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/help/connect-espn`,
+      lastModified: asDate(STATIC_LAST_MODIFIED.helpConnectEspn),
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
   ];
 

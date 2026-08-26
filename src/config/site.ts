@@ -95,6 +95,7 @@ export const siteConfig = {
       // Nav items render `hidden md:inline` and there is no mobile menu, so this
       // link is desktop-only. The footer Blog link is the mobile-reachable path.
       { label: "Blog", href: "/blog" },
+      { label: "Help", href: "/help/connect-espn" },
     ],
     signInHref: "https://app.gridironhq.ai",
     ctaLabel: "Start Free Trial",
@@ -486,6 +487,7 @@ export const siteConfig = {
           { label: "Pricing", href: "/#pricing" },
           { label: "Free Schedule Builder", href: "/schedule-builder" },
           { label: "Blog", href: "/blog" },
+          { label: "Help", href: "/help/connect-espn" },
           { label: "Live Demo", href: "/demo" },
           { label: "Sign In", href: "https://app.gridironhq.ai" },
         ],

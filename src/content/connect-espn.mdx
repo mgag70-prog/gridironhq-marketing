@@ -1,0 +1,88 @@
+# Connecting your ESPN league
+
+ESPN doesn't offer a sign-in button for third-party tools the way some platforms do, so connecting an ESPN league takes one short manual step: copying two values from your browser while you're logged in to ESPN. It takes about a minute, you only do it once per season, and the steps below walk you through it.
+
+**You'll need a computer for this step.** The method below uses your desktop browser. It doesn't work on the ESPN mobile app or a phone browser, so grab a laptop or desktop for the initial connection. After you're connected, everything works everywhere.
+
+---
+
+## Before you start
+
+- Be **logged in to ESPN** in the same browser you'll use (go to [espn.com](https://www.espn.com), sign in, and confirm you can see your fantasy team).
+- Use a desktop browser — Chrome, Edge, Safari, or Firefox all work.
+- Have your **league ready** — you'll pick which league to connect once you're in.
+
+---
+
+## The fastest way (about 60 seconds)
+
+This copies everything GridironHQ needs in one step. You won't see or need to understand the values — just copy and paste.
+
+1. In your browser, go to **[fantasy.espn.com](https://fantasy.espn.com)** and make sure you're logged in (you should see your team).
+2. Open your browser's **developer console**:
+   - **Chrome / Edge / Firefox:** press **F12** (or **Ctrl+Shift+J** on Windows, **Cmd+Option+J** on Mac), then click the **Console** tab.
+   - **Safari:** first enable the menu — Safari → Settings → Advanced → check "Show features for web developers." Then press **Cmd+Option+C**.
+3. Click into the console, type this exactly, and press Enter:
+   ```
+   copy(document.cookie)
+   ```
+   You may see a message like "undefined" — that's normal. It means the values were copied to your clipboard.
+4. Come back to GridironHQ, **paste** into the connection box, and click **Connect**.
+
+That's it. GridironHQ pulls the two values it needs out of what you pasted, connects your league, and pulls in your roster.
+
+> **If `copy(document.cookie)` doesn't paste anything:** some browsers block clipboard access from the console. Use the manual method below instead — it takes a minute longer but always works.
+
+---
+
+## The manual way (if the quick method doesn't work)
+
+If the one-line method didn't copy anything, you can grab the two values by hand. ESPN's connection uses two cookies: **`espn_s2`** and **`SWID`**.
+
+1. Logged in at **[fantasy.espn.com](https://fantasy.espn.com)**, open developer tools (**F12**).
+2. Find the **cookies** list:
+   - **Chrome / Edge:** click the **Application** tab → left sidebar → **Cookies** → **https://fantasy.espn.com**.
+   - **Firefox:** click the **Storage** tab → **Cookies**.
+   - **Safari:** click the **Storage** tab → **Cookies**.
+3. In the list, find these two rows and copy each **Value**:
+   - **`espn_s2`** — a long string of letters, numbers, and `%` signs.
+   - **`SWID`** — a shorter string wrapped in curly braces, like `{XXXXXXXX-XXXX-...}`.
+4. Paste each value into its box in GridironHQ and click **Connect**.
+
+---
+
+## What happens after you connect
+
+- GridironHQ pulls in your **roster** and league details automatically.
+- If you connect **after your draft**, your drafted roster syncs and you'll get your ARGUS draft recap.
+- You can connect **multiple ESPN leagues** — repeat the step for each, or pick from the list if we find more than one on your account.
+
+---
+
+## Reconnecting (when your connection expires)
+
+ESPN's login sessions expire on their own after a while — this is normal and happens to every tool that connects to ESPN. When it does, GridironHQ will let you know and show a **Reconnect** button. Reconnecting is the exact same step as above: log in to ESPN, copy, paste. It takes the same minute, and your league history and settings stay intact.
+
+---
+
+## Troubleshooting
+
+**"It says my connection failed."**
+The most common cause is not being logged in to ESPN in the same browser. Go to [fantasy.espn.com](https://fantasy.espn.com), confirm you can see your team, then try again.
+
+**"I'm on my phone."**
+The copy step needs a desktop browser — the ESPN mobile app doesn't expose the values. Do the one-time connection on a computer; after that you can use GridironHQ anywhere, including your phone.
+
+**"`copy(document.cookie)` returned nothing when I pasted."**
+Your browser blocked clipboard access from the console. Use the manual method above.
+
+**"I don't see the Console / Application tab."**
+Make sure developer tools are fully open (press F12 again). In Safari, you first have to enable developer features in Settings → Advanced.
+
+---
+
+## Why is this necessary?
+
+Unlike some platforms, ESPN doesn't provide an official "connect" button for outside tools, so there's no way to skip the manual step — every fantasy tool that syncs with ESPN works this way. We've made it as fast as we can (the one-line copy), and we're always looking for ways to make it smoother. Sleeper leagues, by contrast, connect with a single click if you also play there.
+
+Questions or stuck on a step? Reach out and we'll walk you through it.
