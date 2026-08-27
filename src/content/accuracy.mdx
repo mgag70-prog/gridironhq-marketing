@@ -12,7 +12,7 @@ Nothing here is a projection of your season. The backtest is history. The predic
 
 ## The backtest
 
-**77 real league seasons. 2023 through 2025. About 930 team-seasons.**
+**77 real league seasons. 2023 through 2025. 928 team-seasons.**
 
 Not simulated drafts against modelled opponents. Actual dynasty leagues, with the rosters people actually had and the finishes they actually got.
 
@@ -26,17 +26,23 @@ The question: does a roster's pre-season strength, scored by GridironHQ, predict
 | Strongest pre-season roster won its title | **31%** of the time |
 | A random team in a 12-team league | 8.3% |
 
+That correlation is pooled across 928 team-seasons drawn from 77 league-seasons between 2023 and 2025. The independent unit is the league, not the team: inside a league the finishing ranks sum to a constant, so twelve team-seasons from one league are not twelve independent observations of anything. Treating them as if they were would shrink any confidence interval to a width the data does not support, which is why no interval is quoted on this number. Read the sample size as 77, not as 928.
+
+The 31% is measured over the league-seasons that had a played playoff bracket, not over all 77. The baseline it is being compared against is a random team's chance of winning the title — one divided by league size, or 8.3% in a twelve-team league.
+
 A 0.57 correlation is real signal and nowhere near destiny. It means the pre-season board tells you a lot about who makes the playoffs and much less about who wins. That gap is the playoffs: a six-team bracket is three single-elimination games, and being the best team on paper converts to a title less than a third of the time.
 
 ### In first-year leagues, no
 
-**Near zero.** A startup draft produces rosters that have not been shaped by trades, waivers, or two years of a manager's decisions, and the scoring has almost nothing to work with. We report this because it covers a third of the leagues on the platform, and because a number that only holds in the flattering half is not a number.
+**ρ ≈ 0.04.** Against 0.57 in established leagues, that is nothing. A startup draft produces rosters that have not been shaped by trades, waivers, or two years of a manager's decisions, and the scoring has almost nothing to work with. We report this because it covers a third of the leagues on the platform, and because a number that only holds in the flattering half is not a number.
 
 ### How it was run
 
 The scoring is a trade-value percentile per player, taken over the best N at each position for that league's format, with a tight-end premium where the league uses one, averaged across quarterback, running back, receiver and tight end. Injury status is deliberately excluded, so the score cannot peek at information the pre-season did not have.
 
 It re-runs every January, whether the result flatters us or not. The first of those re-runs is January 2027.
+
+These figures come from a retrospective replay. The inputs are reconstructed live from Sleeper at run time rather than read from anything stored, and the parameters of the published run were not recorded, so a re-run is a fresh reconstruction rather than a reproduction of the numbers above. The 2026 pre-registration below is the forward test, and it is the part of this page built to be checked.
 
 ---
 
