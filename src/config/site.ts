@@ -114,11 +114,13 @@ export const siteConfig = {
       "Stop getting the same generic rankings as everyone else. GridironHQ is the AI-powered advisor built around your specific roster, your league, and your championship odds — plus The Vault for complete league history and the Portfolio Dashboard to manage every league from one command center.",
     primaryCta: { label: "Start Free Trial", href: "#pricing" },
     secondaryCta: { label: "Try the Demo", href: "/demo" },
-    // Third, quieter hero link. The alternative label "77 real league seasons,
-    // tested" is now sourceable — src/content/accuracy.mdx states 77 leagues
-    // across 2023-2025 — so it is available if a specific hook beats a generic
-    // one here. Kept generic for now: the figure is the page's headline and
-    // restating it in the hero spends it before the reader arrives.
+    // Third, quieter hero link. A specific label ("83 league-seasons, tested")
+    // is sourceable — src/content/accuracy.mdx states 83 league-seasons across
+    // 2023-2025 — so it is available if a specific hook beats a generic one
+    // here. Kept generic for now: the figure is the page's headline and
+    // restating it in the hero spends it before the reader arrives. NOTE the
+    // figure has already moved once (77 → 83); a number in the hero is a
+    // second place to keep in sync.
     tertiaryCta: { label: "See the accuracy testing", href: "/accuracy" },
     socialProof:
       "14-day free trial — no credit card required, cancel any time",

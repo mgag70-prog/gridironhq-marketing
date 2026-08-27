@@ -12,37 +12,57 @@ Nothing here is a projection of your season. The backtest is history. The predic
 
 ## The backtest
 
-**77 real league seasons. 2023 through 2025. 928 team-seasons.**
-
-Not simulated drafts against modelled opponents. Actual dynasty leagues, with the rosters people actually had and the finishes they actually got.
+**83 league-seasons across 2023, 2024 and 2025. 994 team-seasons. Real dynasty leagues, not simulated drafts.**
 
 The question: does a roster's pre-season strength, scored by GridironHQ, predict where that team finishes?
 
-### In established leagues, yes — moderately
+The answer depends entirely on whether the league has played before.
 
-| Measure | Result |
-|---|---|
-| Rank correlation with final finish | **ρ ≈ 0.57** |
-| Strongest pre-season roster won its title | **31%** of the time |
-| A random team in a 12-team league | 8.3% |
+### In established leagues, yes
 
-That correlation is pooled across 928 team-seasons drawn from 77 league-seasons between 2023 and 2025. The independent unit is the league, not the team: inside a league the finishing ranks sum to a constant, so twelve team-seasons from one league are not twelve independent observations of anything. Treating them as if they were would shrink any confidence interval to a width the data does not support, which is why no interval is quoted on this number. Read the sample size as 77, not as 928.
+| Measure | Result | 95% interval |
+|---|---|---|
+| Mean correlation with final finish | **0.53** | 0.46 to 0.60 |
+| Strongest pre-season roster won its title | **25.0%** | 14.0% to 37.0% |
+| A random team's title chance | 8.5% | — |
 
-The 31% is measured over the league-seasons that had a played playoff bracket, not over all 77. The baseline it is being compared against is a random team's chance of winning the title — one divided by league size, or 8.3% in a twelve-team league.
+Across 50 league-seasons, the strongest roster on paper won about **three times as often as a random team would**, and the bottom of that interval still sits well clear of chance.
 
-A 0.57 correlation is real signal and nowhere near destiny. It means the pre-season board tells you a lot about who makes the playoffs and much less about who wins. That gap is the playoffs: a six-team bracket is three single-elimination games, and being the best team on paper converts to a title less than a third of the time.
+A 0.53 correlation is real signal and nowhere near destiny. It tells you a lot about who makes the playoffs and much less about who wins. That gap is the playoffs: a six-team bracket is three single-elimination games, and being the best team on paper converts to a title a quarter of the time.
 
 ### In first-year leagues, no
 
-**ρ ≈ 0.04.** Against 0.57 in established leagues, that is nothing. A startup draft produces rosters that have not been shaped by trades, waivers, or two years of a manager's decisions, and the scoring has almost nothing to work with. We report this because it covers a third of the leagues on the platform, and because a number that only holds in the flattering half is not a number.
+| Measure | Result | 95% interval |
+|---|---|---|
+| Mean correlation with final finish | **0.05** | −0.06 to 0.16 |
+| Strongest pre-season roster won its title | 7.6% | 0% to 16.7% |
+| A random team's title chance | 8.9% | — |
+
+Across 33 league-seasons, the interval straddles zero. This is not weak signal — it is **no signal**. The strongest roster in a startup wins the title at roughly the rate chance predicts.
+
+A startup draft produces rosters that have not been shaped by trades, waivers, or years of a manager's decisions, and the scoring has almost nothing to work with. We report it because first-year leagues are 40% of the sample, and because a number that only holds in the flattering half is not a number.
+
+### How the intervals were computed
+
+The independent unit is the league, not the team. Inside a league the finishing ranks sum to a constant, so twelve teams from one league are not twelve independent observations, and every interval above is a bootstrap over **league-seasons** — resampling leagues with replacement, 2,000 iterations, with a fixed seed so the interval is itself reproducible.
+
+The pooled correlation across all 994 team-seasons is 0.31, and it is not quoted as the headline because it mixes established and first-year leagues together. Neither is it given an interval.
 
 ### How it was run
 
-The scoring is a trade-value percentile per player, taken over the best N at each position for that league's format, with a tight-end premium where the league uses one, averaged across quarterback, running back, receiver and tight end. Injury status is deliberately excluded, so the score cannot peek at information the pre-season did not have.
+Each player is scored on a trade-value percentile, taken over the best N at each position for that league's format, with a tight-end premium where the league uses one, averaged across quarterback, running back, receiver and tight end. Values come from dated market snapshots taken on the eve of each season — never from today's values, which already know how those seasons turned out. Injury status is excluded, so the score cannot see information the pre-season did not have.
 
-It re-runs every January, whether the result flatters us or not. The first of those re-runs is January 2027.
+Where several rosters tie at the top on strength, the title counts as a fractional hit rather than a win, since the model did not actually pick one. Eleven of the 83 league-seasons had such a tie.
 
-These figures come from a retrospective replay. The inputs are reconstructed live from Sleeper at run time rather than read from anything stored, and the parameters of the published run were not recorded, so a re-run is a fresh reconstruction rather than a reproduction of the numbers above. The 2026 pre-registration below is the forward test, and it is the part of this page built to be checked.
+### These numbers superseded an earlier set
+
+An earlier version of this page published a correlation of 0.57 and a title rate of 31% from 77 league-seasons. That run's parameters were never recorded, so it could not be reproduced — and the run above is not a reproduction of it but a fresh measurement under parameters that are now stored: the code version, the scorer version, the seasons, the snapshot dates, the league set and the full per-league results.
+
+The established correlation moved from 0.57 to 0.53, which sits inside the interval above. The title rate moved from 31% to 25%, mostly because ties at the top of the strength ranking used to count as full wins and now count as fractions.
+
+The next run is scheduled for January 2027 and will be a genuine replication, because everything needed to repeat this one is stored.
+
+The 2026 prediction below is the forward test, and it is the part of this page built to be checked.
 
 ---
 
