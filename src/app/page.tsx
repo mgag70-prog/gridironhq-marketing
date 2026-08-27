@@ -8,6 +8,7 @@ import { Features } from "@/components/Features";
 import { HowItWorks } from "@/components/HowItWorks";
 import { DemoBanner } from "@/components/DemoBanner";
 import { Comparison } from "@/components/Comparison";
+import { Pickem } from "@/components/Pickem";
 import { Pricing } from "@/components/Pricing";
 import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
@@ -54,6 +55,9 @@ export default function Home() {
         <DemoBanner />
         <Divider />
         <Comparison />
+        <Divider />
+        {/* Directly above Pricing: the free product frames the paid cards. */}
+        <Pickem />
         <Divider />
         <Pricing />
         <Divider />

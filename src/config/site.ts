@@ -90,6 +90,7 @@ export const siteConfig = {
       { label: "Features", href: "/#features" },
       { label: "How It Works", href: "/#how" },
       { label: "Accuracy", href: "/accuracy" },
+      { label: "Pick'Em", href: "https://app.gridironhq.ai/pools" },
       { label: "Pricing", href: "/#pricing" },
       { label: "FAQ", href: "/#faq" },
       { label: "Schedule Builder", href: "/schedule-builder" },
@@ -314,6 +315,42 @@ export const siteConfig = {
     ] satisfies ComparisonRow[],
   },
 
+  // Every claim below is verified against the app repo (2026-08-27):
+  //   • sport modes nfl | cfb | combined and scoring modes confidence |
+  //     straight | ats are CHECK-constrained in migrations/013_pickem.sql and
+  //     all three scoring modes are really graded (lib/pickem/grading.ts).
+  //   • /pools is a TOP-LEVEL route outside the /dashboard subscription gate;
+  //     grepping src/app/pools, src/lib/pickem and the pickem API routes for
+  //     hasEntitlement / requireSubscribed / entitlements / trial returns no
+  //     functional hits. Signed-in Clerk user is the ONLY gate.
+  //   • Commissioner actions (invite, curate, publish, settle, standings,
+  //     recap email) are guarded by commissioner_user_id only — no tier.
+  //
+  // Three things this copy must NEVER say, all deliberate:
+  //   1. "No account needed" / "no sign-up". Joining and picking REQUIRE a
+  //      signed-in account (joinPool returns `unauthorized` without a userId;
+  //      the picks page redirects to /sign-in). Only the invite PREVIEW
+  //      renders signed-out. "Free" here means free-with-an-account.
+  //   2. "Unlimited" pools or members. No cap was found in actions.ts or the
+  //      migration — but not finding a limit is not a documented no-limit.
+  //   3. Anything implying we handle pool money. Pools carry an
+  //      entry_fee_cents field; it is commissioner-side TRACKING only, the
+  //      same posture as Treasury. GridironHQ never holds or moves funds.
+  pickem: {
+    label: "Free",
+    title: "Try the real thing before you pay for anything",
+    titleAccent: "the real thing",
+    subhead:
+      "Most tools give you a countdown. GridironHQ gives you a whole product.",
+    body: [
+      "Pick'Em pools are free — NFL, college, or both, with straight, spread, or confidence scoring. Weekly slates, automatic settlement, live standings, and an AI recap your league will actually read.",
+      "Everything a commissioner needs to run a pool for the season, at no cost and with no card on file. Nothing here is on a clock.",
+      "The paid tiers are for the advisor, your league history, and the dues tracker. The pool is just free.",
+    ],
+    primaryCta: { label: "Start a pool", href: "https://app.gridironhq.ai/pools" },
+    secondaryCta: { label: "See what's paid", href: "#pricing" },
+  },
+
   pricing: {
     label: "Pricing",
     title: "Simple, Transparent Pricing",
@@ -502,6 +539,11 @@ export const siteConfig = {
           "Every plan starts with a 14-day free trial and no credit card is required to begin. If you don't add a payment method by the end of the trial, access simply pauses — you're never charged by surprise. You can also try the full interactive demo with no account at all.",
       },
       {
+        question: "Is Pick'Em really free?",
+        answer:
+          "Yes. Pick'Em pools cost nothing, take no credit card, and don't run on a trial clock — you can run a pool all season without ever paying. You do need a free GridironHQ account to join a pool and make picks; an invite link lets you see the pool before you sign in. Commissioners get the whole thing free too: weekly slates, slate curation, invites, automatic settlement, standings, and the AI recap. You don't need to connect a fantasy league to use it. If your pool charges an entry fee, that's between you and your league — GridironHQ tracks who has paid but never holds or moves the money.",
+      },
+      {
         question: "Can I cancel?",
         answer:
           "Yes — one click from your account page, any time. Cancelling stops future billing and you keep access through the end of the period you've already paid for.",
@@ -570,6 +612,9 @@ export const siteConfig = {
           // Nav links render `hidden md:inline` with no mobile menu, so this
           // footer entry is the mobile-reachable path to /accuracy.
           { label: "Accuracy", href: "/accuracy" },
+          // Nav is desktop-only with no mobile menu, so this is the
+          // mobile-reachable path to the free Pick'Em product.
+          { label: "Free Pick'Em Pools", href: "https://app.gridironhq.ai/pools" },
           { label: "Free Schedule Builder", href: "/schedule-builder" },
           { label: "Blog", href: "/blog" },
           { label: "Help", href: "/help/connect-espn" },
