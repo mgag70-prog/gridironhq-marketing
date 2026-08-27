@@ -353,7 +353,8 @@ export const siteConfig = {
       //   Starter        argus_advisor, waiver, trade_analyzer, player_news
       //   League Member  + championship_probability, offseason_report,
       //                    draft_center
-      //   Commissioner   + treasury, league_intel, schedule_builder
+      //   Commissioner   + treasury, league_intel  (+ schedule_builder,
+      //                    PLANNED — see the note below; not on the card)
       //   Dynasty Elite  + vault, dynasty_rankings, historical_analysis
       //
       // Rules for editing this block:
@@ -369,8 +370,20 @@ export const siteConfig = {
       //         were advertised features that do not exist. Meanwhile The
       //         Vault — a real gated Dynasty-exclusive with a live route at
       //         app/dashboard/vault/page.tsx — was missing from the card.
+      //       - Commissioner's "Free schedule builder" (shipped, removed
+      //         2026-08-27). Two separate problems. First, the word "free"
+      //         cannot sit inside a paid tier's list: the schedule builder on
+      //         THIS site is genuinely free and public to everyone — it is in
+      //         the nav, the footer and the comparison table, and it stays
+      //         there. Second, `schedule_builder` IS in entitlements.ts at
+      //         Commissioner, but the in-app league-aware version it gates is
+      //         PLANNED, NOT BUILT: `find src/app -ipath "*schedule*"` in the
+      //         app repo returns nothing. The entitlement exists ahead of the
+      //         route. Do not restore this bullet until that route does.
       //     A bullet that only appears in marketing copy is not evidence that
-      //     the feature exists; grep for the ROUTE or the gate.
+      //     the feature exists; grep for the ROUTE or the gate. An entitlement
+      //     in entitlements.ts is not evidence either — it can be reserved
+      //     ahead of the feature, as schedule_builder is.
       //   • Never restate a lower tier's feature on a higher tier. The ladder
       //     line ("Everything in X") already carries it, and repeating it
       //     makes two adjacent cards look identical to a buyer.
@@ -402,6 +415,15 @@ export const siteConfig = {
           label: "Start Free Trial",
           href: "https://app.gridironhq.ai/subscribe?plan=league",
         },
+        // Moved here from Commissioner 2026-08-27, on the actual numbers:
+        // of active + trialing subscribers, four are on League Member and one
+        // is on Commissioner. `featured` moves with `badge` deliberately —
+        // they are two halves of one treatment (badge pill, orange card
+        // border/glow, orange tier name, and the primary-button CTA in both
+        // Pricing and FinalCTA). Splitting them would badge one card and
+        // highlight a different one.
+        featured: true,
+        badge: "Most Popular",
       },
       {
         id: "pro",
@@ -410,19 +432,16 @@ export const siteConfig = {
         cadence: "/month, or $79/year",
         annualTotal: "$79/yr",
         description:
-          "Everything a League Member gets, plus the tools for running the league itself — treasury, manager intel, and scheduling.",
+          "Everything a League Member gets, plus the tools for running the league itself — treasury and manager intel.",
         features: [
           "Everything in League Member",
           "League Treasury + dues tracking",
           "League Intel behavioral profiles",
-          "Free schedule builder",
         ],
         cta: {
           label: "Start Free Trial",
           href: "https://app.gridironhq.ai/subscribe?plan=commissioner",
         },
-        featured: true,
-        badge: "Most Popular",
       },
       {
         id: "dynasty",
