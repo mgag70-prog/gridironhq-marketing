@@ -1,0 +1,127 @@
+# Accuracy
+
+## How accurate is GridironHQ? Here is every measurement, including where it loses.
+
+Every fantasy tool promises to win you your league. This page is the measurements instead.
+
+Two things are on it. The first is a backtest: how well GridironHQ's roster scoring predicted what actually happened, run over three seasons of real leagues that had already finished. The second is a prediction — what it says about the 2026 season, published before Week 1, to be graded in public in December.
+
+Nothing here is a projection of your season. The backtest is history. The prediction is a claim we have already locked in and cannot quietly revise.
+
+---
+
+## The backtest
+
+**77 real league seasons. 2023 through 2025. About 930 team-seasons.**
+
+Not simulated drafts against modelled opponents. Actual dynasty leagues, with the rosters people actually had and the finishes they actually got.
+
+The question: does a roster's pre-season strength, scored by GridironHQ, predict where that team finishes?
+
+### In established leagues, yes — moderately
+
+| Measure | Result |
+|---|---|
+| Rank correlation with final finish | **ρ ≈ 0.57** |
+| Strongest pre-season roster won its title | **31%** of the time |
+| A random team in a 12-team league | 8.3% |
+
+A 0.57 correlation is real signal and nowhere near destiny. It means the pre-season board tells you a lot about who makes the playoffs and much less about who wins. That gap is the tournament: a six-team bracket is three coin-flips with a thumb on the scale, and being the best team on paper converts to a ring less than a third of the time.
+
+### In first-year leagues, no
+
+**Near zero.** A startup draft produces rosters that have not been shaped by trades, waivers, or two years of a manager's decisions, and the scoring has almost nothing to work with. We report this because it covers a third of the leagues on the platform, and because a number that only holds in the flattering half is not a number.
+
+### How it was run
+
+The scoring is a trade-value percentile per player, taken over the best N at each position for that league's format, with a tight-end premium where the league uses one, averaged across quarterback, running back, receiver and tight end. Injury status is deliberately excluded, so the score cannot peek at information the pre-season did not have.
+
+It re-runs every January, whether the result flatters us or not. The first of those re-runs is January 2027.
+
+---
+
+## The 2026 prediction, locked before Week 1
+
+A backtest is history, and history can be chosen. So this year the prediction is public before the season starts.
+
+**On August 27, 2026, before a single regular-season game, GridironHQ recorded a strength ranking for every team in every league connected to the platform.**
+
+| | |
+|---|---|
+| Leagues captured | **52** |
+| Teams ranked | **622** |
+| Captured | August 27, 2026 |
+| Graded | December 2026, in public |
+
+Each capture stores the full roster of every team, the market value used for every player, the scoring basis and its version, and a hash of the whole thing. The rankings cannot be edited after the fact without the hash changing.
+
+### What is being claimed
+
+Exactly the two things the backtest measured:
+
+1. **Rank correlation** between the pre-season strength ranking and final regular-season finish.
+2. **How often the top-ranked roster wins the title** — measured from the playoff bracket, not from the regular-season standings.
+
+Both get published in December with their sample sizes, whatever they say.
+
+### The honest limits, stated now rather than later
+
+- **The headline will come from 25 leagues, not 52.** The other 27 are first-year leagues, where the backtest says there is no signal. They are captured and will be reported separately, but they do not get to carry the number.
+- **Twenty-five leagues is one season of evidence, not a study.** It is a replication with a small sample, and the interval around it will be wide. That will be stated with the result.
+- **One league is on ESPN**, where the platform reads rosters differently. It is captured and will be reported apart from the rest.
+- **A team abandoned mid-season still counts.** It is in the standings, so it is in the measurement.
+- **The market is the input.** Player values come from a public market on the day of capture. If that market's methodology changes mid-season, the prediction is still fixed — which is the point of storing the values inside the capture.
+
+---
+
+## What the dynasty market actually does to a roster
+
+Separate from the prediction, this is what three years of dynasty values show about how quickly a roster decays. Same real-market data, taken on the eve of kickoff each year, across three year-over-year transitions.
+
+| Where a player started | Value one year later | Held or gained |
+|---|---|---|
+| Top 12 | **−10%** | 31% |
+| 13–24 | −16% | 31% |
+| 25–36 | **−18%** | 22% |
+| 37–60 | −18% | 32% |
+| 61–100 | −13% | 29% |
+
+Three things fall out of it.
+
+**Everything bleeds.** Only about 30% of players hold their value across a year, and that rate is nearly flat across tiers. Being elite protects you far less than dynasty managers assume.
+
+**The elite bleed least.** The top twelve lose 10% where the middle loses 18%, and they hold their rank far better. Consolidating into the top of a roster is defensible on the numbers, not just on instinct.
+
+**The worst place to stand is 25th to 60th.** Expensive enough to hurt, not good enough to hold, and only 22% of the 25–36 tier held value at all.
+
+### Where this measurement is weak
+
+**It is survivorship-biased, and the true decay is worse than the table.** Only 81–85% of players carry from one year to the next. The 15–20% who vanish from the top 600 entirely — retirements, total busts — are missing from every number above, because you cannot measure decay on a player who no longer has a value.
+
+The deepest tier looks positive on the average and is not. A handful of players going from 200 to 2,000 drags the mean up while the typical player in that tier still declines. Median is the honest statistic there.
+
+And three year-over-year transitions is three. This is a description of a market, not a law.
+
+---
+
+## Where GridironHQ does not beat the field
+
+**Player projections.** We do not out-project the consensus and do not claim to. Weekly projections come from a commercial data provider, and ranking players off public box-score history is a crowded, well-solved problem. What is ours is what happens after the projection: whose roster this is, which slots the league actually starts, and what a decision does to the shape of a season.
+
+**Single-week advice.** A start/sit call is one decision among a handful that genuinely matter in a season. Anyone buying a tool to win one Sunday should not buy this one.
+
+**Championship probability.** The trade analyzer used to show this to one or two decimal places and no longer does: the underlying model is not calibrated well enough to quote a number there, so it gives the direction — improves, neutral, weakens — and says why. ARGUS is likewise instructed never to quote a title-odds percentage in its prose. Three other surfaces — the portfolio dashboard, the draft guide, and the waiver wire — still display a percentage, and moving them to the same directional treatment is next. A precise number we cannot stand behind is worse than an honest direction.
+
+**First-year leagues.** See above. The scoring has little to say about a league that has never played.
+
+---
+
+## Being scored in public, starting Week 1
+
+Beginning with Week 1 of the 2026 season, every start/sit recommendation ARGUS makes is recorded before the games and graded against what actually happened — including the weeks it recommends no change, because a record built only from the weeks it spoke up is not a record.
+
+There are no results yet. The first grades run after Week 1 and the first published figures come in October, with their sample size and the cases the grader could not score. If the season says there is no edge there, this is the page that will say so.
+
+---
+
+*Questions about any of this: hello@gridironhq.ai*

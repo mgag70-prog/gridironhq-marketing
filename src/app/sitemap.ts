@@ -17,13 +17,15 @@ const SITE_URL = `https://${siteConfig.domain}`;
  *   /                 2026-08-14  nav restructure + Blog link (this changeset)
  *   /schedule-builder 2026-08-12  marketing truth pass (744b238)
  *   /blog             2026-08-14  index created (this changeset)
- *   /help/connect-espn 2026-08-25 page created (this changeset)
+ *   /help/connect-espn 2026-08-25 page created (fe8dd49)
+ *   /accuracy         2026-08-27  page created (this changeset)
  */
 const STATIC_LAST_MODIFIED = {
   home: "2026-08-14",
   scheduleBuilder: "2026-08-12",
   blogIndex: "2026-08-14",
   helpConnectEspn: "2026-08-25",
+  accuracy: "2026-08-27",
 } as const;
 
 /** Parse as UTC midnight so the date can't slip a day by timezone. */
@@ -46,6 +48,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: asDate(STATIC_LAST_MODIFIED.home),
       changeFrequency: "weekly",
       priority: 1,
+    },
+    // Priority 0.9, above every other subpage: /accuracy is the evidence page
+    // behind the homepage's central claim, and it is the destination for
+    // "is GridironHQ accurate"-shaped queries.
+    {
+      url: `${SITE_URL}/accuracy`,
+      lastModified: asDate(STATIC_LAST_MODIFIED.accuracy),
+      changeFrequency: "monthly",
+      priority: 0.9,
     },
     {
       url: `${SITE_URL}/schedule-builder`,

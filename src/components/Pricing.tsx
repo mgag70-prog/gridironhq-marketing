@@ -15,7 +15,14 @@ export function Pricing() {
           center
         />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-15">
+        {/*
+          Four tiers, not three. The 4-up row is held back to xl (1280px)
+          rather than lg: at lg the 1180px container leaves ~244px per card,
+          and the feature bullets start wrapping to three lines each. Between
+          sm and xl it renders 2x2, where each card is wider than the old 3-up
+          ever was.
+        */}
+        <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-5 mt-15">
           {pricing.tiers.map((tier) => (
             <div
               key={tier.id}
@@ -25,13 +32,21 @@ export function Pricing() {
                   : "bg-bg-card border border-border"
               }`}
             >
-              {tier.badge && (
-                <div className="absolute top-5 right-5">
+              {/*
+                Badge sits in normal flow, in a fixed-height row reserved on
+                EVERY card. It used to be absolutely positioned at top-right,
+                which worked at 3-up but overlaps the tier name once a fourth
+                tier narrows the column (verified in the browser at 1440px).
+                Reserving the row on all four keeps the price baselines aligned
+                across the grid instead of dropping the featured card.
+              */}
+              <div className="h-6 mb-2 flex justify-end items-start">
+                {tier.badge && (
                   <span className="inline-block px-3 py-1 rounded-full font-condensed text-[11px] font-bold uppercase tracking-[0.5px] bg-orange/15 text-orange border border-orange/30">
                     {tier.badge}
                   </span>
-                </div>
-              )}
+                )}
+              </div>
 
               <div
                 className={`font-condensed text-sm font-bold uppercase tracking-[1px] mb-2 ${tier.featured ? "text-orange" : "text-text-muted"}`}

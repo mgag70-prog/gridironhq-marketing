@@ -1,5 +1,5 @@
 export type PricingTier = {
-  id: "starter" | "pro" | "dynasty";
+  id: "starter" | "member" | "pro" | "dynasty";
   name: string;
   price: number;
   cadence: string;
@@ -89,6 +89,7 @@ export const siteConfig = {
     links: [
       { label: "Features", href: "/#features" },
       { label: "How It Works", href: "/#how" },
+      { label: "Accuracy", href: "/accuracy" },
       { label: "Pricing", href: "/#pricing" },
       { label: "FAQ", href: "/#faq" },
       { label: "Schedule Builder", href: "/schedule-builder" },
@@ -112,6 +113,12 @@ export const siteConfig = {
       "Stop getting the same generic rankings as everyone else. GridironHQ is the AI-powered advisor built around your specific roster, your league, and your championship odds — plus The Vault for complete league history and the Portfolio Dashboard to manage every league from one command center.",
     primaryCta: { label: "Start Free Trial", href: "#pricing" },
     secondaryCta: { label: "Try the Demo", href: "/demo" },
+    // Third, quieter hero link. The alternative label "77 real league seasons,
+    // tested" is now sourceable — src/content/accuracy.mdx states 77 leagues
+    // across 2023-2025 — so it is available if a specific hook beats a generic
+    // one here. Kept generic for now: the figure is the page's headline and
+    // restating it in the hero spends it before the reader arrives.
+    tertiaryCta: { label: "See the accuracy testing", href: "/accuracy" },
     socialProof:
       "14-day free trial — no credit card required, cancel any time",
     avatars: ["CM", "JR", "AB", "TK", "+"],
@@ -192,7 +199,7 @@ export const siteConfig = {
         icon: "🎯",
         title: "Decision EV Framework",
         description:
-          "Every decision — lineup, trade, waiver — expressed as championship probability impact. \"Starting Williams over Gibbs increases your championship odds by 2.1%.\" That's the level of precision you deserve.",
+          "Every decision — lineup, trade, waiver — framed by what it does to your title outlook: improves, neutral, or weakens, with the reasoning attached. A directional read of your starting lineup, not a probability. Points tell you what a player might score; this tells you what the choice does to your season.",
         tag: "Championship equity on every choice →",
       },
       {
@@ -208,7 +215,7 @@ export const siteConfig = {
         icon: "🤝",
         title: "Trade Analyzer",
         description:
-          "Not just value comparison — championship delta. See exactly how your championship probability changes if you accept, decline, or counter. The AI gives you a verdict and explains why.",
+          "Not just value comparison. See whether a deal improves, weakens, or leaves your title outlook flat — a directional read of your starting lineup, not a probability — and get a verdict on accept, decline, or counter with the reasoning behind it.",
         tag: "Accept, decline, or counter →",
       },
       {
@@ -216,7 +223,7 @@ export const siteConfig = {
         icon: "🎯",
         title: "Draft Center",
         description:
-          "Mock draft simulator where every pick is scored by championship probability. AI opponents draft realistically. \"Drafting a WR here increases your championship odds by 4%.\" Know before you pick.",
+          "Mock draft simulator where every pick is scored by what it does to your title outlook, not just by best-player-available. AI opponents draft realistically. Know what a pick costs you before you make it.",
         tag: "Real-time championship modeling →",
       },
       {
@@ -318,14 +325,14 @@ export const siteConfig = {
         id: "starter",
         name: "Starter",
         price: 3.99,
-        cadence: "/month, billed annually ($47.88/yr)",
-        annualTotal: "$47.88/yr",
+        cadence: "/month, or $39/year",
+        annualTotal: "$39/yr",
         description:
           "Core ARGUS access for the serious casual player. Everything you need to make better decisions every week.",
         features: [
           "ARGUS — personalized start/sit",
           "Waiver wire with roster fit scoring",
-          "Basic trade analyzer",
+          "Trade analyzer — values, fit, and a verdict",
           "Player news with AI impact notes",
           "Sleeper and ESPN support",
         ],
@@ -334,22 +341,81 @@ export const siteConfig = {
           href: "https://app.gridironhq.ai/subscribe?plan=starter",
         },
       },
+      // ─────────────────────────────────────────────────────────────────────
+      // TIER LADDER — sourced from the app, not written here.
+      //
+      // Every tier's bullets below its own name are the features that tier
+      // ADDS. The authority is the app repo's canonical entitlements map plus
+      // the customer-facing copy kept in lockstep with it:
+      //   ~/code/gridironhq/src/lib/entitlements.ts
+      //   ~/code/gridironhq/src/app/subscribe/_components/tier-grid.tsx
+      //
+      //   Starter        argus_advisor, waiver, trade_analyzer, player_news
+      //   League Member  + championship_probability, offseason_report,
+      //                    draft_center
+      //   Commissioner   + treasury, league_intel, schedule_builder
+      //   Dynasty Elite  + vault, dynasty_rankings, historical_analysis
+      //
+      // Rules for editing this block:
+      //   • A bullet must name something in the FEATURES tuple in
+      //     entitlements.ts. Two bullets have already been removed for
+      //     failing this, both on 2026-08-27:
+      //       - "Priority support" (proposed) — zero hits in the app repo.
+      //       - Dynasty's "Career outcome models" / "Rookie profiling +
+      //         breakout scores" / "Keeper value engine" (shipped) — each
+      //         appeared in exactly ONE place in the app,
+      //         src/lib/email/templates/subscription-confirmation.ts, a
+      //         marketing email. No gate, no route, no product surface. They
+      //         were advertised features that do not exist. Meanwhile The
+      //         Vault — a real gated Dynasty-exclusive with a live route at
+      //         app/dashboard/vault/page.tsx — was missing from the card.
+      //     A bullet that only appears in marketing copy is not evidence that
+      //     the feature exists; grep for the ROUTE or the gate.
+      //   • Never restate a lower tier's feature on a higher tier. The ladder
+      //     line ("Everything in X") already carries it, and repeating it
+      //     makes two adjacent cards look identical to a buyer.
+      //   • Don't downgrade a bullet's wording below what the tier actually
+      //     unlocks. Starter said "Basic trade analyzer" while entitlements.ts
+      //     grants the full trade_analyzer — that pushes buyers to a higher
+      //     tier for something they already had.
+      //
+      // Subscribe plan keys are `starter` | `league` | `commissioner` |
+      // `dynasty` — see PlanKey in ~/code/gridironhq/src/lib/tier-presentation.ts
+      // and VALID_PLANS in its src/app/subscribe/page.tsx. NOT the tier ids
+      // used in this file.
+      // ─────────────────────────────────────────────────────────────────────
+      {
+        id: "member",
+        name: "League Member",
+        price: 5.99,
+        cadence: "/month, or $59/year",
+        annualTotal: "$59/yr",
+        description:
+          "The step up for the manager who drafts to win. Adds the draft tools and championship math on top of everything in Starter.",
+        features: [
+          "Everything in Starter",
+          "Draft Guide + live Draft Center",
+          "Championship probability on every decision",
+          "ARGUS Offseason Report + team grade",
+        ],
+        cta: {
+          label: "Start Free Trial",
+          href: "https://app.gridironhq.ai/subscribe?plan=league",
+        },
+      },
       {
         id: "pro",
         name: "Commissioner",
         price: 7.99,
-        cadence: "/month, billed annually ($95.88/yr)",
-        annualTotal: "$95.88/yr",
+        cadence: "/month, or $79/year",
+        annualTotal: "$79/yr",
         description:
-          "The full GridironHQ experience. Championship probability on every decision, League Intel, and the complete draft center.",
+          "Everything a League Member gets, plus the tools for running the league itself — treasury, manager intel, and scheduling.",
         features: [
-          "Everything in Starter",
-          "Championship EV on all decisions",
-          "League Intel behavioral profiles",
-          "Full trade analyzer + AI verdict",
-          "Draft Center + mock draft simulator",
+          "Everything in League Member",
           "League Treasury + dues tracking",
-          "Playoff probability modeling",
+          "League Intel behavioral profiles",
+          "Free schedule builder",
         ],
         cta: {
           label: "Start Free Trial",
@@ -362,17 +428,15 @@ export const siteConfig = {
         id: "dynasty",
         name: "Dynasty Elite",
         price: 11.99,
-        cadence: "/mo, or billed annually",
-        annualTotal: "$143.88/yr",
+        cadence: "/month, or $119/year",
+        annualTotal: "$119/yr",
         description:
-          "Built for the dynasty and keeper manager. Career outcome models, prospect profiling, and multi-season behavioral analytics.",
+          "Built for the dynasty and keeper manager. Your league's complete history, its all-time analytics, and dynasty valuations on top of everything else.",
         features: [
           "Everything in Commissioner",
-          "Dynasty rankings + valuations",
-          "Career outcome models",
-          "Rookie profiling + breakout scores",
-          "Keeper value engine",
-          "Multi-season behavioral analytics",
+          "The Vault — full league history, H2H records, analytics",
+          "Dynasty Power Rankings and Luck Index",
+          "ARGUS historical league analysis",
         ],
         cta: {
           label: "Start Free Trial",
@@ -383,17 +447,16 @@ export const siteConfig = {
   },
 
   testimonials: {
+    // Chris M.'s quote was removed 2026-08-27. It praised the trade analyzer
+    // for "the exact impact" — the one to two decimal championship figure that
+    // surface specifically withdrew (it now renders a directional Title
+    // outlook). It contradicted both the product and /accuracy. Deliberately
+    // NOT paraphrased: it is a real person's words. If it comes back it has to
+    // come back as a new quote from him, about what the product does now.
     label: "Early Feedback",
-    title: "What Early Members Are Saying",
-    titleAccent: "Saying",
+    title: "What an Early Member Said",
+    titleAccent: "Said",
     items: [
-      {
-        quote:
-          "The championship probability framework is exactly what I've been wanting for years. Instead of guessing whether to accept a trade, I can see the exact impact. No other platform does this.",
-        author: "Chris M.",
-        initials: "CM",
-        meta: "8-year commissioner · 12-team dynasty",
-      },
       {
         quote:
           "The League Intel tab is wild. It showed me that our league's biggest trader is 40% more likely to accept when you offer 2 players instead of 1. Used it immediately on a deal and it worked.",
@@ -485,6 +548,9 @@ export const siteConfig = {
         links: [
           { label: "Features", href: "/#features" },
           { label: "Pricing", href: "/#pricing" },
+          // Nav links render `hidden md:inline` with no mobile menu, so this
+          // footer entry is the mobile-reachable path to /accuracy.
+          { label: "Accuracy", href: "/accuracy" },
           { label: "Free Schedule Builder", href: "/schedule-builder" },
           { label: "Blog", href: "/blog" },
           { label: "Help", href: "/help/connect-espn" },

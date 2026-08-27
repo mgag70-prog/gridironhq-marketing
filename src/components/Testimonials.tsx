@@ -14,7 +14,21 @@ export function Testimonials() {
           center
         />
 
-        <div className="grid md:grid-cols-3 gap-5 mt-15">
+        {/*
+          One quote gets a centered 560px column, not a 3-up grid with two
+          empty cells — 560px is the same measure SectionHeader gives its
+          subhead, so the card sits on the section's existing rhythm.
+          The grid comes back on its own the moment there is more than one
+          item, so adding a quote can't silently leave them stacked in a
+          single narrow column.
+        */}
+        <div
+          className={
+            testimonials.items.length === 1
+              ? "max-w-[560px] mx-auto mt-15"
+              : "grid md:grid-cols-3 gap-5 mt-15"
+          }
+        >
           {testimonials.items.map((t) => (
             <div
               key={t.author}

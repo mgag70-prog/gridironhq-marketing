@@ -55,6 +55,19 @@ export function Hero() {
               <a href={hero.secondaryCta.href} className="btn btn-outline btn-large">
                 {hero.secondaryCta.label}
               </a>
+              {/*
+                Third CTA. Same .btn geometry as the other two so it sits on the
+                shared baseline of the row (and wraps to its own line on narrow
+                screens) but a tinted-orange ghost treatment rather than the
+                solid fill, so it reads as clearly subordinate to Start Free
+                Trial while still being a first-screen destination.
+              */}
+              <a
+                href={hero.tertiaryCta.href}
+                className="btn btn-large bg-orange/[0.07] border-orange/25 text-orange hover:bg-orange/[0.14] hover:border-orange/50"
+              >
+                {hero.tertiaryCta.label} →
+              </a>
             </div>
 
             <div className="flex items-center gap-4 animate-fadeup delay-4">
@@ -136,6 +149,14 @@ function DashboardMockup() {
               { val: "134.2", lbl: "Proj Pts", color: "text-orange" },
               { val: "108.4", lbl: "Opp Proj", color: "text-text-muted" },
               { val: "73%", lbl: "Win Prob", color: "text-green" },
+              // KEPT deliberately, and the /accuracy page now says so out loud:
+              // the trade analyzer and ARGUS stopped quoting championship
+              // percentages, the portfolio dashboard, draft guide and waiver
+              // wire have not yet. This tile is the dashboard: the app
+              // still renders `${(bestChampProb * 100).toFixed(1)}%` at
+              // ~/code/gridironhq/src/app/dashboard/_components/portfolio-view.tsx:359,
+              // which is exactly this tile at exactly this precision. If that
+              // ever goes directional, this tile goes with it.
               { val: "16.3%", lbl: "Champ %", color: "text-orange" },
             ].map((stat) => (
               <div
@@ -166,9 +187,16 @@ function DashboardMockup() {
               <circle cx="12" cy="12" r="8" />
               <circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none" />
             </svg>
+            {/*
+              Directional, matching what the product actually renders. The old
+              copy read "+2.1% championship equity" — the withdrawn format. The
+              app's title-outlook card shows "Improves ↑ / Neutral → / Weakens ↓"
+              with the note "Directional read of your starting lineup, not a
+              probability" (trade-analyzer.tsx:706-744).
+            */}
             <div className="text-[11px]">
               <strong className="text-green">
-                +2.1% championship equity
+                Title outlook: improves
               </strong>{" "}
               <span className="text-text-muted">
                 — start Williams over Gibbs this week
@@ -215,12 +243,12 @@ function DashboardMockup() {
                 {
                   tag: "DECLINE",
                   color: "text-orange",
-                  text: "Trade offer costs 4.4% champ equity",
+                  text: "Trade offer weakens your title outlook",
                 },
                 {
                   tag: "ADD",
                   color: "text-green",
-                  text: "Kareem Hunt — Fit 91, +3.4% champ EV",
+                  text: "Kareem Hunt — Fit 91, top EV per FAAB $",
                 },
               ].map((alert) => (
                 <div

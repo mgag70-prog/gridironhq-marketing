@@ -109,6 +109,19 @@ export function Comparison() {
           advice, complete league history, multi-league portfolio management,
           and league dues tracking in one subscription.
         </p>
+        {/*
+          "How do you know this works" belongs directly under the comparison
+          claim it answers — this is the first place a skeptical reader looks
+          after a vendor-authored feature table.
+        */}
+        <p className="text-center mt-5">
+          <a
+            href="/accuracy"
+            className="inline-flex items-center gap-2 font-condensed text-[15px] font-bold uppercase tracking-[0.5px] text-orange no-underline border-b-2 border-orange/30 pb-1 transition-colors hover:border-orange"
+          >
+            How do we know this works? See the accuracy testing →
+          </a>
+        </p>
       </div>
     </section>
   );
