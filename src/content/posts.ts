@@ -42,6 +42,16 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "college-football-playoff-conference-revenue-sharing",
+    title:
+      "The Big Ten never changed its rules. Its schools ended up $14 million apart anyway.",
+    metaTitle: "How the Playoff Broke Big Ten Revenue Sharing",
+    description:
+      "Big Ten schools were paid within $175,000 of each other in 2022-23, then $14 million apart two years later. What the 12-team playoff did to revenue sharing.",
+    date: "2026-08-30",
+    category: "Research",
+  },
+  {
     slug: "nfl-fantasy-shutdown-keeper-league-draft-history",
     title:
       "NFL Fantasy Is Gone. Here's What Your Keeper League Just Lost — And How to Get It Back",

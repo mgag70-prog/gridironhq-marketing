@@ -1,0 +1,350 @@
+school,conference,season,fy_end,measure,amount,share_type,source,notes
+Clemson,ACC,2020-21,2021-06-30,distribution,38133715,full,form_990,
+North Carolina,ACC,2020-21,2021-06-30,distribution,37453825,full,form_990,
+NC State,ACC,2020-21,2021-06-30,distribution,36518175,full,form_990,
+Louisville,ACC,2020-21,2021-06-30,distribution,36303512,full,form_990,
+Miami,ACC,2020-21,2021-06-30,distribution,36061753,full,form_990,
+Boston College,ACC,2020-21,2021-06-30,distribution,36016208,full,form_990,
+Florida State,ACC,2020-21,2021-06-30,distribution,35945682,full,form_990,
+Virginia,ACC,2020-21,2021-06-30,distribution,35872719,full,form_990,
+Wake Forest,ACC,2020-21,2021-06-30,distribution,35846667,full,form_990,
+Virginia Tech,ACC,2020-21,2021-06-30,distribution,35814983,full,form_990,
+Syracuse,ACC,2020-21,2021-06-30,distribution,35785906,full,form_990,
+Duke,ACC,2020-21,2021-06-30,distribution,35662565,full,form_990,
+Georgia Tech,ACC,2020-21,2021-06-30,distribution,35463565,full,form_990,
+Pittsburgh,ACC,2020-21,2021-06-30,distribution,35318448,full,form_990,
+Notre Dame,ACC,2020-21,2021-06-30,distribution,34899808,full,form_990,Played 2020 as a full ACC football member under COVID scheduling and shared its NBC revenue with the league; the only year NBC money reaches an ACC filing
+Cincinnati,American,2020-21,2021-06-30,distribution,9437760,full,form_990,American Athletic Conference member
+Houston,American,2020-21,2021-06-30,distribution,8522780,full,form_990,American Athletic Conference member
+UCF,American,2020-21,2021-06-30,distribution,7964885,full,form_990,American Athletic Conference member
+SMU,American,2020-21,2021-06-30,distribution,7647255,full,form_990,American Athletic Conference member
+Oklahoma,Big 12,2020-21,2021-06-30,distribution,36472914,full,form_990,
+Iowa State,Big 12,2020-21,2021-06-30,distribution,36410767,full,form_990,
+Texas,Big 12,2020-21,2021-06-30,distribution,35743161,full,form_990,
+Oklahoma State,Big 12,2020-21,2021-06-30,distribution,35475594,full,form_990,
+West Virginia,Big 12,2020-21,2021-06-30,distribution,35253046,full,form_990,
+Kansas,Big 12,2020-21,2021-06-30,distribution,34999814,full,form_990,
+TCU,Big 12,2020-21,2021-06-30,distribution,34783984,full,form_990,
+Texas Tech,Big 12,2020-21,2021-06-30,distribution,34774077,full,form_990,
+Baylor,Big 12,2020-21,2021-06-30,distribution,34758666,full,form_990,
+Kansas State,Big 12,2020-21,2021-06-30,distribution,34709588,full,form_990,
+Michigan,Big Ten,2020-21,2021-06-30,distribution,49077864,full,form_990,
+Illinois,Big Ten,2020-21,2021-06-30,distribution,48986292,full,form_990,
+Ohio State,Big Ten,2020-21,2021-06-30,distribution,48977864,full,form_990,
+Iowa,Big Ten,2020-21,2021-06-30,distribution,48977864,full,form_990,
+Purdue,Big Ten,2020-21,2021-06-30,distribution,48977864,full,form_990,
+Michigan State,Big Ten,2020-21,2021-06-30,distribution,48977864,full,form_990,
+Wisconsin,Big Ten,2020-21,2021-06-30,distribution,48977864,full,form_990,
+Indiana,Big Ten,2020-21,2021-06-30,distribution,48902864,full,form_990,
+Minnesota,Big Ten,2020-21,2021-06-30,distribution,48902864,full,form_990,
+Northwestern,Big Ten,2020-21,2021-06-30,distribution,48902864,full,form_990,
+Penn State,Big Ten,2020-21,2021-06-30,distribution,48892864,full,form_990,
+Nebraska,Big Ten,2020-21,2021-06-30,distribution,46002896,reduced,form_990,Reduced share from Big Ten Network earnings predating the 2011 entry
+Rutgers,Big Ten,2020-21,2021-06-30,distribution,43190258,partial,form_990,"2014 entry agreement, reduced share"
+Maryland,Big Ten,2020-21,2021-06-30,distribution,43190258,partial,form_990,"2014 entry agreement, reduced share"
+Stanford,Pac-12,2020-21,2021-06-30,distribution,19886942,full,form_990,
+Arizona State,Pac-12,2020-21,2021-06-30,distribution,19877538,full,form_990,
+UCLA,Pac-12,2020-21,2021-06-30,distribution,19852886,full,form_990,
+California,Pac-12,2020-21,2021-06-30,distribution,19843675,full,form_990,
+Utah,Pac-12,2020-21,2021-06-30,distribution,19801410,full,form_990,
+USC,Pac-12,2020-21,2021-06-30,distribution,19800923,full,form_990,
+Arizona,Pac-12,2020-21,2021-06-30,distribution,19790240,full,form_990,
+Washington,Pac-12,2020-21,2021-06-30,distribution,19759037,full,form_990,
+Oregon State,Pac-12,2020-21,2021-06-30,distribution,19753330,full,form_990,
+Oregon,Pac-12,2020-21,2021-06-30,distribution,19729979,full,form_990,
+Washington State,Pac-12,2020-21,2021-06-30,distribution,19728269,full,form_990,
+Colorado,Pac-12,2020-21,2021-06-30,distribution,19703971,full,form_990,
+Ole Miss,SEC,2020-21,2021-08-31,distribution,61875502,full,form_990,"Verified: the 14 rows total $764,430,530, matching the SEC's announced conference-office distribution. Elevated vs later years partly by a $4M-per-school CBS signing-bonus share"
+Arkansas,SEC,2020-21,2021-08-31,distribution,55095865,full,form_990,"Verified: the 14 rows total $764,430,530, matching the SEC's announced conference-office distribution. Elevated vs later years partly by a $4M-per-school CBS signing-bonus share"
+Alabama,SEC,2020-21,2021-08-31,distribution,55092760,full,form_990,"Verified: the 14 rows total $764,430,530, matching the SEC's announced conference-office distribution. Elevated vs later years partly by a $4M-per-school CBS signing-bonus share"
+Florida,SEC,2020-21,2021-08-31,distribution,54982880,full,form_990,"Verified: the 14 rows total $764,430,530, matching the SEC's announced conference-office distribution. Elevated vs later years partly by a $4M-per-school CBS signing-bonus share"
+Tennessee,SEC,2020-21,2021-08-31,distribution,54979841,full,form_990,"Verified: the 14 rows total $764,430,530, matching the SEC's announced conference-office distribution. Elevated vs later years partly by a $4M-per-school CBS signing-bonus share"
+Kentucky,SEC,2020-21,2021-08-31,distribution,54863685,full,form_990,"Verified: the 14 rows total $764,430,530, matching the SEC's announced conference-office distribution. Elevated vs later years partly by a $4M-per-school CBS signing-bonus share"
+Georgia,SEC,2020-21,2021-08-31,distribution,54843685,full,form_990,"Verified: the 14 rows total $764,430,530, matching the SEC's announced conference-office distribution. Elevated vs later years partly by a $4M-per-school CBS signing-bonus share"
+South Carolina,SEC,2020-21,2021-08-31,distribution,54843685,full,form_990,"Verified: the 14 rows total $764,430,530, matching the SEC's announced conference-office distribution. Elevated vs later years partly by a $4M-per-school CBS signing-bonus share"
+Texas A&M,SEC,2020-21,2021-08-31,distribution,54843685,full,form_990,"Verified: the 14 rows total $764,430,530, matching the SEC's announced conference-office distribution. Elevated vs later years partly by a $4M-per-school CBS signing-bonus share"
+Vanderbilt,SEC,2020-21,2021-08-31,distribution,54843685,full,form_990,"Verified: the 14 rows total $764,430,530, matching the SEC's announced conference-office distribution. Elevated vs later years partly by a $4M-per-school CBS signing-bonus share"
+Mississippi State,SEC,2020-21,2021-08-31,distribution,54843685,full,form_990,"Verified: the 14 rows total $764,430,530, matching the SEC's announced conference-office distribution. Elevated vs later years partly by a $4M-per-school CBS signing-bonus share"
+Auburn,SEC,2020-21,2021-08-31,distribution,53219950,full,form_990,"Verified: the 14 rows total $764,430,530, matching the SEC's announced conference-office distribution. Elevated vs later years partly by a $4M-per-school CBS signing-bonus share"
+LSU,SEC,2020-21,2021-08-31,distribution,50458080,full,form_990,"Verified: the 14 rows total $764,430,530, matching the SEC's announced conference-office distribution. Elevated vs later years partly by a $4M-per-school CBS signing-bonus share"
+Missouri,SEC,2020-21,2021-08-31,distribution,49643542,full,form_990,"Verified: the 14 rows total $764,430,530, matching the SEC's announced conference-office distribution. Elevated vs later years partly by a $4M-per-school CBS signing-bonus share"
+Pittsburgh,ACC,2021-22,2022-06-30,distribution,41282420,full,form_990,
+Louisville,ACC,2021-22,2022-06-30,distribution,40372274,full,form_990,
+Virginia Tech,ACC,2021-22,2022-06-30,distribution,40361219,full,form_990,
+NC State,ACC,2021-22,2022-06-30,distribution,40175374,full,form_990,
+North Carolina,ACC,2021-22,2022-06-30,distribution,40133812,full,form_990,
+Clemson,ACC,2021-22,2022-06-30,distribution,39674290,full,form_990,
+Boston College,ACC,2021-22,2022-06-30,distribution,39418253,full,form_990,
+Wake Forest,ACC,2021-22,2022-06-30,distribution,39276272,full,form_990,
+Virginia,ACC,2021-22,2022-06-30,distribution,38985761,full,form_990,
+Miami,ACC,2021-22,2022-06-30,distribution,38910176,full,form_990,
+Duke,ACC,2021-22,2022-06-30,distribution,38831515,full,form_990,
+Florida State,ACC,2021-22,2022-06-30,distribution,38611587,full,form_990,
+Syracuse,ACC,2021-22,2022-06-30,distribution,38298891,full,form_990,
+Georgia Tech,ACC,2021-22,2022-06-30,distribution,37961705,full,form_990,
+Notre Dame,ACC,2021-22,2022-06-30,distribution,17378351,partial_independent,form_990,ACC member outside football; NBC football revenue is paid directly and never appears here
+Cincinnati,American,2021-22,2022-06-30,distribution,11320900,full,form_990,American Athletic Conference member
+UCF,American,2021-22,2022-06-30,distribution,8884315,full,form_990,American Athletic Conference member
+Houston,American,2021-22,2022-06-30,distribution,8286440,full,form_990,American Athletic Conference member
+SMU,American,2021-22,2022-06-30,distribution,8286196,full,form_990,American Athletic Conference member
+Oklahoma State,Big 12,2021-22,2022-06-30,distribution,44855131,full,form_990,
+Oklahoma,Big 12,2021-22,2022-06-30,distribution,44855131,full,form_990,
+Baylor,Big 12,2021-22,2022-06-30,distribution,44754912,full,form_990,
+West Virginia,Big 12,2021-22,2022-06-30,distribution,44265279,full,form_990,
+Iowa State,Big 12,2021-22,2022-06-30,distribution,44055452,full,form_990,
+Kansas State,Big 12,2021-22,2022-06-30,distribution,43539763,full,form_990,
+Texas Tech,Big 12,2021-22,2022-06-30,distribution,43518230,full,form_990,
+Texas,Big 12,2021-22,2022-06-30,distribution,42592103,full,form_990,
+Kansas,Big 12,2021-22,2022-06-30,distribution,42168760,full,form_990,
+TCU,Big 12,2021-22,2022-06-30,distribution,41996797,full,form_990,
+Purdue,Big Ten,2021-22,2022-06-30,distribution,58949022,full,form_990,
+Michigan,Big Ten,2021-22,2022-06-30,distribution,58909022,full,form_990,
+Ohio State,Big Ten,2021-22,2022-06-30,distribution,58849022,full,form_990,
+Indiana,Big Ten,2021-22,2022-06-30,distribution,58849022,full,form_990,
+Illinois,Big Ten,2021-22,2022-06-30,distribution,58849022,full,form_990,
+Iowa,Big Ten,2021-22,2022-06-30,distribution,58849022,full,form_990,
+Michigan State,Big Ten,2021-22,2022-06-30,distribution,58849022,full,form_990,
+Wisconsin,Big Ten,2021-22,2022-06-30,distribution,58839022,full,form_990,
+Penn State,Big Ten,2021-22,2022-06-30,distribution,58774022,full,form_990,
+Minnesota,Big Ten,2021-22,2022-06-30,distribution,58774022,full,form_990,
+Northwestern,Big Ten,2021-22,2022-06-30,distribution,58774022,full,form_990,
+Nebraska,Big Ten,2021-22,2022-06-30,distribution,56059997,reduced,form_990,Reduced share from Big Ten Network earnings predating the 2011 entry
+Rutgers,Big Ten,2021-22,2022-06-30,distribution,54589549,partial,form_990,"2014 entry agreement, reduced share"
+Maryland,Big Ten,2021-22,2022-06-30,distribution,54589549,partial,form_990,"2014 entry agreement, reduced share"
+Stanford,Pac-12,2021-22,2022-06-30,distribution,37084087,full,form_990,
+Arizona State,Pac-12,2021-22,2022-06-30,distribution,37064047,full,form_990,
+UCLA,Pac-12,2021-22,2022-06-30,distribution,37051868,full,form_990,
+California,Pac-12,2021-22,2022-06-30,distribution,37048897,full,form_990,
+USC,Pac-12,2021-22,2022-06-30,distribution,37048432,full,form_990,
+Utah,Pac-12,2021-22,2022-06-30,distribution,37000471,full,form_990,
+Washington,Pac-12,2021-22,2022-06-30,distribution,36997152,full,form_990,
+Oregon,Pac-12,2021-22,2022-06-30,distribution,36985203,full,form_990,
+Arizona,Pac-12,2021-22,2022-06-30,distribution,36982180,full,form_990,
+Oregon State,Pac-12,2021-22,2022-06-30,distribution,36956183,full,form_990,
+Washington State,Pac-12,2021-22,2022-06-30,distribution,36944175,full,form_990,
+Colorado,Pac-12,2021-22,2022-06-30,distribution,36915061,full,form_990,
+Arkansas,SEC,2021-22,2022-08-31,distribution,50411162,full,form_990,
+Tennessee,SEC,2021-22,2022-08-31,distribution,50189163,full,form_990,
+Mississippi State,SEC,2021-22,2022-08-31,distribution,50053052,full,form_990,
+Alabama,SEC,2021-22,2022-08-31,distribution,49940622,full,form_990,
+LSU,SEC,2021-22,2022-08-31,distribution,49898277,full,form_990,
+Kentucky,SEC,2021-22,2022-08-31,distribution,49881602,full,form_990,
+Auburn,SEC,2021-22,2022-08-31,distribution,49864482,full,form_990,
+Ole Miss,SEC,2021-22,2022-08-31,distribution,49753052,full,form_990,
+Georgia,SEC,2021-22,2022-08-31,distribution,49753052,full,form_990,
+South Carolina,SEC,2021-22,2022-08-31,distribution,49753052,full,form_990,
+Texas A&M,SEC,2021-22,2022-08-31,distribution,49753052,full,form_990,
+Florida,SEC,2021-22,2022-08-31,distribution,49753052,full,form_990,
+Vanderbilt,SEC,2021-22,2022-08-31,distribution,49753052,full,form_990,
+Missouri,SEC,2021-22,2022-08-31,distribution,49753052,full,form_990,
+North Carolina,ACC,2022-23,2023-06-30,distribution,46850044,full,form_990,
+Clemson,ACC,2022-23,2023-06-30,distribution,46549033,full,form_990,
+Pittsburgh,ACC,2022-23,2023-06-30,distribution,45677735,full,form_990,
+Duke,ACC,2022-23,2023-06-30,distribution,45485338,full,form_990,
+Florida State,ACC,2022-23,2023-06-30,distribution,45235737,full,form_990,
+Louisville,ACC,2022-23,2023-06-30,distribution,45208128,full,form_990,
+Syracuse,ACC,2022-23,2023-06-30,distribution,44696708,full,form_990,
+NC State,ACC,2022-23,2023-06-30,distribution,44693428,full,form_990,
+Wake Forest,ACC,2022-23,2023-06-30,distribution,44516141,full,form_990,
+Virginia,ACC,2022-23,2023-06-30,distribution,43919757,full,form_990,
+Boston College,ACC,2022-23,2023-06-30,distribution,43775117,full,form_990,
+Miami,ACC,2022-23,2023-06-30,distribution,43767525,full,form_990,
+Virginia Tech,ACC,2022-23,2023-06-30,distribution,43698647,full,form_990,
+Georgia Tech,ACC,2022-23,2023-06-30,distribution,43294354,full,form_990,
+Notre Dame,ACC,2022-23,2023-06-30,distribution,22104978,partial_independent,form_990,ACC member outside football; NBC football revenue is paid directly and never appears here
+UCF,American,2022-23,2023-06-30,distribution,9533789,full,form_990,American Athletic Conference member
+SMU,American,2022-23,2023-06-30,distribution,8974260,full,form_990,American Athletic Conference member
+Cincinnati,American,2022-23,2023-06-30,distribution,8939547,full,form_990,American Athletic Conference member
+Houston,American,2022-23,2023-06-30,distribution,8804489,full,form_990,American Athletic Conference member
+TCU,Big 12,2022-23,2023-06-30,distribution,48258005,full,form_990,
+Oklahoma,Big 12,2022-23,2023-06-30,distribution,45195567,full,form_990,
+Kansas State,Big 12,2022-23,2023-06-30,distribution,45038935,full,form_990,
+Texas,Big 12,2022-23,2023-06-30,distribution,44711453,full,form_990,
+Kansas,Big 12,2022-23,2023-06-30,distribution,44104036,full,form_990,
+Oklahoma State,Big 12,2022-23,2023-06-30,distribution,43821197,full,form_990,
+Texas Tech,Big 12,2022-23,2023-06-30,distribution,43663496,full,form_990,
+Baylor,Big 12,2022-23,2023-06-30,distribution,43072005,full,form_990,
+Iowa State,Big 12,2022-23,2023-06-30,distribution,42190473,full,form_990,
+West Virginia,Big 12,2022-23,2023-06-30,distribution,41984886,full,form_990,
+Michigan State,Big Ten,2022-23,2023-06-30,distribution,60656605,full,form_990,
+Penn State,Big Ten,2022-23,2023-06-30,distribution,60556605,full,form_990,
+Indiana,Big Ten,2022-23,2023-06-30,distribution,60556605,full,form_990,
+Illinois,Big Ten,2022-23,2023-06-30,distribution,60556605,full,form_990,
+Iowa,Big Ten,2022-23,2023-06-30,distribution,60556605,full,form_990,
+Purdue,Big Ten,2022-23,2023-06-30,distribution,60556605,full,form_990,
+Northwestern,Big Ten,2022-23,2023-06-30,distribution,60556605,full,form_990,
+Ohio State,Big Ten,2022-23,2023-06-30,distribution,60481605,full,form_990,
+Michigan,Big Ten,2022-23,2023-06-30,distribution,60481605,full,form_990,
+Minnesota,Big Ten,2022-23,2023-06-30,distribution,60481605,full,form_990,
+Wisconsin,Big Ten,2022-23,2023-06-30,distribution,60481605,full,form_990,
+Nebraska,Big Ten,2022-23,2023-06-30,distribution,60481605,full,form_990,
+Maryland,Big Ten,2022-23,2023-06-30,distribution,58814967,partial,form_990,"2014 entry agreement, reduced share"
+Rutgers,Big Ten,2022-23,2023-06-30,distribution,58739967,partial,form_990,"2014 entry agreement, reduced share"
+Stanford,Pac-12,2022-23,2023-06-30,distribution,33737021,full,form_990,
+USC,Pac-12,2022-23,2023-06-30,distribution,33700321,full,form_990,
+California,Pac-12,2022-23,2023-06-30,distribution,33687312,full,form_990,
+Arizona State,Pac-12,2022-23,2023-06-30,distribution,33670789,full,form_990,
+UCLA,Pac-12,2022-23,2023-06-30,distribution,33669515,full,form_990,
+Utah,Pac-12,2022-23,2023-06-30,distribution,33640900,full,form_990,
+Washington,Pac-12,2022-23,2023-06-30,distribution,33606283,full,form_990,
+Arizona,Pac-12,2022-23,2023-06-30,distribution,33604102,full,form_990,
+Oregon,Pac-12,2022-23,2023-06-30,distribution,33585173,full,form_990,
+Oregon State,Pac-12,2022-23,2023-06-30,distribution,33582310,full,form_990,
+Washington State,Pac-12,2022-23,2023-06-30,distribution,33554728,full,form_990,
+Colorado,Pac-12,2022-23,2023-06-30,distribution,33534316,full,form_990,
+Missouri,SEC,2022-23,2023-08-31,distribution,51827648,full,form_990,
+Tennessee,SEC,2022-23,2023-08-31,distribution,51650419,full,form_990,
+Arkansas,SEC,2022-23,2023-08-31,distribution,51348598,full,form_990,
+Ole Miss,SEC,2022-23,2023-08-31,distribution,51344128,full,form_990,
+South Carolina,SEC,2022-23,2023-08-31,distribution,51344128,full,form_990,
+Florida,SEC,2022-23,2023-08-31,distribution,51344128,full,form_990,
+Alabama,SEC,2022-23,2023-08-31,distribution,51290863,full,form_990,
+Texas A&M,SEC,2022-23,2023-08-31,distribution,51185348,full,form_990,
+Kentucky,SEC,2022-23,2023-08-31,distribution,51182983,full,form_990,
+Mississippi State,SEC,2022-23,2023-08-31,distribution,51171398,full,form_990,
+Auburn,SEC,2022-23,2023-08-31,distribution,51149078,full,form_990,
+Georgia,SEC,2022-23,2023-08-31,distribution,51044128,full,form_990,
+Vanderbilt,SEC,2022-23,2023-08-31,distribution,51044128,full,form_990,
+LSU,SEC,2022-23,2023-08-31,distribution,51044128,full,form_990,
+Louisville,ACC,2023-24,2024-06-30,distribution,46415388,full,form_990,
+Florida State,ACC,2023-24,2024-06-30,distribution,46311450,full,form_990,
+Duke,ACC,2023-24,2024-06-30,distribution,45874859,full,form_990,
+Miami,ACC,2023-24,2024-06-30,distribution,45660955,full,form_990,
+NC State,ACC,2023-24,2024-06-30,distribution,45509841,full,form_990,
+North Carolina,ACC,2023-24,2024-06-30,distribution,45349089,full,form_990,
+Clemson,ACC,2023-24,2024-06-30,distribution,45274911,full,form_990,
+Syracuse,ACC,2023-24,2024-06-30,distribution,45198447,full,form_990,
+Virginia Tech,ACC,2023-24,2024-06-30,distribution,44708872,full,form_990,
+Boston College,ACC,2023-24,2024-06-30,distribution,44597388,full,form_990,
+Georgia Tech,ACC,2023-24,2024-06-30,distribution,44421017,full,form_990,
+Virginia,ACC,2023-24,2024-06-30,distribution,43879142,full,form_990,
+Pittsburgh,ACC,2023-24,2024-06-30,distribution,43363450,full,form_990,
+Wake Forest,ACC,2023-24,2024-06-30,distribution,43072249,full,form_990,
+Notre Dame,ACC,2023-24,2024-06-30,distribution,20732731,partial_independent,form_990,ACC member outside football; NBC football revenue is paid directly and never appears here
+SMU,American,2023-24,2024-06-30,distribution,10354763,full,form_990,American Athletic Conference member
+Texas,Big 12,2023-24,2024-06-30,distribution,42053219,full,derived,"DERIVED: source cell combined both conferences ($69,553,219); SEC transition of $27,500,000 subtracted"
+Oklahoma,Big 12,2023-24,2024-06-30,distribution,40722249,full,derived,"DERIVED: source cell combined both conferences ($68,222,249); SEC transition of $27,500,000 subtracted"
+Kansas,Big 12,2023-24,2024-06-30,distribution,40034613,full,form_990,
+Oklahoma State,Big 12,2023-24,2024-06-30,distribution,39787284,full,form_990,
+Kansas State,Big 12,2023-24,2024-06-30,distribution,39748469,full,form_990,
+Iowa State,Big 12,2023-24,2024-06-30,distribution,39611310,full,form_990,
+Texas Tech,Big 12,2023-24,2024-06-30,distribution,38731177,full,form_990,
+West Virginia,Big 12,2023-24,2024-06-30,distribution,38715984,full,form_990,
+Baylor,Big 12,2023-24,2024-06-30,distribution,37890641,full,form_990,
+TCU,Big 12,2023-24,2024-06-30,distribution,37775562,full,form_990,
+UCF,Big 12,2023-24,2024-06-30,distribution,20802010,partial,form_990,Entry-agreement share; full share begins 2025-26
+BYU,Big 12,2023-24,2024-06-30,distribution,20668782,partial,form_990,Entry-agreement share; full share begins 2025-26
+Cincinnati,Big 12,2023-24,2024-06-30,distribution,19884248,partial,form_990,Entry-agreement share; full share begins 2025-26
+Houston,Big 12,2023-24,2024-06-30,distribution,19571551,partial,form_990,Entry-agreement share; full share begins 2025-26
+Purdue,Big Ten,2023-24,2024-06-30,distribution,63619632,full,form_990,
+Illinois,Big Ten,2023-24,2024-06-30,distribution,63419631,full,form_990,
+Michigan State,Big Ten,2023-24,2024-06-30,distribution,63319632,full,form_990,
+Wisconsin,Big Ten,2023-24,2024-06-30,distribution,63319632,full,form_990,
+Northwestern,Big Ten,2023-24,2024-06-30,distribution,63319632,full,form_990,
+Nebraska,Big Ten,2023-24,2024-06-30,distribution,63319632,full,form_990,
+Ohio State,Big Ten,2023-24,2024-06-30,distribution,63244632,full,form_990,
+Penn State,Big Ten,2023-24,2024-06-30,distribution,63244632,full,form_990,
+Minnesota,Big Ten,2023-24,2024-06-30,distribution,63244632,full,form_990,
+Indiana,Big Ten,2023-24,2024-06-30,distribution,63244631,full,form_990,
+Michigan,Big Ten,2023-24,2024-06-30,distribution,63244631,full,form_990,
+Iowa,Big Ten,2023-24,2024-06-30,distribution,63244631,full,form_990,
+Rutgers,Big Ten,2023-24,2024-06-30,distribution,61502994,partial,form_990,"2014 entry agreement, reduced share"
+Maryland,Big Ten,2023-24,2024-06-30,distribution,61502993,partial,form_990,"2014 entry agreement, reduced share"
+Oregon State,Pac-12,2023-24,2024-06-30,distribution,46611416,settlement,form_990,Departing-member settlement year
+Washington State,Pac-12,2023-24,2024-06-30,distribution,46574886,settlement,form_990,Departing-member settlement year
+Stanford,Pac-12,2023-24,2024-06-30,distribution,30241403,settlement,form_990,Departing-member settlement year
+California,Pac-12,2023-24,2024-06-30,distribution,30211300,settlement,form_990,Departing-member settlement year
+Arizona State,Pac-12,2023-24,2024-06-30,distribution,30200768,settlement,form_990,Departing-member settlement year
+UCLA,Pac-12,2023-24,2024-06-30,distribution,30190302,settlement,form_990,Departing-member settlement year
+USC,Pac-12,2023-24,2024-06-30,distribution,30180263,settlement,form_990,Departing-member settlement year
+Utah,Pac-12,2023-24,2024-06-30,distribution,30139707,settlement,form_990,Departing-member settlement year
+Washington,Pac-12,2023-24,2024-06-30,distribution,30121732,settlement,form_990,Departing-member settlement year
+Arizona,Pac-12,2023-24,2024-06-30,distribution,30116663,settlement,form_990,Departing-member settlement year
+Oregon,Pac-12,2023-24,2024-06-30,distribution,30099975,settlement,form_990,Departing-member settlement year
+Colorado,Pac-12,2023-24,2024-06-30,distribution,30057119,settlement,form_990,Departing-member settlement year
+Alabama,SEC,2023-24,2024-08-31,distribution,53143505,full,form_990,
+Mississippi State,SEC,2023-24,2024-08-31,distribution,52775595,full,form_990,
+Arkansas,SEC,2023-24,2024-08-31,distribution,52651745,full,form_990,
+Missouri,SEC,2023-24,2024-08-31,distribution,52651745,full,form_990,
+Tennessee,SEC,2023-24,2024-08-31,distribution,52630181,full,form_990,
+Auburn,SEC,2023-24,2024-08-31,distribution,52558080,full,form_990,
+Florida,SEC,2023-24,2024-08-31,distribution,52490670,full,form_990,
+Kentucky,SEC,2023-24,2024-08-31,distribution,52488440,full,form_990,
+Texas A&M,SEC,2023-24,2024-08-31,distribution,52476405,full,form_990,
+South Carolina,SEC,2023-24,2024-08-31,distribution,52475955,full,form_990,
+Ole Miss,SEC,2023-24,2024-08-31,distribution,52351745,full,form_990,
+Georgia,SEC,2023-24,2024-08-31,distribution,52351745,full,form_990,
+Vanderbilt,SEC,2023-24,2024-08-31,distribution,52351745,full,form_990,
+LSU,SEC,2023-24,2024-08-31,distribution,52351745,full,form_990,
+Texas,SEC,2023-24,2024-08-31,distribution,27500000,transition,conference_announcement,SEC transition payment from TV agreements and refundable application fees
+Oklahoma,SEC,2023-24,2024-08-31,distribution,27500000,transition,conference_announcement,SEC transition payment from TV agreements and refundable application fees
+Clemson,ACC,2024-25,2025-06-30,distribution,55129046,full,form_990,
+Syracuse,ACC,2024-25,2025-06-30,distribution,49448990,full,form_990,
+Miami,ACC,2024-25,2025-06-30,distribution,48250645,full,form_990,
+Duke,ACC,2024-25,2025-06-30,distribution,48236296,full,form_990,
+North Carolina,ACC,2024-25,2025-06-30,distribution,47916855,full,form_990,
+Louisville,ACC,2024-25,2025-06-30,distribution,47381878,full,form_990,
+Boston College,ACC,2024-25,2025-06-30,distribution,47087682,full,form_990,
+Virginia Tech,ACC,2024-25,2025-06-30,distribution,46546737,full,form_990,
+NC State,ACC,2024-25,2025-06-30,distribution,46461278,full,form_990,
+Pittsburgh,ACC,2024-25,2025-06-30,distribution,46304685,full,form_990,
+Georgia Tech,ACC,2024-25,2025-06-30,distribution,46052588,full,form_990,
+Virginia,ACC,2024-25,2025-06-30,distribution,43626888,full,form_990,
+Florida State,ACC,2024-25,2025-06-30,distribution,43601179,full,form_990,
+Wake Forest,ACC,2024-25,2025-06-30,distribution,42814168,full,form_990,
+California,ACC,2024-25,2025-06-30,distribution,22993712,partial,form_990,30% share under entry agreement
+Stanford,ACC,2024-25,2025-06-30,distribution,19557463,partial,form_990,30% share under entry agreement
+Notre Dame,ACC,2024-25,2025-06-30,distribution,18142243,partial_independent,form_990,ACC member outside football; NBC football revenue is paid directly and never appears here
+SMU,ACC,2024-25,2025-06-30,distribution,17065303,media_forgone,form_990,Forgoes all ACC media revenue for nine years; non-media revenue flows normally
+Arizona State,Big 12,2024-25,2025-06-30,distribution,43009550,full,form_990,Full share in first Big 12 year
+Iowa State,Big 12,2024-25,2025-06-30,distribution,41194426,full,form_990,
+Baylor,Big 12,2024-25,2025-06-30,distribution,39950085,full,form_990,
+Kansas State,Big 12,2024-25,2025-06-30,distribution,39830544,full,form_990,
+Texas Tech,Big 12,2024-25,2025-06-30,distribution,39734106,full,form_990,
+West Virginia,Big 12,2024-25,2025-06-30,distribution,39582600,full,form_990,
+TCU,Big 12,2024-25,2025-06-30,distribution,39272007,full,form_990,
+Colorado,Big 12,2024-25,2025-06-30,distribution,39034422,full,form_990,Full share in first Big 12 year
+Kansas,Big 12,2024-25,2025-06-30,distribution,38312680,full,form_990,
+Oklahoma State,Big 12,2024-25,2025-06-30,distribution,38038756,full,form_990,
+Arizona,Big 12,2024-25,2025-06-30,distribution,38009311,full,form_990,Full share in first Big 12 year
+Utah,Big 12,2024-25,2025-06-30,distribution,37879865,full,form_990,Full share in first Big 12 year
+BYU,Big 12,2024-25,2025-06-30,distribution,23110622,partial,form_990,Entry-agreement share; full share begins 2025-26
+Cincinnati,Big 12,2024-25,2025-06-30,distribution,20211539,partial,form_990,Entry-agreement share; full share begins 2025-26
+UCF,Big 12,2024-25,2025-06-30,distribution,19978520,partial,form_990,Entry-agreement share; full share begins 2025-26
+Houston,Big 12,2024-25,2025-06-30,distribution,19881951,partial,form_990,Entry-agreement share; full share begins 2025-26
+Ohio State,Big Ten,2024-25,2025-06-30,distribution,91552082,full,form_990,
+Penn State,Big Ten,2024-25,2025-06-30,distribution,88921162,full,form_990,
+Indiana,Big Ten,2024-25,2025-06-30,distribution,81009897,full,form_990,
+Nebraska,Big Ten,2024-25,2025-06-30,distribution,79876965,full,form_990,
+Michigan,Big Ten,2024-25,2025-06-30,distribution,79426201,full,form_990,
+Minnesota,Big Ten,2024-25,2025-06-30,distribution,79199226,full,form_990,
+Illinois,Big Ten,2024-25,2025-06-30,distribution,79100242,full,form_990,
+Iowa,Big Ten,2024-25,2025-06-30,distribution,79071495,full,form_990,
+Rutgers,Big Ten,2024-25,2025-06-30,distribution,78490746,full,form_990,
+USC,Big Ten,2024-25,2025-06-30,distribution,78057558,full,form_990,First Big Ten year
+Michigan State,Big Ten,2024-25,2025-06-30,distribution,77866363,full,form_990,
+Wisconsin,Big Ten,2024-25,2025-06-30,distribution,77779047,full,form_990,
+Purdue,Big Ten,2024-25,2025-06-30,distribution,77732782,full,form_990,
+Northwestern,Big Ten,2024-25,2025-06-30,distribution,77510197,full,form_990,
+Maryland,Big Ten,2024-25,2025-06-30,distribution,76028091,full,form_990,
+UCLA,Big Ten,2024-25,2025-06-30,distribution,76011658,full,form_990,First Big Ten year
+Oregon,Big Ten,2024-25,2025-06-30,distribution,48416125,partial,form_990,Partial share through 2030 under entry agreement
+Washington,Big Ten,2024-25,2025-06-30,distribution,46708168,partial,form_990,Partial share through 2030 under entry agreement
+Oregon State,Pac-12,2024-25,2025-06-30,distribution,29345794,full,form_990,
+Washington State,Pac-12,2024-25,2025-06-30,distribution,29176672,full,form_990,
+Georgia,SEC,2024-25,2025-08-31,distribution,74458940,full,form_990,
+Tennessee,SEC,2024-25,2025-08-31,distribution,73587225,full,form_990,
+Arkansas,SEC,2024-25,2025-08-31,distribution,73083520,full,form_990,
+Ole Miss,SEC,2024-25,2025-08-31,distribution,73076485,full,form_990,
+Texas A&M,SEC,2024-25,2025-08-31,distribution,72899870,full,form_990,
+Missouri,SEC,2024-25,2025-08-31,distribution,72855455,full,form_990,
+Alabama,SEC,2024-25,2025-08-31,distribution,72792940,full,form_990,
+South Carolina,SEC,2024-25,2025-08-31,distribution,72741821,full,form_990,
+LSU,SEC,2024-25,2025-08-31,distribution,72391720,full,form_990,
+Florida,SEC,2024-25,2025-08-31,distribution,72068145,full,form_990,
+Vanderbilt,SEC,2024-25,2025-08-31,distribution,71492110,full,form_990,
+Auburn,SEC,2024-25,2025-08-31,distribution,70802740,full,form_990,
+Kentucky,SEC,2024-25,2025-08-31,distribution,70485750,full,form_990,
+Mississippi State,SEC,2024-25,2025-08-31,distribution,70342415,full,form_990,
+Texas,SEC,2024-25,2025-08-31,distribution,12113287,transition,form_990,No media rights distribution in first full SEC year under entry agreement
+Oklahoma,SEC,2024-25,2025-08-31,distribution,2575481,transition,form_990,No media rights distribution in first full SEC year under entry agreement
