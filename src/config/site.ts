@@ -131,7 +131,7 @@ export const siteConfig = {
   proofStats: [
     { value: "14", label: "Day Free Trial — No Card" },
     { value: "9", label: "Feature Modules" },
-    { value: "$3.99", label: "Starting Price Per Month" },
+    { value: "Free", label: "To Start — League History Included" },
     { value: "A–F", label: "Personalized ARGUS Team Grade" },
   ] satisfies ProofStat[],
 
@@ -310,11 +310,11 @@ export const siteConfig = {
       { feature: "Draft simulator with EV modeling", gridironhq: "yes", competitors: ["Partial", "Partial", "Partial"] },
       { feature: "Works with your existing platform", gridironhq: "Partial", gridironhqNote: "Sleeper + ESPN", competitors: ["yes", "yes", "yes"] },
       { feature: "Waiver wire ranked by roster fit", gridironhq: "yes", competitors: ["Generic", "Generic", "Generic"] },
-      { feature: "Complete league history & analytics (The Vault)", gridironhq: "yes", competitors: ["no", "no", "no"] },
+      { feature: "Complete league history — free for every league (The Vault)", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "Portfolio view across all leagues", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "Personalized AI team grade & report", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "Free schedule builder with divisions", gridironhq: "yes", competitors: ["no", "no", "no"] },
-      { feature: "Price", gridironhq: "$3.99–$11.99/mo", competitors: ["$8.99/mo", "$9.99/mo", "$8-15/mo"] },
+      { feature: "Price", gridironhq: "Free–$11.99/mo", competitors: ["$8.99/mo", "$9.99/mo", "$8-15/mo"] },
     ] satisfies ComparisonRow[],
   },
 
@@ -374,22 +374,22 @@ export const siteConfig = {
       {
         id: "starter",
         name: "Starter",
-        price: 3.99,
-        cadence: "/month, or $39/year",
-        annualTotal: "$39/yr",
+        // THE FREE TIER (2026-08-31): price 0 — Starter costs nothing and
+        // includes The Vault. Stripe's Starter product is untouched; it just
+        // is not sold from this card.
+        price: 0,
+        cadence: " — free, no card required",
+        annualTotal: "Free",
         description:
-          "Core ARGUS access for the serious casual player. Everything you need to make better decisions every week.",
+          "Free for every league: your complete league history in The Vault, the keeper calculator, and Pick'Em pools. Computed from your league's own data — free costs nothing to run, so it costs you nothing.",
         features: [
-          "ARGUS — personalized start/sit",
-          "Waiver wire with roster fit scoring",
-          "Trade analyzer — values, fit, and a verdict",
-          "Player news with AI impact notes",
+          "The Vault — complete league history, free",
           "Keeper calculator — is he worth the round he costs?",
-          "Sleeper and ESPN support",
+          "Pick'Em pools — run one free, any league",
         ],
         cta: {
-          label: "Start Free Trial",
-          href: "https://app.gridironhq.ai/subscribe?plan=starter",
+          label: "Sign Up Free",
+          href: "https://app.gridironhq.ai/sign-up",
         },
       },
       // ─────────────────────────────────────────────────────────────────────
@@ -401,12 +401,24 @@ export const siteConfig = {
       //   ~/code/gridironhq/src/lib/entitlements.ts
       //   ~/code/gridironhq/src/app/subscribe/_components/tier-grid.tsx
       //
-      //   Starter        argus_advisor, waiver, trade_analyzer, player_news
-      //   League Member  + championship_probability, offseason_report,
-      //                    draft_center
+      //   THE RULE (2026-08-31): anything that calls a model is paid;
+      //   anything computed from data we already hold is free. Free must
+      //   cost nothing per user. trade_analyzer and waiver are computed, so
+      //   the rule alone would make them free — they sit at League Member as
+      //   a DELIBERATE PACKAGING DECISION; do not "correct" them down.
+      //
+      //   Starter (FREE) vault, keeper_engine — the Vault's DATA moved here
+      //                    2026-08-31 (what happened is free, what to make
+      //                    of it is paid); Pick'Em is free via no tag at all
+      //   League Member  + argus_advisor, waiver, trade_analyzer,
+      //                    player_news, championship_probability,
+      //                    offseason_report, draft_center
       //   Commissioner   + treasury, league_intel  (+ schedule_builder,
       //                    PLANNED — see the note below; not on the card)
-      //   Dynasty Elite  + vault, dynasty_rankings, historical_analysis
+      //   Dynasty Elite  + dynasty_rankings, historical_analysis — the
+      //                    analytics made from the Vault's history (Luck,
+      //                    Clutch, Consistency, Power Rankings, ARGUS
+      //                    historical analysis)
       //
       // Rules for editing this block:
       //   • A bullet must name something in the FEATURES tuple in
@@ -423,8 +435,9 @@ export const siteConfig = {
       //         src/lib/email/templates/subscription-confirmation.ts, a
       //         marketing email. No gate, no route, no product surface. They
       //         were advertised features that do not exist. Meanwhile The
-      //         Vault — a real gated Dynasty-exclusive with a live route at
-      //         app/dashboard/vault/page.tsx — was missing from the card.
+      //         Vault — a real route at app/dashboard/vault/page.tsx — is a
+      //         STARTER (free) feature since 2026-08-31; only the analytics
+      //         on top of it are Dynasty Elite.
       //       - Commissioner's "Free schedule builder" (shipped, removed
       //         2026-08-27). Two separate problems. First, the word "free"
       //         cannot sit inside a paid tier's list: the schedule builder on
@@ -459,9 +472,10 @@ export const siteConfig = {
         cadence: "/month, or $59/year",
         annualTotal: "$59/yr",
         description:
-          "The step up for the manager who drafts to win. Adds the draft tools and championship math on top of everything in Starter.",
+          "Where ARGUS comes in: AI advice built around your roster, plus the draft tools and championship math.",
         features: [
           "Everything in Starter",
+          "ARGUS advisor, trade analyzer, waiver scoring, player news",
           "Draft Guide + live Draft Center",
           "Championship probability on every decision",
           "ARGUS Offseason Report + team grade",
@@ -504,12 +518,14 @@ export const siteConfig = {
         price: 11.99,
         cadence: "/month, or $119/year",
         annualTotal: "$119/yr",
+        // The Vault's DATA went free 2026-08-31; this tier is the analytics
+        // made from that history — describe what it actually has.
         description:
-          "Built for the dynasty and keeper manager. Your league's complete history, its all-time analytics, and dynasty valuations on top of everything else.",
+          "Your league's history is free. Dynasty Elite is what to make of it — the analytics and ARGUS's read of your league's eras, rivalries, and patterns.",
         features: [
           "Everything in Commissioner",
-          "The Vault — full league history, H2H records, analytics",
-          "Dynasty Power Rankings and Luck Index",
+          "Luck Index, Clutch Factor, Consistency Score",
+          "Dynasty Power Rankings",
           "ARGUS historical league analysis",
         ],
         cta: {
@@ -584,12 +600,12 @@ export const siteConfig = {
       {
         question: "Does GridironHQ work for dynasty leagues?",
         answer:
-          "Yes — and keeper leagues too. The keeper calculator is on every paid tier, Starter included: it works out whether keeping a player is worth the draft round he costs, reads your league's cost rules from its own past drafts, counts traded picks so a pick you no longer hold isn't charged to you, and says plainly when it can't work something out. Dynasty Elite adds The Vault (your complete league history), Dynasty Power Rankings, and ARGUS historical league analysis. ARGUS understands multi-year roster building, not just week-to-week decisions.",
+          "Yes — and keeper leagues too. The keeper calculator is on Starter, which is free: it works out whether keeping a player is worth the draft round he costs, reads your league's cost rules from its own past drafts, counts traded picks so a pick you no longer hold isn't charged to you, and says plainly when it can't work something out. The Vault — your complete league history — is also free. Dynasty Elite adds the analytics made from that history: Dynasty Power Rankings, the Luck Index, Clutch Factor, Consistency Score, and ARGUS historical league analysis.",
       },
       {
         question: "What is The Vault?",
         answer:
-          "The Vault is GridironHQ's league history module. It connects to your Sleeper or ESPN league, walks your complete season history, and builds all-time standings, H2H records, championship history, and four analytics metrics: Luck Index, Clutch Factor, Consistency Score, and Dynasty Power Rankings. ARGUS analyzes your league's history and surfaces patterns, rivalries, and trends.",
+          "The Vault is GridironHQ's league history module, and it's free. It connects to your Sleeper or ESPN league — or takes a pasted spreadsheet — walks your complete season history, and builds all-time standings, H2H records, championship history, milestone chases, and a read-only link to share with your league. The analytics made from that history — Luck Index, Clutch Factor, Consistency Score, Dynasty Power Rankings, and ARGUS's analysis of your league's patterns and rivalries — are Dynasty Elite.",
       },
       {
         question: "What is the ARGUS Offseason Report?",

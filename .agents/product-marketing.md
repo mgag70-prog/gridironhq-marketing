@@ -16,11 +16,11 @@
 
 **Product type:** SaaS subscription, monthly or annual billing per tier.
 
-**Business model:** Four cumulative tiers, 14-day free trial, no credit card to start, cancel any time. Each tier includes everything below it.
-- Starter — $3.99/mo or $39/yr: ARGUS personalized start/sit, waiver wire with roster-fit scoring, trade analyzer (values, fit, and a verdict — the full analyzer, not a "basic" one), player news with AI impact notes, keeper calculator (is he worth the round he costs? — every paid tier has it), Sleeper and ESPN support
-- League Member — $5.99/mo or $59/yr — *Most Popular*: + Draft Guide and live Draft Center, championship probability on every decision, ARGUS Offseason Report and team grade
+**Business model:** Four cumulative tiers; **Starter is FREE** (no card, not a trial — the free tier, since 2026-08-31). Paid tiers carry a 14-day free trial, cancel any time. Each tier includes everything below it.
+- Starter — FREE: **The Vault — complete league history** (all-time standings, championships, H2H, milestone chases, CSV import, read-only share link), keeper calculator (is he worth the round he costs?), Pick'Em pools. THE RULE: free is computed from held data and never calls a model — anything AI is League Member and up. Sleeper and ESPN support
+- League Member — $5.99/mo or $59/yr — *Most Popular*: + ARGUS personalized start/sit, trade analyzer (the full analyzer), waiver roster-fit scoring, player news with AI notes, Draft Guide and live Draft Center, championship probability on every decision, ARGUS Offseason Report and team grade (trade analyzer and waiver scoring are computed, not model-called — they sit here as deliberate packaging, not because the rule requires it)
 - Commissioner — $7.99/mo or $79/yr: + League Treasury with dues tracking, League Intel behavioral profiles
-- Dynasty Elite — $11.99/mo or $119/yr: + The Vault (complete league history, H2H records, analytics), Dynasty Power Rankings and Luck Index, ARGUS historical league analysis. NOT keeper tools (Starter, 2026-08-31); NOT "career outcome models" or "rookie profiling" — those do not exist and were removed from the tier card 2026-08-27.
+- Dynasty Elite — $11.99/mo or $119/yr: + the analytics made from league history — Luck Index, Clutch Factor, Consistency Score, Dynasty Power Rankings, ARGUS historical league analysis. NOT the Vault's data (free since 2026-08-31: what happened is free, what to make of it is paid); NOT keeper tools (Starter); NOT "career outcome models" or "rookie profiling" — those do not exist and were removed from the tier card 2026-08-27.
 
 **Platform support (load-bearing — do not overstate):** Sleeper and ESPN. Site wording: "Connects to Sleeper and ESPN today. Yahoo isn't supported yet" — no date, because the Yahoo API approval isn't ours to grant. **CBS is not on the roadmap and must not appear as a promise anywhere.** The Vault works with Sleeper and ESPN leagues (ESPN Vault shipped 2026-08-30). The keeper calculator reads Sleeper draft history today.
 
@@ -45,7 +45,7 @@
 |---------|-------------|-----------|------------------|
 | Competitive manager | Winning, edge, precision | Every tool gives the same advice to everyone | Advice built around your exact roster |
 | Commissioner | League running smoothly, staying trusted | Chasing Venmo payments, no paper trail, manual everything | Treasury ledger + schedule builder + league history |
-| Keeper/dynasty manager | Multi-year roster building, keeper cost, continuity | Tools are built for redraft and one season at a time | Keeper calculator on every paid tier (Starter up); Dynasty Elite adds The Vault and Dynasty Power Rankings |
+| Keeper/dynasty manager | Multi-year roster building, keeper cost, continuity | Tools are built for redraft and one season at a time | Keeper calculator and The Vault free on Starter; Dynasty Elite adds the analytics — Dynasty Power Rankings, Luck Index, ARGUS history analysis |
 
 ## Problems & Pain Points
 **Core problem:** Existing platforms were built for casual players. Serious managers get generic rankings that ignore their roster, projections without context, and zero financial/administrative tooling.
@@ -73,7 +73,7 @@
 - ARGUS — proprietary AI advisor with the actual roster loaded
 - Decision EV Framework — championship probability delta on every lineup/trade/waiver choice
 - League Intel — AI behavioral profiles of every manager in the league (accept rates, FAAB patterns, hoarding tendencies)
-- The Vault — all-time standings, H2H, championship history, Luck Index, Clutch Factor, Consistency Score, Dynasty Power Rankings
+- The Vault — all-time standings, H2H, championship history, milestone chases, CSV import, read-only share link — FREE for every league (the four analytics metrics on top of it are Dynasty Elite)
 - League Treasury — dues directory and ledger that never holds or moves money
 - Works on top of the existing league; no migration required
 
@@ -111,7 +111,7 @@
 | Term | Meaning |
 |------|---------|
 | ARGUS | GridironHQ's proprietary AI advisory engine (renamed from SCOUT) |
-| The Vault | League history module — all-time standings, H2H, championship history, 4 analytics metrics |
+| The Vault | League history module, free — all-time standings, H2H, championship history, chases, share link. The 4 analytics metrics on top are Dynasty Elite |
 | Decision EV Framework | Every decision expressed as championship probability impact |
 | League Intel | AI behavioral profiles of the managers in your league |
 | Treasury | Dues directory + ledger; never holds or moves money |
