@@ -38,8 +38,6 @@ export const metadata: Metadata = {
     "fantasy football AI",
     "Sleeper",
     "ESPN fantasy",
-    "Yahoo fantasy",
-    "CBS fantasy",
     "dynasty fantasy",
     "championship probability",
     "league treasury",

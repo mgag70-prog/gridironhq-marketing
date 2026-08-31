@@ -169,7 +169,7 @@ export const siteConfig = {
         "Built-in league treasury with dues tracking and payment status",
         "Behavioral profiles on every manager in your league — negotiate smarter",
         "Mock draft simulator with real-time championship probability modeling",
-        "Works with Sleeper and ESPN — no new platform required (Yahoo and CBS planned)",
+        "Works with Sleeper and ESPN — no new platform required",
       ],
     },
   },
@@ -267,7 +267,7 @@ export const siteConfig = {
         step: 1,
         title: "Connect Your League",
         description:
-          "Connect your Sleeper league with your username, or import an ESPN league. GridironHQ pulls in your league settings, your roster, your record, and your scoring format. Takes about 30 seconds. Yahoo and CBS are planned but not available yet.",
+          "Connect your Sleeper league with your username, or import an ESPN league. GridironHQ pulls in your league settings, your roster, your record, and your scoring format. Takes about 30 seconds.",
       },
       {
         step: 2,
@@ -359,6 +359,16 @@ export const siteConfig = {
     titleAccent: "Transparent",
     subhead:
       "Every plan starts with a 14-day free trial. No credit card to start, cancel any time.",
+    // Platform support, stated where the buying decision happens. Mirrors the
+    // app's /subscribe page: a Commissioner trialist paid before discovering
+    // Yahoo doesn't connect, because nothing said so before the card. Rules:
+    // name the two that work; Yahoo is "not supported yet" with NO date (the
+    // API approval isn't ours to grant); CBS is not on the roadmap and does
+    // not appear as a promise anywhere on this site.
+    platformNote: {
+      lead: "Connects to Sleeper and ESPN today.",
+      rest: "Yahoo isn't supported yet — we'd rather tell you no than ship a half-connection that quietly gets your league's numbers wrong.",
+    },
     tiers: [
       {
         id: "starter",
@@ -533,7 +543,7 @@ export const siteConfig = {
       {
         question: "Does GridironHQ replace my current fantasy platform?",
         answer:
-          "No — GridironHQ works on top of your league. You keep your league exactly where it is; GridironHQ connects to it and gives you a smarter advisory layer on top. Sleeper is fully supported and ESPN leagues can be imported today. Yahoo and CBS are planned but not available yet.",
+          "No — GridironHQ works on top of your league. You keep your league exactly where it is; GridironHQ connects to it and gives you a smarter advisory layer on top. It connects to Sleeper and ESPN. Yahoo isn't supported yet.",
       },
       {
         question: "How do I try GridironHQ before I pay?",
@@ -553,12 +563,12 @@ export const siteConfig = {
       {
         question: "Does ARGUS actually know my roster?",
         answer:
-          "Yes — this is the whole point. When you connect your Sleeper league, GridironHQ imports your actual roster, your scoring format, your record, and your playoff situation. Every AI response is built around your specific team, not generic advice.",
+          "Yes — this is the whole point. When you connect your Sleeper or ESPN league, GridironHQ imports your actual roster, your scoring format, your record, and your playoff situation. Every AI response is built around your specific team, not generic advice.",
       },
       {
         question: "What platforms does GridironHQ support?",
         answer:
-          "Sleeper is fully supported — connect with your username and everything imports automatically. ESPN leagues can be imported today. Yahoo and CBS are on the roadmap and are not available yet.",
+          "Sleeper and ESPN. Sleeper connects with your username and everything imports automatically; ESPN takes a one-minute copy-paste step, walked through on the Help page. Yahoo isn't supported yet — when it connects, it will connect properly.",
       },
       {
         question: "How does GridironHQ Treasury work?",
@@ -573,7 +583,7 @@ export const siteConfig = {
       {
         question: "What is The Vault?",
         answer:
-          "The Vault is GridironHQ's league history module. It connects to your Sleeper league, walks your complete season history, and builds all-time standings, H2H records, championship history, and four analytics metrics: Luck Index, Clutch Factor, Consistency Score, and Dynasty Power Rankings. ARGUS analyzes your league's history and surfaces patterns, rivalries, and trends.",
+          "The Vault is GridironHQ's league history module. It connects to your Sleeper or ESPN league, walks your complete season history, and builds all-time standings, H2H records, championship history, and four analytics metrics: Luck Index, Clutch Factor, Consistency Score, and Dynasty Power Rankings. ARGUS analyzes your league's history and surfaces patterns, rivalries, and trends.",
       },
       {
         question: "What is the ARGUS Offseason Report?",
@@ -583,7 +593,7 @@ export const siteConfig = {
       {
         question: "Can I connect multiple leagues?",
         answer:
-          "Yes. GridironHQ supports multiple leagues per account. Connect your Sleeper leagues and import your ESPN leagues, then view them all together on the Portfolio Dashboard. Yahoo and CBS integrations are planned.",
+          "Yes. GridironHQ supports multiple leagues per account. Connect your Sleeper leagues and import your ESPN leagues, then view them all together on the Portfolio Dashboard.",
       },
     ] satisfies FaqItem[],
   },

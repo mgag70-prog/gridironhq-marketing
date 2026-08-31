@@ -15,6 +15,13 @@ export function Pricing() {
           center
         />
 
+        {/* Which platforms connect, stated before the card — see the note on
+            `pricing.platformNote` in config/site.ts. */}
+        <p className="text-center text-sm text-text-muted leading-relaxed max-w-[640px] mx-auto mt-6">
+          <span className="font-semibold text-text">{pricing.platformNote.lead}</span>{" "}
+          {pricing.platformNote.rest}
+        </p>
+
         {/*
           Four tiers, not three. The 4-up row is held back to xl (1280px)
           rather than lg: at lg the 1180px container leaves ~244px per card,
