@@ -1,7 +1,9 @@
 # Product Marketing Context
 
-**Document version:** v1
-**Last updated:** 2026-08-14
+**Document version:** v2
+**Last updated:** 2026-08-31
+
+> **Source of truth.** Tier contents in this file must match the tier definitions in the app's entitlements module (`~/code/gridironhq/src/lib/entitlements.ts` — `STARTER_FEATURES` and the cumulative lists above it). Prices, annual totals, and the "Most Popular" badge must match `siteConfig.pricing` in `src/config/site.ts`. When this file and either source disagree, this file is wrong; fix it here, never by copying it back to the site.
 
 > Auto-drafted from the repo (`src/config/site.ts`, landing page components, live site headers). Sections marked **[UNVERIFIED]** were inferred and need Matt's correction — especially competitive landscape, customer language, and proof points, which have no source in the codebase.
 
@@ -12,14 +14,15 @@
 
 **Product category:** Fantasy football AI advisory / league management tools. Customers search for it alongside FantasyPros, PFF, and dynasty-specific tooling.
 
-**Product type:** SaaS subscription, annual-billed tiers.
+**Product type:** SaaS subscription, monthly or annual billing per tier.
 
-**Business model:** Three tiers, 14-day free trial, no credit card to start, cancel any time.
-- Starter — $3.99/mo ($47.88/yr): ARGUS start/sit, waiver roster-fit scoring, basic trade analyzer, player news
-- Commissioner — $7.99/mo ($95.88/yr) — *Most Popular*: + championship EV on all decisions, League Intel, full trade analyzer, Draft Center, League Treasury, playoff modeling
-- Dynasty Elite — $11.99/mo ($143.88/yr): + dynasty rankings & valuations, career outcome models, rookie profiling, keeper value engine, multi-season behavioral analytics
+**Business model:** Four cumulative tiers, 14-day free trial, no credit card to start, cancel any time. Each tier includes everything below it.
+- Starter — $3.99/mo or $39/yr: ARGUS personalized start/sit, waiver wire with roster-fit scoring, trade analyzer (values, fit, and a verdict — the full analyzer, not a "basic" one), player news with AI impact notes, keeper calculator (is he worth the round he costs? — every paid tier has it), Sleeper and ESPN support
+- League Member — $5.99/mo or $59/yr — *Most Popular*: + Draft Guide and live Draft Center, championship probability on every decision, ARGUS Offseason Report and team grade
+- Commissioner — $7.99/mo or $79/yr: + League Treasury with dues tracking, League Intel behavioral profiles
+- Dynasty Elite — $11.99/mo or $119/yr: + The Vault (complete league history, H2H records, analytics), Dynasty Power Rankings and Luck Index, ARGUS historical league analysis. NOT keeper tools (Starter, 2026-08-31); NOT "career outcome models" or "rookie profiling" — those do not exist and were removed from the tier card 2026-08-27.
 
-**Platform support (load-bearing — do not overstate):** Sleeper fully supported. ESPN leagues can be imported today. **Yahoo and CBS are planned and NOT available.** The Vault's history walk is described as connecting to *Sleeper* leagues specifically (`site.ts:438`).
+**Platform support (load-bearing — do not overstate):** Sleeper and ESPN. Site wording: "Connects to Sleeper and ESPN today. Yahoo isn't supported yet" — no date, because the Yahoo API approval isn't ours to grant. **CBS is not on the roadmap and must not appear as a promise anywhere.** The Vault works with Sleeper and ESPN leagues (ESPN Vault shipped 2026-08-30). The keeper calculator reads Sleeper draft history today.
 
 **Free entry points:** interactive demo at /demo (no account), free schedule builder at /schedule-builder, ARGUS Offseason Report inside trial.
 
@@ -42,7 +45,7 @@
 |---------|-------------|-----------|------------------|
 | Competitive manager | Winning, edge, precision | Every tool gives the same advice to everyone | Advice built around your exact roster |
 | Commissioner | League running smoothly, staying trusted | Chasing Venmo payments, no paper trail, manual everything | Treasury ledger + schedule builder + league history |
-| Keeper/dynasty manager | Multi-year roster building, keeper cost, continuity | Tools are built for redraft and one season at a time | Dynasty tier: career outcome models, keeper value engine, The Vault |
+| Keeper/dynasty manager | Multi-year roster building, keeper cost, continuity | Tools are built for redraft and one season at a time | Keeper calculator on every paid tier (Starter up); Dynasty Elite adds The Vault and Dynasty Power Rankings |
 
 ## Problems & Pain Points
 **Core problem:** Existing platforms were built for casual players. Serious managers get generic rankings that ignore their roster, projections without context, and zero financial/administrative tooling.
@@ -82,7 +85,7 @@
 | Objection | Response |
 |-----------|----------|
 | "Do I have to move my league?" | No. GridironHQ layers on top — Sleeper connects, ESPN imports. League stays where it is. |
-| "Another subscription?" | $3.99–$11.99/mo, annual billing, 14-day trial with no card. Cheaper than FantasyPros or PFF. |
+| "Another subscription?" | $3.99–$11.99/mo, or $39–$119/yr, 14-day trial with no card. Cheaper than FantasyPros or PFF. |
 | "Is my league's money safe?" | Treasury is a directory and ledger only. GridironHQ never holds, moves, escrows, or pays out money. |
 | "My league is on Yahoo/CBS" | Not supported yet — say so plainly. Do not imply otherwise. |
 
@@ -126,7 +129,7 @@
 ## Proof Points
 **Metrics on site:** 14-day free trial (no card); 9 feature modules; $3.99 starting price; A–F ARGUS team grade.
 
-**Customers:** No logos. Two early-member testimonials (Chris M., 8-year commissioner, 12-team dynasty; Jake R., ESPN 10-team PPR). Framed honestly as "Early Feedback," not scale.
+**Customers:** No logos. One early-member testimonial (Jake R., ESPN 10-team PPR). Chris M.'s quote was removed 2026-08-27 — it praised a decimal-precision championship figure the product no longer shows; do not paraphrase it back. Framed honestly as "Early Feedback," not scale.
 
 **Value themes:**
 | Theme | Proof |
@@ -144,8 +147,9 @@
 
 **Current metrics:** Not known — no analytics data in repo. Vercel Analytics is installed.
 
-**Deployment context:** Marketing site is its own Vercel project, auto-deploys on push to `main`. Canonical host is `www.gridironhq.ai` (apex 307-redirects to www). No blog, sitemap, robots.txt, or OG image exists yet as of 2026-08-14.
+**Deployment context:** Marketing site is its own Vercel project, auto-deploys on push to `main`. Canonical host is `www.gridironhq.ai` (apex 307-redirects to www). Blog (/blog), sitemap.xml, robots.txt, and per-page OG images exist as of 2026-08-31; a public ESPN connection guide lives at /help/connect-espn.
 
 ## Changelog
 *Newest first. One line per revision: what changed and why.*
+- v2 (2026-08-31) — Reconciled to `site.ts` and `entitlements.ts`: four tiers (League Member was missing), annuals $39/$59/$79/$119, badge on League Member, keeper calculator on Starter, phantom Dynasty features struck, Yahoo/CBS wording aligned with the public site, Vault on ESPN, one testimonial, blog/sitemap/OG now exist. Added the source-of-truth rule at the top.
 - v1 (2026-08-14) — Initial context, auto-drafted from `src/config/site.ts` and landing components ahead of the NFL-shutdown blog post. Competitive landscape, customer language, and proof points flagged UNVERIFIED — no customer research in repo.

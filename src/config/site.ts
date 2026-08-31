@@ -383,6 +383,7 @@ export const siteConfig = {
           "Waiver wire with roster fit scoring",
           "Trade analyzer — values, fit, and a verdict",
           "Player news with AI impact notes",
+          "Keeper calculator — is he worth the round he costs?",
           "Sleeper and ESPN support",
         ],
         cta: {
@@ -414,6 +415,10 @@ export const siteConfig = {
       //       - Dynasty's "Career outcome models" / "Rookie profiling +
       //         breakout scores" / "Keeper value engine" (shipped) — each
       //         appeared in exactly ONE place in the app,
+      //         (UPDATE 2026-08-31: keeper_engine is now REAL — route at
+      //         app/dashboard/keepers/page.tsx, in STARTER_FEATURES — and is
+      //         back as a Starter bullet. Career outcome models and rookie
+      //         profiling are still phantom; do not restore them.)
       //         src/lib/email/templates/subscription-confirmation.ts, a
       //         marketing email. No gate, no route, no product surface. They
       //         were advertised features that do not exist. Meanwhile The
@@ -578,7 +583,7 @@ export const siteConfig = {
       {
         question: "Does GridironHQ work for dynasty leagues?",
         answer:
-          "Yes — Dynasty Elite tier includes dynasty rankings, career outcome models, rookie profiling, and keeper value tools. ARGUS understands multi-year roster building, not just week-to-week decisions.",
+          "Yes — and keeper leagues too. The keeper calculator is on every paid tier, Starter included: it works out whether keeping a player is worth the draft round he costs, reads your league's cost rules from its own past drafts, counts traded picks so a pick you no longer hold isn't charged to you, and says plainly when it can't work something out. Dynasty Elite adds The Vault (your complete league history), Dynasty Power Rankings, and ARGUS historical league analysis. ARGUS understands multi-year roster building, not just week-to-week decisions.",
       },
       {
         question: "What is The Vault?",
