@@ -94,6 +94,7 @@ export const siteConfig = {
       { label: "Pricing", href: "/#pricing" },
       { label: "FAQ", href: "/#faq" },
       { label: "Schedule Builder", href: "/schedule-builder" },
+      { label: "Bye Weeks", href: "/nfl-bye-weeks" },
       // Nav items render `hidden md:inline` and there is no mobile menu, so this
       // link is desktop-only. The footer Blog link is the mobile-reachable path.
       { label: "Blog", href: "/blog" },
@@ -633,6 +634,7 @@ export const siteConfig = {
           // mobile-reachable path to the free Pick'Em product.
           { label: "Free Pick'Em Pools", href: "https://app.gridironhq.ai/pools" },
           { label: "Free Schedule Builder", href: "/schedule-builder" },
+          { label: "NFL Bye Weeks 2026", href: "/nfl-bye-weeks" },
           { label: "Blog", href: "/blog" },
           { label: "Help", href: "/help/connect-espn" },
           { label: "Live Demo", href: "/demo" },

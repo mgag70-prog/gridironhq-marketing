@@ -1,0 +1,357 @@
+{
+  "season": 2026,
+  "generatedAt": "2026-08-31T15:46:45.434Z",
+  "source": {
+    "byes": "SportsDataIO /scores/json/Byes via public.nfl_byes",
+    "names": "SportsDataIO /scores/json/Teams via public.teams (FullName)",
+    "byesFetchedAt": "2026-08-31T05:30:30.622+00:00"
+  },
+  "teamCount": 32,
+  "teams": [
+    {
+      "code": "ARI",
+      "name": "Arizona Cardinals",
+      "mascot": "Cardinals",
+      "bye": 14
+    },
+    {
+      "code": "ATL",
+      "name": "Atlanta Falcons",
+      "mascot": "Falcons",
+      "bye": 11
+    },
+    {
+      "code": "BAL",
+      "name": "Baltimore Ravens",
+      "mascot": "Ravens",
+      "bye": 13
+    },
+    {
+      "code": "BUF",
+      "name": "Buffalo Bills",
+      "mascot": "Bills",
+      "bye": 7
+    },
+    {
+      "code": "CAR",
+      "name": "Carolina Panthers",
+      "mascot": "Panthers",
+      "bye": 5
+    },
+    {
+      "code": "CHI",
+      "name": "Chicago Bears",
+      "mascot": "Bears",
+      "bye": 10
+    },
+    {
+      "code": "CIN",
+      "name": "Cincinnati Bengals",
+      "mascot": "Bengals",
+      "bye": 6
+    },
+    {
+      "code": "CLE",
+      "name": "Cleveland Browns",
+      "mascot": "Browns",
+      "bye": 11
+    },
+    {
+      "code": "DAL",
+      "name": "Dallas Cowboys",
+      "mascot": "Cowboys",
+      "bye": 14
+    },
+    {
+      "code": "DEN",
+      "name": "Denver Broncos",
+      "mascot": "Broncos",
+      "bye": 10
+    },
+    {
+      "code": "DET",
+      "name": "Detroit Lions",
+      "mascot": "Lions",
+      "bye": 6
+    },
+    {
+      "code": "GB",
+      "name": "Green Bay Packers",
+      "mascot": "Packers",
+      "bye": 11
+    },
+    {
+      "code": "HOU",
+      "name": "Houston Texans",
+      "mascot": "Texans",
+      "bye": 8
+    },
+    {
+      "code": "IND",
+      "name": "Indianapolis Colts",
+      "mascot": "Colts",
+      "bye": 13
+    },
+    {
+      "code": "JAX",
+      "name": "Jacksonville Jaguars",
+      "mascot": "Jaguars",
+      "bye": 7
+    },
+    {
+      "code": "KC",
+      "name": "Kansas City Chiefs",
+      "mascot": "Chiefs",
+      "bye": 5
+    },
+    {
+      "code": "LV",
+      "name": "Las Vegas Raiders",
+      "mascot": "Raiders",
+      "bye": 13
+    },
+    {
+      "code": "LAC",
+      "name": "Los Angeles Chargers",
+      "mascot": "Chargers",
+      "bye": 7
+    },
+    {
+      "code": "LAR",
+      "name": "Los Angeles Rams",
+      "mascot": "Rams",
+      "bye": 11
+    },
+    {
+      "code": "MIA",
+      "name": "Miami Dolphins",
+      "mascot": "Dolphins",
+      "bye": 6
+    },
+    {
+      "code": "MIN",
+      "name": "Minnesota Vikings",
+      "mascot": "Vikings",
+      "bye": 6
+    },
+    {
+      "code": "NE",
+      "name": "New England Patriots",
+      "mascot": "Patriots",
+      "bye": 11
+    },
+    {
+      "code": "NO",
+      "name": "New Orleans Saints",
+      "mascot": "Saints",
+      "bye": 8
+    },
+    {
+      "code": "NYG",
+      "name": "New York Giants",
+      "mascot": "Giants",
+      "bye": 8
+    },
+    {
+      "code": "NYJ",
+      "name": "New York Jets",
+      "mascot": "Jets",
+      "bye": 13
+    },
+    {
+      "code": "PHI",
+      "name": "Philadelphia Eagles",
+      "mascot": "Eagles",
+      "bye": 10
+    },
+    {
+      "code": "PIT",
+      "name": "Pittsburgh Steelers",
+      "mascot": "Steelers",
+      "bye": 9
+    },
+    {
+      "code": "SF",
+      "name": "San Francisco 49ers",
+      "mascot": "49ers",
+      "bye": 8
+    },
+    {
+      "code": "SEA",
+      "name": "Seattle Seahawks",
+      "mascot": "Seahawks",
+      "bye": 11
+    },
+    {
+      "code": "TB",
+      "name": "Tampa Bay Buccaneers",
+      "mascot": "Buccaneers",
+      "bye": 10
+    },
+    {
+      "code": "TEN",
+      "name": "Tennessee Titans",
+      "mascot": "Titans",
+      "bye": 9
+    },
+    {
+      "code": "WAS",
+      "name": "Washington Commanders",
+      "mascot": "Commanders",
+      "bye": 7
+    }
+  ],
+  "weeks": [
+    {
+      "week": 1,
+      "count": 0,
+      "teams": []
+    },
+    {
+      "week": 2,
+      "count": 0,
+      "teams": []
+    },
+    {
+      "week": 3,
+      "count": 0,
+      "teams": []
+    },
+    {
+      "week": 4,
+      "count": 0,
+      "teams": []
+    },
+    {
+      "week": 5,
+      "count": 2,
+      "teams": [
+        "CAR",
+        "KC"
+      ]
+    },
+    {
+      "week": 6,
+      "count": 4,
+      "teams": [
+        "CIN",
+        "DET",
+        "MIA",
+        "MIN"
+      ]
+    },
+    {
+      "week": 7,
+      "count": 4,
+      "teams": [
+        "BUF",
+        "JAX",
+        "LAC",
+        "WAS"
+      ]
+    },
+    {
+      "week": 8,
+      "count": 4,
+      "teams": [
+        "HOU",
+        "NO",
+        "NYG",
+        "SF"
+      ]
+    },
+    {
+      "week": 9,
+      "count": 2,
+      "teams": [
+        "PIT",
+        "TEN"
+      ]
+    },
+    {
+      "week": 10,
+      "count": 4,
+      "teams": [
+        "CHI",
+        "DEN",
+        "PHI",
+        "TB"
+      ]
+    },
+    {
+      "week": 11,
+      "count": 6,
+      "teams": [
+        "ATL",
+        "CLE",
+        "GB",
+        "LAR",
+        "NE",
+        "SEA"
+      ]
+    },
+    {
+      "week": 12,
+      "count": 0,
+      "teams": []
+    },
+    {
+      "week": 13,
+      "count": 4,
+      "teams": [
+        "BAL",
+        "IND",
+        "LV",
+        "NYJ"
+      ]
+    },
+    {
+      "week": 14,
+      "count": 2,
+      "teams": [
+        "ARI",
+        "DAL"
+      ]
+    },
+    {
+      "week": 15,
+      "count": 0,
+      "teams": []
+    },
+    {
+      "week": 16,
+      "count": 0,
+      "teams": []
+    },
+    {
+      "week": 17,
+      "count": 0,
+      "teams": []
+    },
+    {
+      "week": 18,
+      "count": 0,
+      "teams": []
+    }
+  ],
+  "byeWeeks": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    13,
+    14
+  ],
+  "heaviestWeeks": [
+    11
+  ],
+  "lightestByeWeeks": [
+    5,
+    9,
+    14
+  ],
+  "warnings": []
+}
