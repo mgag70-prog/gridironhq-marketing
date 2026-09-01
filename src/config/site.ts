@@ -99,8 +99,19 @@ export const siteConfig = {
       { label: "Pick'Em", href: "https://app.gridironhq.ai/pools" },
       { label: "Pricing", href: "/#pricing" },
       { label: "FAQ", href: "/#faq" },
-      { label: "Schedule Builder", href: "/schedule-builder" },
-      { label: "Bye Weeks", href: "/nfl-bye-weeks" },
+      // The three free tools collapse into one dropdown (components/
+      // NavDropdown.tsx). They were two wrapping nav items plus a footer-only
+      // calculator; the footer Product column keeps all three as the
+      // mobile-reachable path — the nav is desktop-only.
+      {
+        label: "Free Tools",
+        items: [
+          { label: "Schedule Builder", href: "/schedule-builder" },
+          { label: "NFL Bye Weeks 2026", href: "/nfl-bye-weeks" },
+          // Lives in the app (values resync daily; this site is static).
+          { label: "Trade Value Calculator", href: "https://app.gridironhq.ai/dashboard/trade-values", external: true },
+        ],
+      },
       // Nav items render `hidden md:inline` and there is no mobile menu, so this
       // link is desktop-only. The footer Blog link is the mobile-reachable path.
       { label: "Blog", href: "/blog" },

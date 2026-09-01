@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { ThemeToggle } from "./ThemeToggle";
+import { NavDropdown } from "./NavDropdown";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -33,15 +34,19 @@ export function Nav() {
           <span className="text-text">HQ</span>
         </Link>
         <div className="flex gap-6 ml-auto items-center">
-          {siteConfig.nav.links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="hidden md:inline text-sm font-medium text-text-muted hover:text-orange transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
+          {siteConfig.nav.links.map((link) =>
+            "items" in link ? (
+              <NavDropdown key={link.label} label={link.label} items={link.items} />
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className="hidden md:inline text-sm font-medium text-text-muted hover:text-orange transition-colors"
+              >
+                {link.label}
+              </a>
+            ),
+          )}
           <a
             href={siteConfig.nav.signInHref}
             className="hidden md:inline text-sm font-medium text-text-muted hover:text-orange transition-colors"
