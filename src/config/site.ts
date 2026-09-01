@@ -101,8 +101,8 @@ export const siteConfig = {
       { label: "FAQ", href: "/#faq" },
       // The three free tools collapse into one dropdown (components/
       // NavDropdown.tsx). They were two wrapping nav items plus a footer-only
-      // calculator; the footer Product column keeps all three as the
-      // mobile-reachable path — the nav is desktop-only.
+      // calculator; the footer Product column keeps all three as a second
+      // path, and the mobile menu lists them flat under a heading.
       {
         label: "Free Tools",
         items: [
@@ -112,8 +112,9 @@ export const siteConfig = {
           { label: "Trade Value Calculator", href: "https://app.gridironhq.ai/dashboard/trade-values", external: true },
         ],
       },
-      // Nav items render `hidden md:inline` and there is no mobile menu, so this
-      // link is desktop-only. The footer Blog link is the mobile-reachable path.
+      // Desktop nav items render `hidden nav:inline`; below the `nav`
+      // breakpoint the same list renders in the mobile menu (MobileMenu.tsx).
+      // The footer Blog link remains a second path.
       { label: "Blog", href: "/blog" },
       { label: "Help", href: "/help/connect-espn" },
     ],

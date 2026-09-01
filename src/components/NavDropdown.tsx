@@ -15,7 +15,8 @@ export type NavDropdownItem = {
 // the panel is role="menu" of role="menuitem" links. Opens on click, Enter,
 // Space or ArrowDown; Arrow keys move between items; Escape closes and returns
 // focus to the trigger; clicking outside or tabbing out closes. Desktop-only
-// like every other nav item (the site has no mobile menu — see Nav.tsx).
+// like every other nav item; below the `nav` breakpoint MobileMenu.tsx lists
+// the same items flat under a heading.
 export function NavDropdown({
   label,
   items,
@@ -111,7 +112,7 @@ export function NavDropdown({
   return (
     <div
       ref={rootRef}
-      className="relative hidden md:block"
+      className="relative hidden nav:block"
       onKeyDown={onRootKeyDown}
       onBlur={onRootBlur}
     >

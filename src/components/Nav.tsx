@@ -5,6 +5,7 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { ThemeToggle } from "./ThemeToggle";
 import { NavDropdown } from "./NavDropdown";
+import { MobileMenu } from "./MobileMenu";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -25,15 +26,19 @@ export function Nav() {
           : "var(--nav-bg)",
       }}
     >
-      <div className="max-w-[1180px] mx-auto h-full flex items-center gap-8">
+      {/* Phone widths (<sm): the wordmark, CTA and hamburger must fit 342px at
+          390 wide — tighter gaps, a smaller wordmark, and the theme toggle
+          moves into the menu panel (MobileMenu.tsx). Measured 2026-09-01:
+          the pre-existing header already overflowed by 18px at 390. */}
+      <div className="max-w-[1180px] mx-auto h-full flex items-center gap-3 sm:gap-8">
         <Link
           href="/"
-          className="font-display text-[26px] tracking-[2px] no-underline"
+          className="font-display text-[20px] sm:text-[26px] tracking-[2px] no-underline"
         >
           <span className="text-orange">GRIDIRON</span>
           <span className="text-text">HQ</span>
         </Link>
-        <div className="flex gap-6 ml-auto items-center">
+        <div className="flex gap-3 sm:gap-6 ml-auto items-center">
           {siteConfig.nav.links.map((link) =>
             "items" in link ? (
               <NavDropdown key={link.label} label={link.label} items={link.items} />
@@ -41,7 +46,7 @@ export function Nav() {
               <a
                 key={link.href}
                 href={link.href}
-                className="hidden md:inline text-sm font-medium text-text-muted hover:text-orange transition-colors"
+                className="hidden nav:inline text-sm font-medium text-text-muted hover:text-orange transition-colors"
               >
                 {link.label}
               </a>
@@ -49,14 +54,17 @@ export function Nav() {
           )}
           <a
             href={siteConfig.nav.signInHref}
-            className="hidden md:inline text-sm font-medium text-text-muted hover:text-orange transition-colors"
+            className="hidden nav:inline text-sm font-medium text-text-muted hover:text-orange transition-colors"
           >
             Sign In
           </a>
-          <ThemeToggle />
-          <a href={siteConfig.nav.ctaHref} className="btn btn-primary btn-small">
+          <span className="hidden sm:flex">
+            <ThemeToggle />
+          </span>
+          <a href={siteConfig.nav.ctaHref} className="btn btn-primary btn-small max-sm:px-3">
             {siteConfig.nav.ctaLabel}
           </a>
+          <MobileMenu />
         </div>
       </div>
     </nav>
