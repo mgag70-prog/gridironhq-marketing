@@ -225,7 +225,7 @@ export const siteConfig = {
         icon: "🤝",
         title: "Trade Analyzer",
         description:
-          "Not just value comparison. See whether a deal improves, weakens, or leaves your title outlook flat — a directional read of your starting lineup, not a probability — and get a verdict on accept, decline, or counter with the reasoning behind it.",
+          "Not just value comparison. See whether a deal improves, weakens, or leaves your title outlook flat — a directional read of your starting lineup, not a probability — and get a verdict on accept, decline, or counter with the reasoning behind it. Want plain market value first? The free trade value calculator in the app prices both sides in any format — redraft or dynasty, 1 QB or superflex — with no league connected; it knows nothing about either roster, which is exactly what the Analyzer adds.",
         tag: "Accept, decline, or counter →",
       },
       {
@@ -394,6 +394,7 @@ export const siteConfig = {
         features: [
           "The Vault — complete league history, free",
           "Keeper calculator — is he worth the round he costs?",
+          "Trade value calculator — both sides, any format, market value",
           "Pick'Em pools — run one free, any league",
         ],
         cta: {
@@ -612,6 +613,11 @@ export const siteConfig = {
           "Yes — this is the whole point. When you connect your Sleeper or ESPN league, GridironHQ imports your actual roster, your scoring format, your record, and your playoff situation. Every AI response is built around your specific team, not generic advice.",
       },
       {
+        question: "Is there a free fantasy trade value calculator?",
+        answer:
+          "Yes — in the app, free with a sign-up: no card, no league, no roster needed. Put players on each side and it prices the deal by current market value. The format picker is the point, not a setting: the same four players change sides on the toggle alone. A trade that looks even in a one-quarterback redraft league can be lopsided in dynasty superflex, because a starting quarterback is worth substantially more in one than the other — which is why it beats the first calculator in a search result for a dynasty or superflex league. It knows nothing about either roster. The roster-aware version — whether a deal actually improves your lineup and your title outlook — is the Trade Analyzer on the Advisor tier.",
+      },
+      {
         question: "What platforms does GridironHQ support?",
         answer:
           "Sleeper and ESPN. Sleeper connects with your username and everything imports automatically; ESPN takes a one-minute copy-paste step, walked through on the Help page. Yahoo isn't supported yet — when it connects, it will connect properly.",
@@ -682,6 +688,9 @@ export const siteConfig = {
           { label: "Free Pick'Em Pools", href: "https://app.gridironhq.ai/pools" },
           { label: "Free Schedule Builder", href: "/schedule-builder" },
           { label: "NFL Bye Weeks 2026", href: "/nfl-bye-weeks" },
+          // Lives in the app, not here: trade values move daily and this site
+          // is a static build. Free with a sign-in — no card, no league.
+          { label: "Free Trade Value Calculator", href: "https://app.gridironhq.ai/dashboard/trade-values" },
           { label: "Blog", href: "/blog" },
           { label: "Help", href: "/help/connect-espn" },
           { label: "Live Demo", href: "/demo" },
