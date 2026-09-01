@@ -56,10 +56,15 @@ export function Pricing() {
               </div>
 
               <div
-                className={`font-condensed text-sm font-bold uppercase tracking-[1px] mb-2 ${tier.featured ? "text-orange" : "text-text-muted"}`}
+                className={`font-condensed text-sm font-bold uppercase tracking-[1px] mb-1 ${tier.featured ? "text-orange" : "text-text-muted"}`}
               >
                 {tier.name}
               </div>
+              {/* The name, explained: one line so "Advisor" and "Front
+                  Office" read as what they are before the price does. */}
+              <p className="text-[13px] text-text leading-snug mb-4 min-h-[2.5rem]">
+                {tier.nameLine}
+              </p>
 
               <div className="font-display text-[52px] text-text leading-none mb-1">
                 <span className="text-xl text-text-muted align-top inline-block mt-2.5">

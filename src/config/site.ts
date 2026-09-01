@@ -1,6 +1,12 @@
 export type PricingTier = {
   id: "starter" | "member" | "pro" | "dynasty";
   name: string;
+  /**
+   * One line under the name that makes the name self-evident — what the
+   * tier IS, in the words of its namesake. Says nothing the tier's
+   * features list doesn't hold.
+   */
+  nameLine: string;
   price: number;
   cadence: string;
   annualTotal: string;
@@ -314,7 +320,7 @@ export const siteConfig = {
       { feature: "Portfolio view across all leagues", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "Personalized AI team grade & report", gridironhq: "yes", competitors: ["no", "no", "no"] },
       { feature: "Free schedule builder with divisions", gridironhq: "yes", competitors: ["no", "no", "no"] },
-      { feature: "Price", gridironhq: "Free–$11.99/mo", competitors: ["$8.99/mo", "$9.99/mo", "$8-15/mo"] },
+      { feature: "Price", gridironhq: "Free–$9.99/mo", competitors: ["$8.99/mo", "$9.99/mo", "$8-15/mo"] },
     ] satisfies ComparisonRow[],
   },
 
@@ -373,10 +379,13 @@ export const siteConfig = {
     tiers: [
       {
         id: "starter",
-        name: "Starter",
-        // THE FREE TIER (2026-08-31): price 0 — Starter costs nothing and
-        // includes The Vault. Stripe's Starter product is untouched; it just
-        // is not sold from this card.
+        // THE RENAME (2026-08-31): the app's internal tier key is still
+        // `starter` (see tier-presentation.ts); "Free" is its name.
+        name: "Free",
+        nameLine: "Free means free — no card, no trial clock, nothing to cancel.",
+        // THE FREE TIER (2026-08-31): price 0 — it costs nothing and includes
+        // The Vault. Stripe's Starter product is untouched; it just is not
+        // sold from this card, and the app's checkout refuses the plan.
         price: 0,
         cadence: " — free, no card required",
         annualTotal: "Free",
@@ -404,19 +413,25 @@ export const siteConfig = {
       //   THE RULE (2026-08-31): anything that calls a model is paid;
       //   anything computed from data we already hold is free. Free must
       //   cost nothing per user. trade_analyzer and waiver are computed, so
-      //   the rule alone would make them free — they sit at League Member as
-      //   a DELIBERATE PACKAGING DECISION; do not "correct" them down.
+      //   the rule alone would make them free — they sit at Advisor as a
+      //   DELIBERATE PACKAGING DECISION; do not "correct" them down.
       //
-      //   Starter (FREE) vault, keeper_engine — the Vault's DATA moved here
+      //   NAMES (2026-08-31 rename): the app's internal keys did not change.
+      //   starter = "Free", league_member = "Advisor", commissioner =
+      //   "Commissioner", dynasty_elite = "Front Office". Prices: Free $0,
+      //   Advisor $5.99/$59, Commissioner $7.99/$79, Front Office $9.99/$89
+      //   (repriced from $11.99/$119). Source: tier-presentation.ts.
+      //
+      //   Free (starter) vault, keeper_engine — the Vault's DATA moved here
       //                    2026-08-31 (what happened is free, what to make
       //                    of it is paid); Pick'Em is free via no tag at all
-      //   League Member  + argus_advisor, waiver, trade_analyzer,
-      //                    player_news, championship_probability,
+      //   Advisor        + argus_advisor, waiver, trade_analyzer,
+      //     (league_member) player_news, championship_probability,
       //                    offseason_report, draft_center
       //   Commissioner   + treasury, league_intel  (+ schedule_builder,
       //                    PLANNED — see the note below; not on the card)
-      //   Dynasty Elite  + dynasty_rankings, historical_analysis — the
-      //                    analytics made from the Vault's history (Luck,
+      //   Front Office   + dynasty_rankings, historical_analysis — the
+      //     (dynasty_elite) analytics made from the Vault's history (Luck,
       //                    Clutch, Consistency, Power Rankings, ARGUS
       //                    historical analysis)
       //
@@ -430,14 +445,14 @@ export const siteConfig = {
       //         appeared in exactly ONE place in the app,
       //         (UPDATE 2026-08-31: keeper_engine is now REAL — route at
       //         app/dashboard/keepers/page.tsx, in STARTER_FEATURES — and is
-      //         back as a Starter bullet. Career outcome models and rookie
+      //         back as a Free-tier bullet. Career outcome models and rookie
       //         profiling are still phantom; do not restore them.)
       //         src/lib/email/templates/subscription-confirmation.ts, a
       //         marketing email. No gate, no route, no product surface. They
       //         were advertised features that do not exist. Meanwhile The
       //         Vault — a real route at app/dashboard/vault/page.tsx — is a
-      //         STARTER (free) feature since 2026-08-31; only the analytics
-      //         on top of it are Dynasty Elite.
+      //         FREE-tier feature since 2026-08-31; only the analytics on
+      //         top of it are Front Office.
       //       - Commissioner's "Free schedule builder" (shipped, removed
       //         2026-08-27). Two separate problems. First, the word "free"
       //         cannot sit inside a paid tier's list: the schedule builder on
@@ -456,7 +471,7 @@ export const siteConfig = {
       //     line ("Everything in X") already carries it, and repeating it
       //     makes two adjacent cards look identical to a buyer.
       //   • Don't downgrade a bullet's wording below what the tier actually
-      //     unlocks. Starter said "Basic trade analyzer" while entitlements.ts
+      //     unlocks. The old Starter card said "Basic trade analyzer" while entitlements.ts
       //     grants the full trade_analyzer — that pushes buyers to a higher
       //     tier for something they already had.
       //
@@ -467,14 +482,17 @@ export const siteConfig = {
       // ─────────────────────────────────────────────────────────────────────
       {
         id: "member",
-        name: "League Member",
+        // Internal key `league_member`; the name is the tier's namesake —
+        // ARGUS, the advisor, starts here.
+        name: "Advisor",
+        nameLine: "Advisor is where ARGUS starts — advice built around your roster.",
         price: 5.99,
         cadence: "/month, or $59/year",
         annualTotal: "$59/yr",
         description:
-          "Where ARGUS comes in: AI advice built around your roster, plus the draft tools and championship math.",
+          "AI advice built around your roster, plus the draft tools and championship math.",
         features: [
-          "Everything in Starter",
+          "Everything in Free",
           "ARGUS advisor, trade analyzer, waiver scoring, player news",
           "Draft Guide + live Draft Center",
           "Championship probability on every decision",
@@ -485,8 +503,8 @@ export const siteConfig = {
           href: "https://app.gridironhq.ai/subscribe?plan=league",
         },
         // Moved here from Commissioner 2026-08-27, on the actual numbers:
-        // of active + trialing subscribers, four are on League Member and one
-        // is on Commissioner. `featured` moves with `badge` deliberately —
+        // of active + trialing subscribers, four are on Advisor (then
+        // "League Member") and one is on Commissioner. `featured` moves with `badge` deliberately —
         // they are two halves of one treatment (badge pill, orange card
         // border/glow, orange tier name, and the primary-button CTA in both
         // Pricing and FinalCTA). Splitting them would badge one card and
@@ -497,13 +515,14 @@ export const siteConfig = {
       {
         id: "pro",
         name: "Commissioner",
+        nameLine: "Commissioner is for the person running the league.",
         price: 7.99,
         cadence: "/month, or $79/year",
         annualTotal: "$79/yr",
         description:
-          "Everything a League Member gets, plus the tools for running the league itself — treasury and manager intel.",
+          "Everything an Advisor gets, plus the tools for running the league itself — treasury and manager intel.",
         features: [
-          "Everything in League Member",
+          "Everything in Advisor",
           "League Treasury + dues tracking",
           "League Intel behavioral profiles",
         ],
@@ -514,14 +533,19 @@ export const siteConfig = {
       },
       {
         id: "dynasty",
-        name: "Dynasty Elite",
-        price: 11.99,
-        cadence: "/month, or $119/year",
-        annualTotal: "$119/yr",
+        // Internal key `dynasty_elite`, repriced 2026-08-31 from $11.99/$119
+        // to $9.99/$89 and renamed. The app sells it from
+        // STRIPE_PRICE_FRONT_OFFICE_STANDARD_*; existing Dynasty Elite
+        // subscribers keep their old prices.
+        name: "Front Office",
+        nameLine: "Front Office is the analysis of your league's history.",
+        price: 9.99,
+        cadence: "/month, or $89/year",
+        annualTotal: "$89/yr",
         // The Vault's DATA went free 2026-08-31; this tier is the analytics
         // made from that history — describe what it actually has.
         description:
-          "Your league's history is free. Dynasty Elite is what to make of it — the analytics and ARGUS's read of your league's eras, rivalries, and patterns.",
+          "Your league's history is free. Front Office is what to make of it — the analytics and ARGUS's read of your league's eras, rivalries, and patterns.",
         features: [
           "Everything in Commissioner",
           "Luck Index, Clutch Factor, Consistency Score",
@@ -600,12 +624,19 @@ export const siteConfig = {
       {
         question: "Does GridironHQ work for dynasty leagues?",
         answer:
-          "Yes — and keeper leagues too. The keeper calculator is on Starter, which is free: it works out whether keeping a player is worth the draft round he costs, reads your league's cost rules from its own past drafts, counts traded picks so a pick you no longer hold isn't charged to you, and says plainly when it can't work something out. The Vault — your complete league history — is also free. Dynasty Elite adds the analytics made from that history: Dynasty Power Rankings, the Luck Index, Clutch Factor, Consistency Score, and ARGUS historical league analysis.",
+          "Yes — and keeper leagues too. The keeper calculator is on the Free plan: it works out whether keeping a player is worth the draft round he costs, reads your league's cost rules from its own past drafts, counts traded picks so a pick you no longer hold isn't charged to you, and says plainly when it can't work something out. The Vault — your complete league history — is also free. Front Office adds the analytics made from that history: Dynasty Power Rankings, the Luck Index, Clutch Factor, Consistency Score, and ARGUS historical league analysis.",
       },
       {
         question: "What is The Vault?",
         answer:
-          "The Vault is GridironHQ's league history module, and it's free. It connects to your Sleeper or ESPN league — or takes a pasted spreadsheet — walks your complete season history, and builds all-time standings, H2H records, championship history, milestone chases, and a read-only link to share with your league. The analytics made from that history — Luck Index, Clutch Factor, Consistency Score, Dynasty Power Rankings, and ARGUS's analysis of your league's patterns and rivalries — are Dynasty Elite.",
+          "The Vault is GridironHQ's league history module, and it's free. It connects to your Sleeper or ESPN league — or takes a pasted spreadsheet — walks your complete season history, and builds all-time standings, H2H records, championship history, milestone chases, and a read-only link to share with your league. The analytics made from that history — Luck Index, Clutch Factor, Consistency Score, Dynasty Power Rankings, and ARGUS's analysis of your league's patterns and rivalries — are Front Office.",
+      },
+      {
+        question: "What is each plan for?",
+        // One sentence per tier, each the tier's namesake and nothing the
+        // tier doesn't hold. Names and prices: tier-presentation.ts in the app.
+        answer:
+          "Free is every league's essentials — The Vault, the keeper calculator, and Pick'Em pools — computed from your league's own data, so it costs nothing. Advisor is where ARGUS starts: AI advice built around your roster, plus the draft tools and championship math. Commissioner is for the person running the league — treasury and manager intel on top of Advisor. Front Office is the analysis of your league's history: the Luck Index, Clutch Factor, Consistency Score, Dynasty Power Rankings, and ARGUS's read of your league's eras and rivalries, on top of the free Vault.",
       },
       {
         question: "What is the ARGUS Offseason Report?",
