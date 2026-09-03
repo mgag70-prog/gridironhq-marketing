@@ -1,0 +1,111 @@
+{/* Legal page, not a blog post: no registry entry, no ArticleJsonLd, no
+    per-page OG card (inherits the site-default card from the root layout).
+    Typography comes from src/mdx-components.tsx via the (legal) layout.
+
+    Body text is the user-approved GridironHQ_Privacy_Policy_Draft_09_03_26
+    verbatim — trailing backslashes are CommonMark hard breaks preserving the
+    draft's line structure, not edits. Change the words only from a new
+    approved draft. */}
+
+export const metadata = {
+  title: "Privacy Policy",
+  description:
+    "How GridironHQ collects, uses, and protects your data — including what we read from your connected Sleeper or ESPN league and what we never share.",
+  alternates: { canonical: "/privacy" },
+};
+
+# GridironHQ Privacy Policy
+
+**Effective:** September 3, 2026\
+**Operated by:** HQ Sports Technologies LLC ("we," "us")\
+**Contact:** hello@gridironhq.ai
+
+This policy explains what information GridironHQ collects, why, and what happens to it. It applies to gridironhq.ai, app.gridironhq.ai, and email we send you. We wrote it to be read, not skimmed.
+
+## The short version
+
+- We collect what we need to run your fantasy leagues through the product: your account details, the league data you connect, and your use of the features.
+- We do not sell your information, and we do not show ads.
+- Payments are handled by Stripe. We never see or store your card number.
+- Conversations with ARGUS are stored so they can be restored when you return. They are kept for the current season and deleted when your account is deleted.
+- You can delete your account and everything under it at any time from Settings, or by emailing us.
+
+## What we collect
+
+**Account information.** Your email address, display name, and sign-in credentials, handled by our authentication provider. If you sign in through a third party, we receive the profile information that provider shares with us.
+
+**League data you connect.** When you connect a Sleeper league, we read the league's public data through Sleeper's API: settings, rosters, standings, matchups, transactions, draft results, and the usernames of league members. When you connect an ESPN league, you provide two session cookies from your ESPN account; we encrypt them at rest and use them only to read that league's data on your behalf. We do not read anything outside the leagues you connect.
+
+**Pick'Em and Treasury.** If you run a Pick'Em pool, we collect the email addresses of the members you invite so they can join and receive results. If you use Treasury, we store the dues amounts and payment status you enter. **Treasury never holds, moves, or collects money.** It is a ledger you keep; payments happen between you and your league members outside GridironHQ.
+
+**ARGUS conversations.** The messages you send to ARGUS and its replies are stored so your conversation is there when you come back. Trade offers you evaluate, and ARGUS's read on each, are stored the same way so a negotiation can be picked up where you left it. Only you can see your conversations and negotiations; the other managers in your league cannot.
+
+**Payment information.** When you subscribe, Stripe collects and stores your payment method. We receive your subscription status, plan, and billing history, not your card details.
+
+**Usage information.** Which features you use, when, and for which league, along with standard technical information such as browser type, device, IP address, and the pages you visit. We use this to keep the service working and to understand which features matter.
+
+**Email.** We send transactional email (receipts, connection expiry notices, weekly ARGUS summaries if you opt in). Every non-essential email has an unsubscribe link, and we honor it.
+
+## How we use it
+
+- To run the product: importing your leagues, computing rankings, grades, and recommendations, running Pick'Em pools, and keeping league history.
+- To generate ARGUS responses. Your league data and your messages are sent to third-party AI model providers under contract to produce the response. Those providers process the data to generate the reply and do not use it to train their models.
+- To bill you, through Stripe.
+- To send the emails described above.
+- To find and fix problems, and to measure which features are used.
+- To publish aggregate, anonymized findings, such as how often the strongest preseason roster wins its league across hundreds of leagues. Nothing published identifies a person, a league, or a team.
+
+## Who else sees it
+
+We use service providers to run GridironHQ. Each one sees only what it needs to do its job, under contract:
+
+- Authentication (sign-in and account management)
+- Database and file hosting
+- Web hosting and content delivery
+- Payment processing (Stripe)
+- Transactional email delivery
+- AI model providers, for ARGUS responses
+- Usage analytics
+
+We also read data from the fantasy platforms you connect (Sleeper, ESPN) and from public data sources (player values, ADP, projections, schedules). Those sources have their own privacy policies.
+
+We do not sell your personal information. We do not share it with advertisers. We will disclose it if the law requires us to, or to protect the rights and safety of our users or ourselves.
+
+## How long we keep it
+
+- **Account and league data:** as long as your account exists. League history is kept so your Vault stays complete season over season.
+- **ARGUS conversations and trade negotiations:** the current season. At season rollover they are archived, and they are deleted when your account is deleted.
+- **ESPN session cookies:** until they expire, you disconnect the league, or you delete your account.
+- **Billing records:** as long as tax and accounting law requires.
+- **Usage logs:** a limited period for troubleshooting, then deleted or anonymized.
+
+## Your choices
+
+- **Delete your account** from Settings or by emailing hello@gridironhq.ai. Deletion removes your account, connected leagues, conversations, negotiations, Pick'Em pools you commission, and Treasury ledgers. It is permanent.
+- **Disconnect a league** at any time. Its data is removed from your account.
+- **Export your data** by emailing us. We will send what we hold about you in a readable format.
+- **Unsubscribe** from non-essential email through the link in any message.
+- **Correct** anything inaccurate by emailing us.
+
+If you live in a place with specific privacy rights (for example, California, the European Union, or the United Kingdom), you have those rights, and the email address above is how to exercise them. We respond within the time the applicable law allows.
+
+## Security
+
+Account credentials are handled by our authentication provider and are not stored by us in readable form. Platform credentials such as ESPN session cookies are encrypted at rest with AES-256-GCM. Data moves between your browser and our servers over TLS. No system is perfectly secure, and if we learn of a breach that affects your information we will tell you.
+
+## Children
+
+GridironHQ is for adults. You must be 18 or older to create an account. We do not knowingly collect information from anyone under 18, and if we learn we have, we delete it.
+
+## Cookies
+
+We use cookies to keep you signed in, remember preferences, and measure usage. We do not use advertising cookies.
+
+## Changes
+
+When this policy changes in a way that matters, we will post the new version here with a new effective date and, for significant changes, email you.
+
+## Contact
+
+HQ Sports Technologies LLC\
+hello@gridironhq.ai

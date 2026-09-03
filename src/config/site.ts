@@ -729,9 +729,11 @@ export const siteConfig = {
       },
     ],
     legal: [
-      { label: "Privacy Policy", href: "#" },
-      { label: "Terms of Service", href: "#" },
-      { label: "Refund Policy", href: "#" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
+      // No standalone refund page — refunds live in the Terms billing section.
+      // The #refunds id is set explicitly on that heading in terms/page.mdx.
+      { label: "Refund Policy", href: "/terms#refunds" },
     ],
   },
 } as const;

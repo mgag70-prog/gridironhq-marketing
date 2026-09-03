@@ -1,0 +1,115 @@
+{/* Legal page, not a blog post: no registry entry, no ArticleJsonLd, no
+    per-page OG card (inherits the site-default card from the root layout).
+    Typography comes from src/mdx-components.tsx via the (legal) layout.
+
+    Body text is the user-approved 09-03-26 terms draft verbatim — trailing
+    backslashes are CommonMark hard breaks preserving the draft's line
+    structure, not edits. Change the words only from a new approved draft.
+
+    Section 4's heading is literal JSX so it can carry id="refunds" — the
+    footer's "Refund Policy" link points at /terms#refunds. Keep the id if
+    the heading is ever renumbered or reworded. The MDX component mapping
+    does NOT style literal JSX (verified in built HTML 2026-09-03), so its
+    className duplicates the h2 classes from src/mdx-components.tsx — if
+    heading typography changes there, change it here too. */}
+
+export const metadata = {
+  title: "Terms of Service",
+  description:
+    "The terms that govern your use of GridironHQ — accounts, subscriptions, acceptable use, and the limits of what we promise.",
+  alternates: { canonical: "/terms" },
+};
+
+# GridironHQ Terms of Service
+
+**Effective:** September 3, 2026\
+**Operated by:** HQ Sports Technologies LLC ("we," "us")\
+**Contact:** hello@gridironhq.ai
+
+These terms are the agreement between you and HQ Sports Technologies LLC for using GridironHQ, at gridironhq.ai and app.gridironhq.ai. By creating an account or using the service you agree to them. If you don't agree, don't use the service.
+
+## 1. What GridironHQ is
+
+GridironHQ is a fantasy football tool. It connects to leagues you play on other platforms, keeps your league's history, and, on paid plans, gives you analysis and recommendations from an AI advisor called ARGUS. It is not a fantasy platform: your league, your roster, and your trades live on Sleeper, ESPN, or wherever you play. GridironHQ reads them and helps you decide.
+
+## 2. Your account
+
+You must be 18 or older. You are responsible for your account and for keeping your sign-in secure. One person per account. Tell us at hello@gridironhq.ai if you think someone else has used it.
+
+## 3. Connecting leagues
+
+When you connect a league, you confirm you are a member of it and are allowed to bring its data into a third-party tool. For Sleeper, we read public league data through Sleeper's API. For ESPN, you provide session cookies from your own ESPN account; we encrypt them and use them only to read the leagues you connect. Those platforms set their own terms, and you are responsible for following them. We can't control when a platform changes its API or expires a session, and we don't promise that any connection will keep working.
+
+<h2 id="refunds" className="scroll-mt-24 font-display text-[clamp(28px,3.2vw,40px)] leading-[1.15] tracking-[1px] uppercase text-text mt-14 mb-4 before:content-[''] before:block before:w-10 before:h-0.5 before:bg-orange before:mb-4">4. Plans, trials, and billing</h2>
+
+- **Free plan.** League history and the free tools are free, without a card.
+- **Paid plans.** ARGUS and other paid features require a subscription. Prices and what each plan includes are shown on the pricing page at the time you subscribe.
+- **Trial.** New paid plans start with a 14-day free trial. No card is required to start. If you add a card and don't cancel before the trial ends, billing starts.
+- **Billing.** Subscriptions renew automatically, monthly or annually, until you cancel. Stripe processes payments; we never see your card number.
+- **Cancel.** Cancel any time from Settings. You keep paid features until the end of the period you've paid for. We don't prorate partial periods.
+- **Refunds.** If you're charged and change your mind, email us within 7 days of the charge for a full refund.
+- **Price changes.** If a price changes, we tell you before it applies to you, and you can cancel before it does.
+
+## 5. Pick'Em and Treasury are not gambling
+
+**Pick'Em** lets a commissioner run a picks pool. GridironHQ records picks and scores them. It does not collect entry fees, hold money, or pay winners. Whether your pool involves money, and whether that is lawful where you live, is between you and your pool members.
+
+**Treasury** is a ledger for league dues. You enter what members owe and whether they've paid. GridironHQ never holds, transfers, or collects money. If your league wants a third party to hold the pot, use a service built for that.
+
+## 6. ARGUS and the numbers
+
+ARGUS is an AI advisor. It produces analysis, rankings, trade reads, and recommendations from your league data, market values, and public data sources. It is often useful and sometimes wrong.
+
+- Nothing ARGUS says is a guarantee. Fantasy football has variance we can't remove.
+- Nothing on GridironHQ is betting or wagering advice. Don't use it as such.
+- Where we publish accuracy numbers, they describe past results under stated conditions, not a promise about your league.
+- You make your own decisions. We're not responsible for a trade you accept, a player you draft, or a lineup you set.
+
+## 7. Acceptable use
+
+Don't:
+
+- Use GridironHQ for anything illegal, including running an illegal gambling operation.
+- Scrape, copy, or redistribute the service's data or content at scale, or resell access.
+- Try to access another user's account, leagues, or conversations.
+- Interfere with the service, probe it for vulnerabilities without permission, or overload it.
+- Impersonate someone else or misrepresent your relationship to a league.
+
+We can suspend or close accounts that break these rules.
+
+## 8. Your content and our content
+
+What you put into GridironHQ (your messages to ARGUS, your ledger entries, your notes) is yours. You give us permission to store and process it to run the service for you.
+
+The service itself, its design, its code, and the analysis it produces are ours or our licensors'. You can use them for your own fantasy play. You can share screenshots, recaps, and grades socially; that's what they're for.
+
+We publish aggregate findings from across leagues. Those never identify a person, league, or team.
+
+## 9. Third-party data
+
+Player values, ADP, projections, schedules, and platform data come from third parties. We attribute them where required. They can change, go stale, or be withdrawn, and we're not responsible for their accuracy.
+
+## 10. Ending the relationship
+
+You can delete your account any time; see the Privacy Policy for what that removes. We can close accounts that break these terms, and we can stop offering the service or a feature with reasonable notice. If we stop offering a paid feature you've paid for, we refund the unused portion.
+
+## 11. Disclaimers and limits
+
+GridironHQ is provided as is. We don't promise it will be available at all times, free of errors, or that any connection to a fantasy platform will keep working.
+
+To the extent the law allows, HQ Sports Technologies LLC isn't liable for indirect, incidental, or consequential damages, or for lost winnings, lost league standings, or lost data, arising from your use of the service. Our total liability to you for any claim is limited to what you paid us in the twelve months before the claim.
+
+Some places don't allow these limits, in which case they apply as far as the law permits.
+
+## 12. Disputes
+
+These terms are governed by the laws of the State of Illinois, without regard to conflict-of-law rules. Any dispute will be resolved in the state or federal courts located in Illinois, and you consent to their jurisdiction. Before filing anything, email hello@gridironhq.ai; most problems can be fixed in a conversation.
+
+## 13. Changes to these terms
+
+We'll post changes here with a new effective date. For changes that matter, we'll email you. Using the service after a change means you accept it.
+
+## 14. Contact
+
+HQ Sports Technologies LLC\
+hello@gridironhq.ai

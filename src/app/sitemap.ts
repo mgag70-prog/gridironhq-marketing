@@ -20,6 +20,8 @@ const SITE_URL = `https://${siteConfig.domain}`;
  *   /help/connect-espn 2026-08-25 page created (fe8dd49)
  *   /accuracy         2026-08-27  page created (this changeset)
  *   /nfl-bye-weeks    2026-08-31  page created (this changeset)
+ *   /privacy          2026-09-03  page created (this changeset)
+ *   /terms            2026-09-03  page created (this changeset)
  */
 const STATIC_LAST_MODIFIED = {
   home: "2026-08-14",
@@ -28,6 +30,8 @@ const STATIC_LAST_MODIFIED = {
   helpConnectEspn: "2026-08-25",
   accuracy: "2026-08-27",
   nflByeWeeks: "2026-08-31",
+  privacy: "2026-09-03",
+  terms: "2026-09-03",
 } as const;
 
 /** Parse as UTC midnight so the date can't slip a day by timezone. */
@@ -83,6 +87,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: asDate(STATIC_LAST_MODIFIED.helpConnectEspn),
       changeFrequency: "monthly",
       priority: 0.7,
+    },
+    // Legal pages: indexable but low priority — nobody should land here from
+    // search ahead of a product page.
+    {
+      url: `${SITE_URL}/privacy`,
+      lastModified: asDate(STATIC_LAST_MODIFIED.privacy),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${SITE_URL}/terms`,
+      lastModified: asDate(STATIC_LAST_MODIFIED.terms),
+      changeFrequency: "yearly",
+      priority: 0.3,
     },
   ];
 
