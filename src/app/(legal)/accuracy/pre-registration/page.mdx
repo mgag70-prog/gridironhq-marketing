@@ -1,0 +1,177 @@
+{/* Pre-registration document for the 2026 season grade — linked from
+    /accuracy ("How this will be graded"). Lives in the (legal) route group
+    for the reading-column layout; it is a fixed reference document like the
+    legal pages, not a blog post: no registry entry, no ArticleJsonLd, no
+    per-page OG card. Typography comes from src/mdx-components.tsx.
+
+    Body is the user-approved 09-03-26 pre-registration verbatim — trailing
+    backslashes are CommonMark hard breaks preserving the draft's line
+    structure, not edits. Per its own terms this document must not change
+    after 2026-09-09 except by dated addendum; do not edit the body. */}
+
+export const metadata = {
+  title: "Pre-Registration of the 2026 Season Grade",
+  description:
+    "The grading criteria for GridironHQ's 2026 preseason prediction, fixed before the season: what was captured, how it will be scored in December, and the full 52-league appendix.",
+  alternates: { canonical: "/accuracy/pre-registration" },
+};
+
+# GridironHQ — Pre-Registration of the 2026 Season Grade
+
+**Written:** September 3, 2026\
+**Commit before:** September 9, 2026, the first NFL regular-season game. After that date this document cannot change except by a dated addendum below it; the original stays.\
+**What this is:** a statement, made before any 2026 game is played, of what will be graded in December, how, and what we expect. It exists so the December result is a test, not a summary.
+
+---
+
+## 1. What was locked
+
+The preseason capture ran daily from August 27 to August 29, 2026, recording a strength score for every team in every league connected to GridironHQ. Each row stores the roster, the market values used on that day, the scoring version, and a SHA-256 hash of the payload. The stated cutoff was September 10, 2026; the capture closed itself on August 29 because Sleeper flipped its season state to "regular" early and the capture's window check keys on that flag. That is recorded here as what happened. No further capture is run. Roster moves from August 30 onward are not in the prediction.
+
+**The prediction set is the last capture per league on or before August 29, 2026 at 23:59:59 UTC.** All 52 rows in that set carry the same batch timestamp, **2026-08-29T12:02:45.730Z**: **52 leagues, 51 on Sleeper and 1 on ESPN, 622 teams.** Of the 52, **25 are established** (played at least one prior season) and **27 are first-year** (drafted for the first time in 2026). The split is a field in the capture, not a December decision.
+
+**Combined hash of the prediction set:**
+
+```
+7c7ee8fe90e7314db8ea6752c991843944e58e30212110f458c7c92e54b0142c
+```
+
+Recipe, so anyone with database access can reproduce it: take the latest `argus_recommendations` row per (platform, platform league id) with `rec_type = 'preseason_league'` and `created_at <= 2026-08-29T23:59:59Z`; sort by platform league id as a text string, ascending (the one ESPN id, 169295, sorts last); join the 52 `payload_hash` values with a single newline and no trailing newline; SHA-256 the UTF-8 bytes. The 52 per-league hashes are listed in the appendix. If the hash above and a fresh computation from the stored rows ever differ, the grade is void.
+
+The accuracy page currently says the capture was locked on August 27. The first capture was; the effective set is August 29. The page will be corrected to say so, and that correction is the first addendum below.
+
+## 2. What the backtest said
+
+The backtest published on the accuracy page covers 83 league-seasons from 2023 through 2025, 994 team-seasons, all dynasty. It is the basis for the expectations below.
+
+| | League-seasons | Mean correlation (score vs. final finish) | 95% interval | Top roster won title | Chance |
+|---|---|---|---|---|---|
+| Established | 50 | 0.53 | 0.46 to 0.60 | 25.0% | 8.5% |
+| First-year | 33 | 0.05 | −0.06 to 0.16 | 7.6% | 8.9% |
+
+An earlier run reported 0.57 and 31% from 77 league-seasons; its parameters were never stored, it was rerun with stored parameters, and the numbers above replaced it. That correction is on the page.
+
+## 3. What will be graded
+
+**Outcome measure.** For each league, each team's **final regular-season standings rank**, ordered by wins then points for, as the platform reports it. Confirmed against the backtest code on September 3: the backtest's primary measure is the same regular-season rank, and it computes a playoff-bracket overlay as a secondary measure kept separate. December does the same: the regular-season rank is the graded measure, and the playoff overlay is reported alongside it, never merged.
+
+**Statistic 1: correlation.** Within each league, the Spearman correlation between the pre-registered score rank and the final standings rank, sign oriented so that positive means the stronger score finished higher. Reported as the mean across leagues, with a 95% interval from a bootstrap over leagues, separately for established and first-year.
+
+**Statistic 2: title rate.** The share of leagues in which the team with the highest August 27 score finished first in the regular-season standings, against the chance rate (1 divided by league size, averaged across leagues). Separately for established and first-year.
+
+**Statistic 3: top-third rate**, added for this season because 25 leagues make the title rate coarse. The share of leagues in which the top-scored team finished in the top third of the standings. Chance rate is one third.
+
+**Grading date.** Within seven days of the final NFL regular-season week (Week 18, ending January 4, 2027). The grade is computed once, from the stored capture and the platforms' final standings, by a script committed to the repository before the grade runs.
+
+**The headline** comes from the 25 established leagues. The 27 first-year leagues are reported in the same table and never combined with them.
+
+## 4. What we expect
+
+The backtest intervals are for a pooled multi-season sample. A single season across 25 leagues shares one set of injuries and one set of surprises, so it will be noisier than the backtest suggests, and the backtest's point estimate was chosen after a rerun, which is a mild form of selection. Both push the expected ranges wider and the expected center lower than a naive reading of the table.
+
+**Established leagues (n = 25):**
+
+- Mean correlation: **expected 0.45**, range **0.30 to 0.60**. The backtest says 0.53; 0.45 is that estimate shrunk for one-season noise and selection.
+- Title rate: **expected 20%**, range **8% to 36%** (2 to 9 of 25). Chance is about 8%.
+- Top-third rate: **expected 65%**, range **48% to 80%** (12 to 20 of 25). Chance is 33%.
+
+**First-year leagues (n = 27):**
+
+- Mean correlation: **expected 0.05**, range **−0.15 to 0.25**.
+- Title rate: **expected 9%**, range **0% to 22%** (0 to 6 of 27). Chance is about 8%.
+- Top-third rate: **expected 35%**, range **20% to 52%**. Chance is 33%.
+
+## 5. What each outcome means, decided now
+
+**Established leagues:**
+
+- Correlation at or above 0.30 and title rate at or above 12% (3 of 25): **the backtest finding holds** in a prospective season.
+- Correlation between 0.15 and 0.30: **weaker than the backtest.** Reported as such. The accuracy page's headline moves to the prospective number, not the backtest's.
+- Correlation below 0.15: **the backtest finding did not replicate.** The page says so in its first paragraph. The backtest stays published with that note above it.
+
+**First-year leagues:**
+
+- Correlation between −0.15 and 0.25: **the no-signal finding holds.**
+- Correlation above 0.25: **the no-signal finding did not replicate**, which would be good news for the product and bad news for the backtest. Reported as a contradiction, not as a win.
+
+No outcome changes the method after the fact. If the method has a bug found before grading, the fix is a dated addendum here, committed before the grade runs, and the grade is computed with the fixed method once.
+
+## 6. What we will not do
+
+- Rerun the grade with different parameters, a different outcome measure, a different league subset, or a different date, and publish the better one.
+- Drop a league from the sample after August 27 for any reason other than the league ceasing to exist on its platform before Week 1 (which would be listed by name and count).
+- Combine established and first-year leagues in any published number.
+- Describe one season's result as a track record. It is one season.
+
+## 7. What gets published, regardless of result
+
+The full table: both league groups, all three statistics with intervals, the playoff overlay alongside, the chance rates, league count, team count, the combined hash, the grading script's commit, and this document's commit. On gridironhq.ai/accuracy, with the backtest kept beneath it.
+
+## 8. Drift guard
+
+A test in the repository holds the published backtest numbers (0.53, 0.46–0.60, 25.0%, 8.5%, 0.05, −0.06–0.16, 7.6%, 8.9%, 50, 33, 83, 994) and the capture facts (52, 622, 25, 27, 2026-08-29T12:02:45.730Z, and the combined hash above), and recomputes the combined hash from the stored rows. It fails if any of them changes in the code that renders the page without a corresponding change to the stored run. A change to the stored run is itself a dated addendum here.
+
+---
+
+## Addenda
+
+**September 3, 2026.** The accuracy page states the capture was locked on August 27, 2026. The first capture was August 27; the effective prediction set is the August 29 capture described in section 1. The page is to be corrected to "captured August 27 to 29, 2026; prediction set as of August 29" with the combined hash shown.
+
+## Appendix: the 52 per-league hashes
+
+Sorted as in the recipe. Cohort is the capture's own field.
+
+| # | Platform | League id | Cohort | payload_hash |
+|---|---|---|---|---|
+| 1 | sleeper | 1302407003888427008 | first-year | e202de7e99d91f9c464faf3eac8fe882e75dd91ae610a2687ae0157200c9bbd6 |
+| 2 | sleeper | 1312004255095201792 | established | 8b108561ec40ea2fcac131027641fb090676dd1ac15f95876c160835b56be512 |
+| 3 | sleeper | 1312006700437352448 | established | 0ff06ae65557b1a7a14be3478949895857459dbded50ebc119e3d3fe9b9b1ee2 |
+| 4 | sleeper | 1312086266853994496 | first-year | 3c7797e020e76dd5becb516c9b5466bab439db71ea02dbd8aa1cb677a5d6874c |
+| 5 | sleeper | 1312086348412252160 | established | 08033704d658900eb236e9a43934f230f92db55cd5340891f7da79eb07974b2a |
+| 6 | sleeper | 1312093607167008768 | established | de87d7b3463326501e94b1f2f9d6b67cc958085af82ce7500cfaa85323278818 |
+| 7 | sleeper | 1312096499710066688 | first-year | dc4b7868dcd16c0d44b8a0bab1642821a9e02e350f74fc9f9745a8032634d201 |
+| 8 | sleeper | 1312108523944935424 | first-year | 714ebcbb5c251b91b2701ec10999975920d74dccdd4c74152d04a2baaf72fcbf |
+| 9 | sleeper | 1312115382454059008 | first-year | 8cc120412116c3623347ae0bb8df7789d6acaed7fe76dadde24305d147ecd436 |
+| 10 | sleeper | 1312120632497934336 | established | 70b7de8940f80e56139f74baa5161da1c2fe52205fae2533db3b0276f39ec5f0 |
+| 11 | sleeper | 1312125420501491712 | established | d02d5a1e3134a27aed0a7187772aba87ef7810702d5486174dd3509aa0ae30a8 |
+| 12 | sleeper | 1312126927904997376 | established | 6b9217e3753eb03cffb10cda865cf09169b4676e377b13941ce7ca3303d0db61 |
+| 13 | sleeper | 1312127522808279040 | established | ae4710eca2038122a708c764a5d3079a6a974edc963e4d5399cb9a0c61e0de55 |
+| 14 | sleeper | 1312130505273008128 | established | aae1bf7901513ffc933eb5a42471229276e7a02710097b73240add09dcdf0f47 |
+| 15 | sleeper | 1312144471835553792 | established | c2bad598af2804a6a8d42d47d05b8ba824a82e997d32130780b35fa5d8644578 |
+| 16 | sleeper | 1312150077623517184 | established | 121c9514f6a8f525643158c8d59c89ca3f28c7f8f0e28da69b5f10faed887fb7 |
+| 17 | sleeper | 1312157833000677376 | established | 0a090b5bb3f645e24a59ec7708705068d24bfdc7c2134ce5a8baf4ef17899113 |
+| 18 | sleeper | 1312182372074012672 | established | d687c699841b5d0b1187206140e11ba879f1c19e1bd21514998655056f9d99ba |
+| 19 | sleeper | 1312198827679186944 | established | 319e053a984c21b63cf9fd7a823e3042fedbb5ae84f03d7807fe5cf98d86a912 |
+| 20 | sleeper | 1312481635538579456 | established | d305ffdda6310e0cc9631a9c3c043e76be828194f3d8a727e041e664a0dc0d01 |
+| 21 | sleeper | 1312575821017264128 | established | d59fdf93b815d5581d65163372793254cc3702e0bb1459ed2e6033a3793105f6 |
+| 22 | sleeper | 1312637259933024256 | established | 61b02aca74fffc53c0ee19cd0bc0c701778ea98ed222f522bf95572b56610525 |
+| 23 | sleeper | 1312715106903162880 | established | 0797b2cd72d7a48ee81ac3b50b5929a2a9cb7f95eee0e3239654383f16eee0e4 |
+| 24 | sleeper | 1312866641062690816 | established | 6a9e36a56362cf92c80b8bad8e30485b7bb4b259d75bb5e65b1589cb7869b75e |
+| 25 | sleeper | 1312971017202724864 | established | 6d4f4fec9622b048abce509d3ab59dd78735df703668c97dc4ea7885a9476bcc |
+| 26 | sleeper | 1313226056605376512 | established | 50f5301be7d1d8be829b9e07c4e9c6a3cb827172c1d973fef9f772419afb0dcb |
+| 27 | sleeper | 1314092499047841792 | first-year | 0f6da87f564889dbe5d3d51cc32a428bfdf9c926e6303ed01e21f4f89e30e9c1 |
+| 28 | sleeper | 1314094763237990400 | first-year | d841e5c48a8093370b31e970d83b514f57d3cddbd2ca5188da4143b82a7dd7d1 |
+| 29 | sleeper | 1314105351380942848 | first-year | 5e0f11670e0b71eef250f92d764735226a9c60f1adbcdf11c6962f037d59c0e5 |
+| 30 | sleeper | 1314958750909480960 | established | e56fd1b4848c3c57700370b448baf0b85107515ca63b9feb65d7b7e5bf254231 |
+| 31 | sleeper | 1315100125839769600 | first-year | 65a29838074b1dfa3fbe3dac299ac052fe09366dbac9de52038e318650f8f0d6 |
+| 32 | sleeper | 1317943594148970496 | established | 971cef448cfbcaa8a109b1bc18438217bf3cf3cbde17d41fedd2629c8b5895ab |
+| 33 | sleeper | 1317944219549073408 | established | 0b964d46d5fed9ec06fb1d924d41918afb76f3e994bfcf862da6db656a8a1b0d |
+| 34 | sleeper | 1318050603594682368 | first-year | 816b4f6c7fd5b770cc75b488737b085c305e82644f049b2f29f5a6e9d69f3ebe |
+| 35 | sleeper | 1320092771247222784 | established | 6979407c4365576973a7d796858456cfd26100583a75c5f9acea8eb471b6072b |
+| 36 | sleeper | 1321258409424609280 | first-year | a7f5d9282b259e76a659aa1d9918188d7d3069cc233df8180f0d3cf727bc3065 |
+| 37 | sleeper | 1322319945744289792 | first-year | 8a74e9928a7f32967355e754f75699d8f6b5f91ebd92455343c2a1dbc0adf6fd |
+| 38 | sleeper | 1324156220004646912 | first-year | b12c80bccd5cbf7b52e3829041aed1e453af6500580faba891ea9b5c9baa3c8d |
+| 39 | sleeper | 1326870896484311040 | first-year | 89355945ef5e164c0c026eb58cdefeeb439fb04a0a8b2800afdbeb41136910d1 |
+| 40 | sleeper | 1329600423593508864 | first-year | 3d1418ab9de4ee13969cf736a6fefe338ee8015fe1e51f6d56d9d37f9d456865 |
+| 41 | sleeper | 1333985921363636224 | first-year | da56bd5ace518747ef9ebd98a09e08a51251eeadae74b5112c2a1dae33bcaece |
+| 42 | sleeper | 1338695476576264192 | first-year | 88c5a1374c584f6b4ce4242a3f320bcfa1271d9d85f74b11e736c9bbadb6d6bd |
+| 43 | sleeper | 1339737520727928832 | first-year | c86c38511125f643b98b8fe839ec8181854dcd4e1fd9d68559f9ca7619930c51 |
+| 44 | sleeper | 1344450118425792512 | first-year | 56c959388ba857f8d4bd9d2b347cd8d105347bcbc9c1ab32834fd09d2fd80a1f |
+| 45 | sleeper | 1346722328813244416 | first-year | ae8154773b1d5187d7b34f770c9ea52508e066fcef3b01cd385000bdae737ef0 |
+| 46 | sleeper | 1354198686795599872 | first-year | 4a9fd1edbdcd2c5b77c7838949b4a9f483235c547333cd6aa2556a62fe6fa6af |
+| 47 | sleeper | 1354777072878256128 | first-year | 66889ea08bae147c4b18b53f879ee267a6ce0006dc0f631badd98dff61ce6174 |
+| 48 | sleeper | 1358561054375813120 | first-year | aa921cea97b53a50753c5451954f3f57b1708c6ed7b3ab49942aa183d901584d |
+| 49 | sleeper | 1359748110032596992 | first-year | d8fe3bbf1c4180157f8eeef47218fa94aad060c482359556300ca8d09fc7d0aa |
+| 50 | sleeper | 1361176777216495616 | first-year | 35781273eaa8c52c6a8210d280a12bd514db428d0a3f9d73e404a28090aaff1a |
+| 51 | sleeper | 1389754208147750913 | first-year | 3fb1c8a8ad6508c1c9a374c44e6c7a48e6bbd6cf962015f858dcdccce07d6080 |
+| 52 | espn | 169295 | first-year | cb695e6c36348041fd7ec63296060dbb7f561b935e4c0d1eebc27f1af4898311 |

@@ -22,6 +22,7 @@ const SITE_URL = `https://${siteConfig.domain}`;
  *   /nfl-bye-weeks    2026-08-31  page created (this changeset)
  *   /privacy          2026-09-03  page created (this changeset)
  *   /terms            2026-09-03  page created (this changeset)
+ *   /accuracy/pre-registration 2026-09-03  page created (this changeset)
  */
 const STATIC_LAST_MODIFIED = {
   home: "2026-08-14",
@@ -32,6 +33,7 @@ const STATIC_LAST_MODIFIED = {
   nflByeWeeks: "2026-08-31",
   privacy: "2026-09-03",
   terms: "2026-09-03",
+  accuracyPreRegistration: "2026-09-03",
 } as const;
 
 /** Parse as UTC midnight so the date can't slip a day by timezone. */
@@ -87,6 +89,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: asDate(STATIC_LAST_MODIFIED.helpConnectEspn),
       changeFrequency: "monthly",
       priority: 0.7,
+    },
+    // Supporting document for /accuracy — the pre-registered grading criteria.
+    // A fixed reference by design, hence "yearly".
+    {
+      url: `${SITE_URL}/accuracy/pre-registration`,
+      lastModified: asDate(STATIC_LAST_MODIFIED.accuracyPreRegistration),
+      changeFrequency: "yearly",
+      priority: 0.5,
     },
     // Legal pages: indexable but low priority — nobody should land here from
     // search ahead of a product page.
