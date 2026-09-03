@@ -79,18 +79,36 @@ export function Pricing() {
                 {tier.description}
               </p>
 
+              {/* A tier lists either flat bullets or labelled groups (Free
+                  splits its list into no-account and free-account). Same
+                  bullet row either way; the group label is the only addition. */}
               <ul className="list-none mb-7 flex-1">
-                {tier.features.map((feature) => (
-                  <li
-                    key={feature}
-                    className="flex items-start gap-2 text-[13px] text-text py-1.5 border-b border-border-soft last:border-0"
-                  >
-                    <span className="text-green text-sm flex-shrink-0 mt-0.5">
-                      ✓
-                    </span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
+                {(tier.featureGroups ?? [{ label: null, items: tier.features ?? [] }]).map(
+                  (group, groupIndex) => (
+                    <li key={group.label ?? groupIndex} className="list-none">
+                      {group.label && (
+                        <div
+                          className={`font-condensed text-[11px] font-bold uppercase tracking-[0.5px] text-text-muted pb-1.5 ${groupIndex > 0 ? "pt-4" : ""}`}
+                        >
+                          {group.label}
+                        </div>
+                      )}
+                      <ul className="list-none">
+                        {group.items.map((feature) => (
+                          <li
+                            key={feature}
+                            className="flex items-start gap-2 text-[13px] text-text py-1.5 border-b border-border-soft last:border-0"
+                          >
+                            <span className="text-green text-sm flex-shrink-0 mt-0.5">
+                              ✓
+                            </span>
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+                  ),
+                )}
               </ul>
 
               <a

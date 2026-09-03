@@ -11,7 +11,13 @@ export type PricingTier = {
   cadence: string;
   annualTotal: string;
   description: string;
-  features: string[];
+  features?: string[];
+  /**
+   * Bullets split into labelled groups, for a tier whose list spans two
+   * access levels (Free: things with no account at all, and things behind a
+   * free account). A tier sets `features` OR `featureGroups`, not both.
+   */
+  featureGroups?: { label: string; items: string[] }[];
   cta: { label: string; href: string };
   featured?: boolean;
   badge?: string;
@@ -110,6 +116,7 @@ export const siteConfig = {
           { label: "NFL Bye Weeks 2026", href: "/nfl-bye-weeks" },
           // Lives in the app (values resync daily; this site is static).
           { label: "Trade Value Calculator", href: "https://app.gridironhq.ai/dashboard/trade-values", external: true },
+          { label: "Trade Desk", href: "https://app.gridironhq.ai/trade-desk", external: true },
         ],
       },
       // Desktop nav items render `hidden nav:inline`; below the `nav`
@@ -403,11 +410,25 @@ export const siteConfig = {
         annualTotal: "Free",
         description:
           "Free for every league: your complete league history in The Vault, the keeper calculator, and Pick'Em pools. Computed from your league's own data — free costs nothing to run, so it costs you nothing.",
-        features: [
-          "The Vault — complete league history, free",
-          "Keeper calculator — is he worth the round he costs?",
-          "Trade value calculator — both sides, any format, market value",
-          "Pick'Em pools — run one free, any league",
+        featureGroups: [
+          {
+            label: "No account needed:",
+            items: [
+              "Schedule builder",
+              "NFL bye weeks",
+              "The live demo",
+            ],
+          },
+          {
+            label: "Free account, no card:",
+            items: [
+              "The Vault — complete league history, free",
+              "Trade Desk — paste your roster and theirs, price any offer, no league connection needed",
+              "Trade value calculator — both sides, any format, market value",
+              "Keeper calculator — is he worth the round he costs?",
+              "Pick'Em pools — run one free, any league",
+            ],
+          },
         ],
         cta: {
           label: "Sign Up Free",
