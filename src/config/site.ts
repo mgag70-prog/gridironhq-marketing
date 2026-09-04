@@ -426,6 +426,7 @@ export const siteConfig = {
               "Trade Desk — paste your roster and theirs, price any offer, no league connection needed",
               "Trade value calculator — both sides, any format, market value",
               "Keeper calculator — is he worth the round he costs?",
+              "Draft Center — mock drafts against bots or control every team, with availability odds and tiers",
               "Pick'Em pools — run one free, any league",
             ],
           },
@@ -458,10 +459,15 @@ export const siteConfig = {
       //
       //   Free (starter) vault, keeper_engine — the Vault's DATA moved here
       //                    2026-08-31 (what happened is free, what to make
-      //                    of it is paid); Pick'Em is free via no tag at all
+      //                    of it is paid); Pick'Em is free via no tag at all;
+      //                    draft_center moved here 2026-09-04 in THE DRAFT
+      //                    SPLIT — the mock draft simulator is computed from
+      //                    held data and calls no model, so it is free
       //   Advisor        + argus_advisor, waiver, trade_analyzer,
       //     (league_member) player_news, championship_probability,
-      //                    offseason_report, draft_center
+      //                    offseason_report, draft_guide — the rankings, the
+      //                    live draft companion, player notes and the
+      //                    in-draft agent, split off draft_center 2026-09-04
       //   Commissioner   + treasury, league_intel  (+ schedule_builder,
       //                    PLANNED — see the note below; not on the card)
       //   Front Office   + dynasty_rankings, historical_analysis — the
@@ -528,7 +534,7 @@ export const siteConfig = {
         features: [
           "Everything in Free",
           "ARGUS advisor, trade analyzer, waiver scoring, player news",
-          "Draft Guide + live Draft Center",
+          "Draft Guide — ARGUS on your league's board",
           "Championship probability on every decision",
           "ARGUS Offseason Report + team grade",
         ],
@@ -663,7 +669,7 @@ export const siteConfig = {
       {
         question: "Does GridironHQ work for dynasty leagues?",
         answer:
-          "Yes — and keeper leagues too. The keeper calculator is on the Free plan: it works out whether keeping a player is worth the draft round he costs, reads your league's cost rules from its own past drafts, counts traded picks so a pick you no longer hold isn't charged to you, and says plainly when it can't work something out. The Vault — your complete league history — is also free. Front Office adds the analytics made from that history: Dynasty Power Rankings, the Luck Index, Clutch Factor, Consistency Score, and ARGUS historical league analysis.",
+          "Yes — and keeper leagues too. The keeper calculator is on the Free plan: it works out whether keeping a player is worth the draft round he costs, reads your league's cost rules from its own past drafts, counts traded picks so a pick you no longer hold isn't charged to you, and says plainly when it can't work something out. Free also holds The Vault — your complete league history — the Trade Desk and the trade value calculator, both of which price a deal in dynasty or superflex as readily as in redraft, and the Draft Center's mock drafts. Front Office adds the analytics made from that history: Dynasty Power Rankings, the Luck Index, Clutch Factor, Consistency Score, and ARGUS historical league analysis.",
       },
       {
         question: "What is The Vault?",
@@ -675,7 +681,7 @@ export const siteConfig = {
         // One sentence per tier, each the tier's namesake and nothing the
         // tier doesn't hold. Names and prices: tier-presentation.ts in the app.
         answer:
-          "Free is every league's essentials — The Vault, the keeper calculator, and Pick'Em pools — computed from your league's own data, so it costs nothing. Advisor is where ARGUS starts: AI advice built around your roster, plus the draft tools and championship math. Commissioner is for the person running the league — treasury and manager intel on top of Advisor. Front Office is the analysis of your league's history: the Luck Index, Clutch Factor, Consistency Score, Dynasty Power Rankings, and ARGUS's read of your league's eras and rivalries, on top of the free Vault.",
+          "Free is every league's essentials — The Vault, the keeper calculator, the Draft Center's mock drafts, the Trade Desk, the trade value calculator, and Pick'Em pools — computed from your league's own data, so it costs nothing. Advisor is where ARGUS starts: AI advice on your own roster — start/sit, the trade analyzer, waiver scoring, player news, the Draft Guide, and the championship math under all of it. Commissioner is for the person running the league — treasury and manager intel on top of Advisor. Front Office is the analysis of your league's history: the Luck Index, Clutch Factor, Consistency Score, Dynasty Power Rankings, and ARGUS's read of your league's eras and rivalries, on top of the free Vault.",
       },
       {
         question: "What is the ARGUS Offseason Report?",
