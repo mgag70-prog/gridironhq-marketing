@@ -117,6 +117,7 @@ export const siteConfig = {
           // Lives in the app (values resync daily; this site is static).
           { label: "Trade Value Calculator", href: "https://app.gridironhq.ai/dashboard/trade-values", external: true },
           { label: "Trade Desk", href: "https://app.gridironhq.ai/trade-desk", external: true },
+          { label: "Draft Center", href: "https://app.gridironhq.ai/dashboard/draft", external: true },
         ],
       },
       // Desktop nav items render `hidden nav:inline`; below the `nav`
